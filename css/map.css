@@ -22,7 +22,7 @@ path:hover {
 	padding-left: 20px;
 	padding-top: 3px;
 	border-radius: 5px;
-	style= z-index=1100;
+	z-index:1100;
 }
 
 #nome-mapa {
@@ -58,4 +58,8 @@ path:hover {
 
 background-color: #354a5b;
 
+}
+
+#login{
+    padding: 5px;
 }
