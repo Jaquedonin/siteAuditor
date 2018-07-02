@@ -5,11 +5,11 @@ window.fbAsyncInit = function() {
       	version    : 'v3.0'
     });
 
-    checkCookies();
+    // checkCookies();
 
-   	FB.getLoginStatus(function(response) {
-		statusChangeCallback(response);
-	});
+   	// FB.getLoginStatus(function(response) {
+	// 	statusChangeCallback(response);
+	// });
 };
 
 (function(d, s, id){
@@ -30,7 +30,7 @@ var checkLoginState = function() {
 var statusChangeCallback = function (response){
 	if (response.status ==='connected') {
   		console.log("Usuário autorizado");
-  		RequestAPI();
+  		
   		
   		/* make the API call */
   	} 
@@ -39,12 +39,6 @@ var statusChangeCallback = function (response){
   	}
 }
 
-var RequestAPI = function () {
-	//console.log('Welcome!  Fetching your information.... ');
-	FB.api('me?fields=id,name,posts.limit(1){permalink_url,description,link}', function(response){
-	    facebookData(response);
-	})
-}; 
 
 var facebookData = function(response){
 	for(var i = 0; i < response.posts.data.length; i ++){

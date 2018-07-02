@@ -60,6 +60,49 @@ background-color: #354a5b;
 
 }
 
-#login{
+li.nav-item {
+    line-height: 2rem;
+}
+
+.fb_iframe_widget{
+    padding:2px
+}
+
+li#fb-login img {
+    margin-left: 10px;
+    border-radius: 100%;
+}
+#modal-videos form .modal-body > *{
+    clear:both;
+    display: block;
+    margin: 10px;
+}
+
+#modal-videos form .modal-body > select,
+#modal-videos form .modal-body > input {
+    width: 300px;
     padding: 5px;
+}
+
+
+#fb-user-videos {
+    height: 180px;
+    overflow: auto;
+
+}
+
+#fb-user-videos .wrapper{
+    float:left;
+    margin: 10px 0;
+}
+
+#fb-user-videos .wrapper input{
+    position: relative;
+    top: 68px;
+    float: left;
+    margin: 0 10px;
+}
+
+#fb-user-videos .wrapper iframe{
+    float:left;
 }
