@@ -50,10 +50,10 @@ window.onload = function(){
         };
         
         var formData = new FormData(formVideoUpload);
-        var values = "user=" + fbUser.id;
+        var values = "";
         
         for (var pair of formData.entries()) {
-            values +=  "&" + pair[0] + "=" + pair[1];
+            values += pair[0] + "=" + pair[1] + "&";
         }
 
         xhttp.open("POST", "salvar-upload.php", true);
@@ -77,10 +77,9 @@ function getFbUserVideos(){
         var previewVideo = document.createElement("iframe");
         var selectVideo = document.createElement("input");
 
-        var videoId = post.id.split("_")[1];
         selectVideo.type = "radio";
         selectVideo.name = "fb-user-video"
-        selectVideo.value = videoId;
+        selectVideo.value = post.link.split("/")[3] + "/" + post.link.split("/")[5];
 
         wrapVideo.appendChild(selectVideo);
 

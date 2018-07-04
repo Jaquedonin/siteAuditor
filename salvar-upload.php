@@ -7,9 +7,11 @@
         $fbVideosFile = file_get_contents("fb-videos.json");
         $fbVideos = json_decode($fbVideosFile);
        
+        $fbUserVideo = explode("/", $dados['fb-user-video']);
+
         $fbVideos[] = array(
-            "user" => $dados['user'],
-            "id" => $dados['fb-user-video'],       
+            "user" => $fbUserVideo[0],
+            "id" =>  $fbUserVideo[1],       
             "cidade" => $dados['cidades'],       
             "escola" => $dados['escola']       
         );
