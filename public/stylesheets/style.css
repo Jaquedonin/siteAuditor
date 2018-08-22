@@ -1,0 +1,35 @@
+html{
+    height: 100%;
+}
+
+body {
+  padding:0;
+  margin: 0;
+  height: 100%;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#left, #right{
+    height: 100%;
+    float:left;  
+    text-align: center; 
+}
+
+#left{
+    width: 22%;
+    background: #354a5b;
+    color: #fff;
+}
+
+#right{
+    width: 78%;
+}
+
+.content{
+    height: 100%;
+    padding: 20px;
+}
