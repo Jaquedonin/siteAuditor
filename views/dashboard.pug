@@ -1,4 +1,4 @@
-extends layout.pug
+
 block content
     nav#header.navbar.navbar-inverse
         .container
@@ -7,8 +7,12 @@ block content
                     a.navbar-brand(href='#') Mapa Colaborativo
                     img(src="/images/logo-tce.png")
                 .row
-                    #local.col-md-4.col-xs-6 #{escola.nome} 
+                    #local.col-md-4.col-xs-6 
+                        #{escola.nome} 
                         span="|"+escola.cidade
+                        a.button="Mudar escola"
+                        a.button="Adicionar escola / turma"
+
                     p.col-md-4.col-xs-6 Painel de Gerenciamento
                     #user.col-md-4.col-xs-12
                         span=user.nome
@@ -19,8 +23,8 @@ block content
     main.container
         .row
             .col-md-4#left
-                p="Lorem ipsum"
+                block left
             .col-md-8#right
-                p="Lorem ipsum"
+                block right
     footer
         p © Company 2014

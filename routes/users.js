@@ -89,8 +89,8 @@ users.post('/login', function(req, res) {
                         } else {
                             appData.error = 1;
                             appData["data"] = "Email and Password does not match";
-                            res.status(204).json(appData);    
-                        }
+                            res.status(204).json(appData);
+                            }
                     } else {
                         appData.error = 1;
                         appData["data"] = "Email does not exists!";
