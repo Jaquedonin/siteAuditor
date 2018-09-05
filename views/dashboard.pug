@@ -1,30 +1,44 @@
-
+extends layout.pug
 block content
     nav#header.navbar.navbar-inverse
+    nav.navbar.navbar-inverse.navbar-dark
         .container
-            .navbar-header    
-                .row 
-                    a.navbar-brand(href='#') Mapa Colaborativo
-                    img(src="/images/logo-tce.png")
+            .navbar-header.navbar-nav
                 .row
-                    #local.col-md-4.col-xs-6 
-                        #{escola.nome} 
-                        span="|"+escola.cidade
-                        a.button="Mudar escola"
-                        a.button="Adicionar escola / turma"
-
-                    p.col-md-4.col-xs-6 Painel de Gerenciamento
-                    #user.col-md-4.col-xs-12
-                        span=user.nome
-                        a Editar 
-                        span="|"
-                        a Sair
-                        img(src=user.foto)
+                    .col-12
+                        .container.text-center Painel de Gerenciamento
+                    #local.col-6
+                        .row
+                            p=escola.nome
+                            span="|"
+                            p=escola.cidade
+                        .row
+                            button(type="button").btn.btn-outline-secondary.btn-sm
+                                i.fas.fa-undo 
+                                span="Mudar escola"
+                            button(type="button").btn.btn-outline-secondary.btn-sm
+                                i.fas.fa-plus 
+                                span="Adicionar escola / turma"
+                    #user.col-6
+                        .row
+                            .col
+                                .row
+                                    .container.text-right
+                                        span.text-right=user.nome
+                                .row
+                                    .container.text-right
+                                        a Editar 
+                                        span="|"
+                                        a Sair
+                            .col#fb-photo
+                                img(src=user.foto)  
+                        
     main.container
         .row
-            .col-md-4#left
-                block left
-            .col-md-8#right
-                block right
-    footer
-        p © Company 2014
+            .col-md-4#send
+                block send
+                include send
+            .col-md-8#list
+                block list
+                include list
+    

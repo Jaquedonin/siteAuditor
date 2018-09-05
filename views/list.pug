@@ -1,15 +1,16 @@
-p=list.title
-div#list-menu
-    p.btn-videos="Meus vídeos"
-    p.btn-trash="Lixeira"
-    select#(name="turmas")
+p.title=list.title
+div#list-menu.row
+    button(type="button").btn.btn-outline-secondary.btn-sm="Meus vídeos"
+    button(type="button").btn.btn-outline-secondary.btn-sm="Lixeira"
+    select.form-control.form-control-sm.col-3(name="turmas")
         option="Turmas"
-    input(type="text")(name="pesquisar")
-input.search(type="text")(placeholder="Pesquisar")
-div.list-videos
-    div.fb-video
-        div.link
-        div.delete
-        div.play
-        div.edit
+    input.form-control.form-control-sm.col-4.search(type="text")(placeholder="Pesquisar")
+div.list-videos#fb-user-videos.row
+    each video in videos
+        .col-3
+            .video
+                i.fas.fa-link
+                i.fas.fa-trash
+                i.fas.fa-play
+                i.fas.fa-pen
         
