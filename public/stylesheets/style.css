@@ -94,25 +94,47 @@ p+span, a+span{
 #list .title{
     color: #fff;
 }
+
 #list .form-control{
     margin-left: 10px;
 }
+
 .list-videos .col-3{
     height: 100px;
     margin: 10px 0 0 0;
 }
 
+#list-menu{
+    border: none;
+}
+
 .video{
-    height: 100%;
+    height: 110px;
     position: relative;
     background: #000;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 15px;
+}
+
+.video div{
+    background: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 1;
     border-radius: 10px;
 }
 
 .video i{
     position:absolute;
     color: #fff;
+    z-index: 2;
 }
+
 .video .fa-link{
     top: 15px;
     left: 15px;
@@ -136,7 +158,25 @@ p+span, a+span{
     color: #fff;
     text-align: center;
     margin: 5px 0;
-}auth #login .subtitle {
+}
+
+footer{
+    padding: 1rem 0;
+}
+
+footer p{ margin-bottom: 0;}
+
+
+#auth .title, #auth .subtitle {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#auth .title { font-size: 18pt; }
+#auth .subtitle { font-size: 14pt; }
+
+#auth #login .title,
+#auth #login .subtitle {
     color: #fff;
 }
 
@@ -147,19 +187,6 @@ p+span, a+span{
 #auth.container {
     max-width: unset;
     height: 100%;
-}
-
-#auth.container .row {
-    height: 100%;
-}
-
-#auth .form-control{
-    margin-bottom: 15px;
-}
-
-#auth input.form-control{
-    max-width: 70%;
-    margin-left: 15%;
 }
 
 #auth.container .row {
