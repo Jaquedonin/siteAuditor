@@ -1,4 +1,4 @@
-var fbUser, fbMenuItem, fbUserVideos, formVideoUpload;
+var fbUser, fbMenuItem, formVideoUpload;
 
 window.onload = function(){
     formVideoUpload = document.getElementById("video-upload");
@@ -6,7 +6,7 @@ window.onload = function(){
     var selectCidades = document.getElementById("select-cidades");
 
     var mapa = document.getElementById("municipio-svg");
-    if(mapa){
+    if(mapa){ 
         var cidades = mapa.children;
 
         for (var posicao in cidades){
@@ -32,7 +32,6 @@ window.onload = function(){
     }
 
     fbMenuItem = document.getElementById("fb-login");
-    fbUserVideos = document.getElementById("fb-user-videos");
     setFbUser();
     
     $('#modal-videos').on('show.bs.modal', function () {
@@ -72,32 +71,42 @@ window.onload = function(){
 }
 
 function getFbUserVideos(){
+    
+    var fbUserVideos = document.getElementById("fb-user-videos");
     fbUserVideos.innerHTML = "";
 
-    fbUser.posts.data.forEach(function(post){
-        if(post.link){
-            var wrapVideo = document.createElement("div");
-            wrapVideo.setAttribute("class", "wrapper");
+    FB.api('me/feed', {fields: "permalink_url,description,link,picture"}, function(response){
+        var feed = response.data;
+        console.log(response);
+        feed.forEach(function(post){
+            if(post.link){
+                console.log(post);
+                
+                var wrapVideo = document.createElement("div");
+                wrapVideo.setAttribute("class", "col-6");
 
-            var previewVideo = document.createElement("iframe");
-            var selectVideo = document.createElement("input");
+                var video = document.createElement("div");
+                video.setAttribute("class", "video container");
 
-            selectVideo.type = "radio";
-            selectVideo.name = "fb-user-video"
-            selectVideo.value = post.link.split("/")[3] + "/" + post.link.split("/")[5];
+                wrapVideo.appendChild(video);
 
-            wrapVideo.appendChild(selectVideo);
+                fbUserVideos.appendChild(wrapVideo);
 
-            previewVideo.setAttribute("controls", true);
-            previewVideo.setAttribute('src', emberLink(post.link));
+                var thumbnail = document.createElement("img");
+                video.style.backgroundImage = "url('" + post.picture + "')";
 
-            setCookie('url', post.link, 2);
-
-            wrapVideo.appendChild(previewVideo);
-
-            fbUserVideos.appendChild(wrapVideo);
-        }
+                var fade = document.createElement("div");
+                
+                var add = document.createElement("i");
+                add.setAttribute("class", "fas fa-play");
+                
+                video.appendChild(fade);                
+                video.appendChild(add);
+            }
+        });
     });
+    
+    return;
 }
 
 var emberLink = function(url){

@@ -68,7 +68,7 @@ li.nav-item {
     padding:2px
 }
 
-li#fb-login img {
+.fb-login img {
     margin-left: 10px;
     border-radius: 100%;
 }
@@ -84,11 +84,8 @@ li#fb-login img {
     padding: 5px;
 }
 
-
 #fb-user-videos {
     height: 180px;
-    overflow: auto;
-
 }
 
 #fb-user-videos .wrapper{
