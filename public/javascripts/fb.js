@@ -105,19 +105,26 @@ var emberLink = function(url){
 }
 
 function setFbUser(){
+
     FB.getLoginStatus(
         function(response) {
-            
             if(response.status === 'connected'){
                 FB.api('me?fields=id,picture,name,posts.limit(1){permalink_url,description,link}', function(response){
                     fbUser = response;
-                    fbPhoto = fbUser.picture.data ? fbUser.picture.data.url : "";
-                    var dashboardMenuItem = '<li class="nav-item"><a class="nav-link" href="dashboard">Painel de gerencimaneto</a></li>';
-                    var fbPhotoMenuItem = '<li id="fb-login" class="nav-item"><img src='+fbPhoto+'></a>';
-                    $($("#navbar ul")[0]).append(dashboardMenuItem + fbPhotoMenuItem);                 
-                });
-            } else {
 
+                    $("#fb-login-user").val(fbUser.id);
+                    $("#fb-register-user").val(fbUser.id);
+                    fbPhoto = fbUser.picture.data ? fbUser.picture.data.url : "";
+                    
+                    // var dashboardMenuItem = '<li class="nav-item"><a class="nav-link" href="dashboard">Painel de gerencimaneto</a></li>';
+                    var fbPhotoMenuItem = '<div id="fb-login"><img src='+fbPhoto+'></a>';
+                    
+                    $($("#fb-login")).append(fbPhotoMenuItem);
+                    $("#fb-login-btn").remove();  
+                    
+                    $($("#fb-register")).append(fbPhotoMenuItem);
+                    $("#fb-register-btn").remove();                
+                });
             }
         }
     );

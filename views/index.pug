@@ -14,6 +14,12 @@ block content
                             a.nav-link.js-scroll-trigger(href='galeria.html') Galeria de vídeos
                         li.nav-item
                             a.nav-link.js-scroll-trigger(href='#contact') Sobre
+                        li.nav-item#login
+                            if user
+                                a.nav-link(href="/dashboard") 
+                                    span Painel de gerenciamento
+                            else
+                                a.nav-link(href='/auth') Login
 
 
     section

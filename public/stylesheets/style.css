@@ -136,4 +136,74 @@ p+span, a+span{
     color: #fff;
     text-align: center;
     margin: 5px 0;
+}auth #login .subtitle {
+    color: #fff;
 }
+
+#auth #register {
+    background:  #fff;
+}
+
+#auth.container {
+    max-width: unset;
+    height: 100%;
+}
+
+#auth.container .row {
+    height: 100%;
+}
+
+#auth .form-control{
+    margin-bottom: 15px;
+}
+
+#auth input.form-control{
+    max-width: 70%;
+    margin-left: 15%;
+}
+
+#auth.container .row {
+    height: 100%;
+}
+
+#auth .form-control{
+    margin-bottom: 15px;
+}
+
+#auth input.form-control{
+    max-width: 70%;
+    margin-left: 15%;
+}
+
+#auth button.form-control{
+    max-width: 50%;
+    margin-left: 25%;
+}
+
+#auth #login input.form-control{
+    border-color: #ffffff;
+    background: transparent;
+    color: #fff;
+}
+
+#auth #login a{
+    color: #fff;
+}
+
+#auth #login button,
+#auth #register > *{
+    color: #354A5B;
+}
+
+#auth #register input.form-control{
+    border-color: #354A5B;
+    background: transparent;
+    color: #354A5B;
+}
+
+#auth #register button{
+    background-color: #354A5B;
+    color: #fff;
+}
+
+

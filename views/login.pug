@@ -1,10 +1,16 @@
 p.title="Login"
 
-form(action="")
-    input(type="text")(name="email")(placeholder="E-mail")
-    input(type="text")(name="senha")(placeholder="Senha")
+form(action="auth/login" method="POST")
+    
+    p#fb-login.fb-login.text-center
+        fb:login-button#fb-login-btn(scope='public_profile,email,user_photos,user_videos,user_link,user_posts,user_likes', onlogin='setFbUser()')
 
-    button="Entrar"
-    a#esqueci-senha="Esqueci minha senha"
-
-a#back="< Voltar"
+    input#fb-login-user(type="hidden" name="fb-login-user")
+    input.form-control(type="text" name="email" placeholder="E-mail")
+    input.form-control(type="text" name="senha" placeholder="Senha")
+    
+    button.form-control
+        b="Entrar"
+    
+    p.text-center
+        a(href="esqueci-senha")#esqueci-senha="Esqueci minha senha"

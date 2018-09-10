@@ -1,14 +1,18 @@
-p.title="Login"
+p.title="Cadastro"
 
-form(action="")
-    input(type="text")(name="nome")(placeholder="Nome")
-    input(type="text")(name="email")(placeholder="E-mail")
-    input(type="text")(name="municipio")(placeholder="Município")
-    input(type="text")(name="escola")(placeholder="Escola")
-    input(type="text")(name="codigo_professor")(placeholder="Código de professor no SAGRES")
-    input(type="text")(name="senha")(placeholder="Senha")
-    input(type="text")(name="resenha")(placeholder="Repetir senha")
+form(action="auth/register" method="POST")
 
-    button="Cadastrar"
-    
-a#back="< Voltar"
+    p#fb-register.fb-login.text-center
+        fb:login-button#fb-register-btn(scope='public_profile,email,user_photos,user_videos,user_link,user_posts,user_likes', onlogin='setFbUser()')
+
+    input#fb-register-user(type="hidden" name="fb-register-user")
+    input.form-control(type="text" name="nome" placeholder="Nome")
+    input.form-control(type="text" name="email" placeholder="E-mail")
+    input.form-control(type="text" name="municipio" placeholder="Município")
+    input.form-control(type="text" name="escola" placeholder="Escola")
+    input.form-control(type="text" name="codigo_professor" placeholder="Código de professor no SAGRES")
+    input.form-control(type="text" name="senha" placeholder="Senha")
+    input.form-control(type="text" name="resenha" placeholder="Repetir senha")
+
+    button.form-control
+        b="Cadastrar"
