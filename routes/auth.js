@@ -84,6 +84,7 @@ auth.post('/login', function(req, res) {
                     });
                     
                     req.session.token = token;
+                    req.session.professorId = rows[0].id;
                     return res.redirect('/dashboard');
 
                 } else {

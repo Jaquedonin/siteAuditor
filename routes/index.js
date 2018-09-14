@@ -59,7 +59,7 @@ router.post('/register', function(req, res, next){
 });
 
 router.get('/dashboard', function(req, res, next) {
-
+    
     if(!req.session.token){
         return res.redirect("/auth");
     }
