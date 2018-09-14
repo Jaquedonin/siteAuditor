@@ -1,3 +1,4 @@
+
 var express = require('express');
 var router = express.Router();
 
@@ -11,6 +12,25 @@ router.get('/', function(req, res, next) {
 
 router.get('/bem-vindo', function(req, res, next) {
     res.render('bem-vindo', data);
+});
+
+router.get('/galeria', function(req, res, next) {
+    var options = { 
+        method: 'GET',
+       // url: 'http://150.165.138.128:3000/videos/3',
+       // headers: {
+           // 'Cache-Control': 'no-cache',
+            //'Content-Type': 'application/x-www-form-urlencoded' 
+        //}
+    };
+
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+
+        res.render('gallery', response);
+        console.log(body);
+    });
+    
 });
 
 router.post('/register', function(req, res, next){
