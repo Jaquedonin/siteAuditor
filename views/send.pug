@@ -1,5 +1,12 @@
 h4="Enviar vídeos"
-input.form-control.form-control-sm.send-link(type="text")(placeholder="Inserir link do vídeo")
+.form-group
+  .input-group.mb-3.input-group-sm
+    input#yt-link.form-control.form-control-sm.send-link(type="text")(placeholder="Inserir link do vídeo")
+    .input-group-append
+      span.input-group-text 
+        i#yt-btn.fas.fa-plus
+
+
 p="Ou pelo facebook"
 div#fb-user-videos.row
     
