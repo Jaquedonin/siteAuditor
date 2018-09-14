@@ -20,6 +20,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+//session é uma propriedade que pode ser acessada em todas as requisições
+//guarda os valores da sessão "token" e "professorId"
 app.use(session({
     secret: 'max',
     saveUninitialized: false,
