@@ -233,4 +233,37 @@ footer p{ margin-bottom: 0;}
     color: #fff;
 }
 
+#yt input,
+#yt .input-group-append{
+    z-index: 2;
+}
+
+#yt-preview{
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 10px;
+    transition: 1s;
+    background: #fff;
+    top: calc(-1.8125rem);
+    border-radius: .2rem;
+    border: 1px solid #ced4da;
+    z-index: 1;
+}
+
+#yt-preview.show{
+    padding: 10px;
+    padding-top: calc(1.8125rem + 10px);
+    max-height: 200px;
+}
+
+
+#yt-thumb {
+    width: 100%;
+}
+
+#yt-preview button{
+    width: auto;
+    float: right;
+    margin: 5px;
+}
 

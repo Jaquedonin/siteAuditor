@@ -1,42 +1,36 @@
-
-var CLIENT_ID = '1067903977029-jmr53fp75kf7vk4j4rc65qd77em7rcb7.apps.googleusercontent.com';
-var OAUTH2_SCOPES = [
-  'https://www.googleapis.com/auth/youtube'
-];
-
 window.addEventListener("load", function(){
-    initYt();
-
-    document.getElementById('yt-btn').addEventListener("click", function(){
-        var url = document.getElementById('yt-link').value;
-        if(url.match("[\?&]v=([^&#]*)") != null){
-            videoId = url.match("[\?&]v=([^&#]*)")[1];
-
-            
-            execute(videoId)
-        }
-
-        
-    })
-});
-
-
-  function initYt() {
     gapi.client.setApiKey("AIzaSyA_l5mfOIWiR437wfKU3fU-8c2FS36uf48");
     gapi.client.load("youtube", "v3", function(){
-        console.log("ready!");
-    });
-        
-  }
 
-  // Make sure the client is loaded and sign-in is complete before calling this method.
-  function execute(id) {
-    return gapi.client.youtube.search.list({
-      "part": "snippet",
-      "type": "video",
-      "q": id
-    }).then(function(response) {
-                console.log(response.result.items[0].snippet);
-        },
-        function(err) { console.error("Execute error", err); });
-  }
+        document.getElementById('yt-btn').addEventListener("click", function(){
+            var url = document.getElementById('yt-link').value;
+            if(url.match("[\?&]v=([^&#]*)") != null){
+                videoId = url.match("[\?&]v=([^&#]*)")[1];
+                
+                return gapi.client.youtube.videos.list({
+                    "part": "snippet",
+                    "id": videoId
+                }).then(function(response) {
+                    var snippet = response.result.items[0].snippet;
+                    
+                    var ytPreview = document.getElementById("yt-preview");
+                    ytPreview.setAttribute("class", "col-12 show");
+
+                    var ytThumb = document.getElementById("yt-thumb");
+                    ytThumb.src = snippet.thumbnails.default.url;
+                    
+                    var ytName = document.getElementById("yt-name");
+                    ytName.value = snippet.channelTitle;
+
+                    var ytTitle = document.getElementById("yt-title");
+                    ytTitle.value = snippet.title;
+
+                    var ytDesc = document.getElementById("yt-desc");
+                    ytDesc.value = snippet.description;
+
+                }, function(err) { console.error("Yt:", err); });
+              
+            }      
+        })
+    })
+});
