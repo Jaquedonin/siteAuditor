@@ -60,6 +60,36 @@ router.get('/videos/:id', function(req, res, next) {
 	}
 });
 
+router.post('/videos', function(req, res, next) {
 
+    console.log(req.body);
+    res.contentType('json');
+    res.send(req.body);
+    
+    return;
+
+	if(req.body.url === undefined)
+		return false;
+	else{
+
+        var userData = {
+            fb_user: req.body["fb-register-user"], 
+            email: req.body.email,
+            senha: req.body.senha
+        };
+
+		database.connection.query(query.insertOne("videos"), [values], function (err, result) {
+			if(err){
+				res.setHeader('Content-Type', 'application/json');
+				return res.status(400).send(err);
+			}
+			else{
+				res.setHeader('Content-Type', 'application/json');
+				res.json(result);
+				res.end('video')
+			}
+		});
+	}
+});
 
 module.exports = router;

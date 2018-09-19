@@ -7,6 +7,9 @@ module.exports = {
 	}, 
 	findAll : function(table, id){
 		return "SELECT * FROM "+ table +" WHERE professor_id = " + id
-	}
+    },
+    insertOne: function (table){
+        return "INSERT INTO " + table + " SET ?"
+    }
 }
 

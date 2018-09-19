@@ -29,12 +29,40 @@ window.addEventListener("load", function(){
             }      
         })
 
-        document.getElementById('yt-add').addEventListener("click", function(){
+        document.getElementById('yt-add').addEventListener("click", function(e){
+            e.preventDefault();
+            
+            var formValues = $("#yt-form").serializeArray();
+            console.log(); 
+            $.ajax({
+                url: "/videos",
+                type: "POST",
+                dataType: "json",
+                data: JSON.stringify(formValues),
+                contentType: "application/json",
+                cache: false,
+                timeout: 5000,
+                complete: function(data) {
+                  //called when complete
+                  console.log('process complete', data);
+                },
+            
+                success: function(data) {
+                  console.log('process sucess', data);
+                },
+            
+                error: function(data) {
+                  console.log('process error', data);
+                },
+            });
+            
             toggleYtPreview();
+            return false;
         });
 
         document.getElementById('yt-cancel').addEventListener("click", function(){
             toggleYtPreview();
+            return false;
         });
     })
 
