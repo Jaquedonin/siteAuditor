@@ -77,10 +77,8 @@ function getFbUserVideos(){
 
     FB.api('me/feed', {fields: "permalink_url,description,link,picture"}, function(response){
         var feed = response.data;
-        console.log(response);
         feed.forEach(function(post){
             if(post.link){
-                console.log(post);
                 
                 var wrapVideo = document.createElement("div");
                 wrapVideo.setAttribute("class", "col-6");
