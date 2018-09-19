@@ -13,24 +13,47 @@ window.addEventListener("load", function(){
                 }).then(function(response) {
                     var snippet = response.result.items[0].snippet;
                     
-                    var ytPreview = document.getElementById("yt-preview");
-                    ytPreview.setAttribute("class", "col-12 show");
-
-                    var ytThumb = document.getElementById("yt-thumb");
-                    ytThumb.src = snippet.thumbnails.default.url;
+                    fillYtForm(
+                        snippet.thumbnails.default.url,
+                        snippet.channelTitle,
+                        snippet.title,
+                        snippet.description
+                    );
                     
-                    var ytName = document.getElementById("yt-name");
-                    ytName.value = snippet.channelTitle;
+                    toggleYtPreview(true);
 
-                    var ytTitle = document.getElementById("yt-title");
-                    ytTitle.value = snippet.title;
-
-                    var ytDesc = document.getElementById("yt-desc");
-                    ytDesc.value = snippet.description;
+                    
 
                 }, function(err) { console.error("Yt:", err); });
               
             }      
         })
+
+        document.getElementById('yt-add').addEventListener("click", function(){
+            toggleYtPreview();
+        });
+
+        document.getElementById('yt-cancel').addEventListener("click", function(){
+            toggleYtPreview();
+        });
     })
+
+    function toggleYtPreview(show){
+        var ytPreview = document.getElementById("yt-preview");
+        var toggled = ytPreview.getAttribute("class") == "col-12 show";
+
+        if(toggled && !show){
+            ytPreview.setAttribute("class", "col-12");
+            setTimeout(fillYtForm, 1000);
+        } else {
+            ytPreview.setAttribute("class", "col-12 show");
+        }
+    }
+
+    function fillYtForm(thumb, name, title, desc){
+        document.getElementById("yt-thumb").src = thumb ? thumb : "";
+        document.getElementById("yt-name").value = name ? name : "";
+        document.getElementById("yt-title").value = title ? title : "";
+        document.getElementById("yt-desc").value = desc ? desc : "";
+    }
 });
