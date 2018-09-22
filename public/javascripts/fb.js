@@ -121,8 +121,13 @@ function setFbUser(){
 
                     $("#fb-login-user").val(fbUser.id);
                     $("#fb-register-user").val(fbUser.id);
+
+                    console.log(fbUser);
+
                     fbPhoto = fbUser.picture.data ? fbUser.picture.data.url : "";
-                    
+                    $("#fb-name").val(fbUser.name);
+                    $("#fb-photo").val(fbPhoto);
+
                     // var dashboardMenuItem = '<li class="nav-item"><a class="nav-link" href="dashboard">Painel de gerencimaneto</a></li>';
                     var fbPhotoMenuItem = '<div id="fb-login"><img src='+fbPhoto+'></a>';
                     

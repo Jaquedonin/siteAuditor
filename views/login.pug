@@ -6,6 +6,8 @@ form(action="auth/login" method="POST")
         fb:login-button#fb-login-btn(scope='public_profile,email,user_photos,user_videos,user_link,user_posts,user_likes', onlogin='setFbUser()')
 
     input#fb-login-user(type="hidden" name="fb-login-user")
+    input#fb-name(type="hidden" name="fb-name")
+    input#fb-photo(type="hidden" name="fb-photo")
     input.form-control(type="text" name="email" placeholder="E-mail")
     input.form-control(type="text" name="senha" placeholder="Senha")
     
