@@ -122,8 +122,6 @@ function setFbUser(){
                     $("#fb-login-user").val(fbUser.id);
                     $("#fb-register-user").val(fbUser.id);
 
-                    console.log(fbUser);
-
                     fbPhoto = fbUser.picture.data ? fbUser.picture.data.url : "";
                     $("#fb-name").val(fbUser.name);
                     $("#fb-photo").val(fbPhoto);
