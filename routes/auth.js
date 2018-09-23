@@ -55,7 +55,7 @@ auth.post('/register', function(req, res) {
 
 });
 
-auth.post('/login', function(req, res) {
+auth.post('/login', function(req, res, next) {
 
     var fbUser = req.body['fb-login-user'];
     var email = req.body.email;
@@ -85,8 +85,9 @@ auth.post('/login', function(req, res) {
                     
                     req.session.token = token;
                     req.session.professorId = rows[0].id;
-                    return res.redirect('/dashboard');
-
+                    
+                    res.redirect('/bem-vindo');
+                    
                 } else {
                     res.status(204).json({
                         error: 1,
