@@ -56,6 +56,12 @@ auth.post('/register', function(req, res) {
 
 });
 
+auth.get('/logout', function(req, res) {
+    req.session.token = false;
+    req.session.user = false;
+    return res.redirect('/');
+});
+
 auth.post('/login', function(req, res) {
 
     var fbUser = req.body['fb-login-user'];
@@ -87,7 +93,13 @@ auth.post('/login', function(req, res) {
                     
                     req.session.token = token;
                     req.session.professorId = rows[0].id;
-                    return res.redirect('/dashboard');
+
+                    req.session.user = {
+                        "nome": req.body['fb-name'],
+                        "foto": req.body['fb-photo']
+                    };
+
+                    return res.redirect('/bem-vindo');
 
                 } else {
                     res.status(204).json({

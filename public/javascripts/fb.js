@@ -77,10 +77,8 @@ function getFbUserVideos(){
 
     FB.api('me/feed', {fields: "permalink_url,description,link,picture"}, function(response){
         var feed = response.data;
-        console.log(response);
         feed.forEach(function(post){
             if(post.link){
-                console.log(post);
                 
                 var wrapVideo = document.createElement("div");
                 wrapVideo.setAttribute("class", "col-6");
@@ -123,8 +121,11 @@ function setFbUser(){
 
                     $("#fb-login-user").val(fbUser.id);
                     $("#fb-register-user").val(fbUser.id);
+
                     fbPhoto = fbUser.picture.data ? fbUser.picture.data.url : "";
-                    
+                    $("#fb-name").val(fbUser.name);
+                    $("#fb-photo").val(fbPhoto);
+
                     // var dashboardMenuItem = '<li class="nav-item"><a class="nav-link" href="dashboard">Painel de gerencimaneto</a></li>';
                     var fbPhotoMenuItem = '<div id="fb-login"><img src='+fbPhoto+'></a>';
                     

@@ -9,10 +9,20 @@ var data = JSON.parse(fs.readFileSync('./database/data.json', 'utf8'));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    
+    data.user = req.session.user;
     res.render('index', data);
 });
 
 router.get('/bem-vindo', function(req, res, next) {
+    
+    if(!req.session.user){
+        data.user = false;
+        return res.redirect("/auth");
+    } 
+    
+    data.user = req.session.user
+    
     res.render('bem-vindo', data);
 });
 
@@ -70,15 +80,15 @@ router.post('/register', function(req, res, next){
                     database.connection.end();
                 }
             );
-
         }
     });
-
 });
 
 router.get('/dashboard', function(req, res, next) {
     if(!req.session.token){
         return res.redirect("/auth");
+    } else {
+        data.user = req.session.user;
     }
 
     data.user = true;

@@ -1,5 +1,21 @@
 h4="Enviar vídeos"
-input.form-control.form-control-sm.send-link(type="text")(placeholder="Inserir link do vídeo")
+.form-group#yt
+  .input-group.mb-3.input-group-sm
+    input#yt-link.form-control.form-control-sm.send-link(type="text" placeholder="Inserir link do vídeo")
+    .input-group-append
+      span.input-group-text 
+        i#yt-btn.fas.fa-plus
+    #yt-preview.col-12
+        .row
+            .col-4
+                img#yt-thumb
+            .col-8
+                input#yt-name.form-control.form-control-sm(type="text" name="nome-aluno")
+                input#yt-title.form-control.form-control-sm(type="text" name="titulo")
+                input#yt-desc.form-control.form-control-sm(type="text" name="descricao")
+                button#yt-add.form-control.form-control-sm Adicionar
+                button#yt-cancel.form-control.form-control-sm Cancelar
+
 p="Ou pelo facebook"
 div#fb-user-videos.row
     
