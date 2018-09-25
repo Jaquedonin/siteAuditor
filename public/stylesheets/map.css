@@ -6,10 +6,10 @@ path {
 }
 
 path:hover {
-
-	fill: #932121;
-  opacity: 0.9;
-
+    fill: #932121;
+    opacity: 0.9;
+    stroke: black;
+    stroke-width: 25em;
 }
 
 #nome-mapa {
@@ -19,32 +19,45 @@ path:hover {
 
 }
 
-.galery {
-
-	width: 100%;
-	height: 100%;
-
+#galery{
+    width: 30%;
+    height: 100%;
+    background: #26292b;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    transition: all 1s;
 }
 
-.galery_video {
-
-	width: 200px;
-	height: 113px;
-
+#galery.show{
+    left:0;
 }
 
-.box-login {
-
-	padding:3%;
-	width: 50%;
-	height: 50%;
-
+#galery > div{
+    height: 100%;
+    padding: 20px 20px 59px 20px;
 }
 
-.login-form {
+#galery #nome-municipio{
+    color: #fff;
+    margin-bottom: 2rem;
+}
 
-background-color: #354a5b;
+#galery #close-cidade{
+    color: #fff;
+    text-align: right;
+}
 
+#galery p.section{
+    color: #1fd2e5;
+    border-bottom: 1px solid #1fd2e5;
+    font-size: .7em
+}
+
+#galery #videos{
+    padding: 0 10px 0 0;
+    flex: 1;
+    overflow-y:scroll;
 }
 
 li.nav-item {

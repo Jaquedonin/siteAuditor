@@ -82,11 +82,12 @@ router.get('/auth', function(req, res, next) {
 
 router.post('/galeria', function(req, res){
     
-    codigo.cidade = req.body.cidade;
-    
+    var codigo = req.body.cidade;
+    var cidades = JSON.parse(fs.readFileSync('public/javascripts/cidades.json', 'utf8'));
+
     res.status(200).json({
         error: 0,
-        data: "User registered successfully!" 
+        data: cidades[codigo]
     });
 }); 
 

@@ -13,19 +13,37 @@ function initMapa(nomes){
                 cidade.setAttribute("data-original-title", nomes[cidade.id]);
                 
                 cidade.addEventListener("click", function(event){
-                    openGallery(event.target.id);
+                    openGalery(event.target.id);
                 });
             }
         }
 
-        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip();
+        
+        document.getElementById("close-cidade").addEventListener("click", function(){
+            toggleGalery(false);
+        });
     }
 
 }
 
-function openGallery(cidade){
-    console.log(cidade);
+function openGalery(cidade){
+    toggleGalery(false);  
     post("galeria", {"cidade": cidade}, function(response){
-        console.log(response);
+        setTimeout(function(){
+            document.getElementById("nome-municipio").innerHTML = response.data;
+            toggleGalery(true); 
+        }, 1000)
     });
+}
+
+function toggleGalery(show){
+    var galery = document.getElementById("galery");
+    var toggled = galery.getAttribute("class") == "show";
+
+    if(toggled && !show){
+        galery.setAttribute("class", "");
+    } else {
+        galery.setAttribute("class", "show");
+    }
 }

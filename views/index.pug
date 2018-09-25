@@ -4,7 +4,7 @@ block content
     header
         nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.navbar-fixed-top
             .container
-                a.navbar-brand.js-scroll-trigger(href='#page-top') Auditor Cidadão
+                a.navbar-brand.js-scroll-trigger(href='#page-top') Mapa colaborativo
                 button.navbar-toggler.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar', aria-label='Toggle navigation')
                     span.sr-only Toggle navigation
                     span.navbar-toggler-icon
@@ -23,14 +23,26 @@ block content
         div
           h2#nome-mapa  Mapa da Paraíba
         include mapa.pug
-        div
-            div#close-cidade
-            p.section Cidade
-            h2#nome-municipio=escola.cidade
-            p.section Vídeos 
-            #videos
-                .video
-                    .thumbnail
-                    .desc 
+        div#galery
+            div.d-flex.flex-column.align-content-stretch
+                div#close-cidade.fas.fa-times
+                p.section Cidade
+                h2#nome-municipio=escola.cidade
+                p.section Vídeos 
+                #videos
+                    .video
+                        i.fas.fa-play
+                    .video
+                        i.fas.fa-play
+                    .video
+                        i.fas.fa-play
+                    .video
+                        i.fas.fa-play
+                    .video
+                        i.fas.fa-play
+                    .video
+                        i.fas.fa-play
+                    .video
+                        i.fas.fa-play
     include modal-videos.pug
     
