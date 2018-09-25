@@ -1,14 +1,5 @@
-p.title=list.title
+h4.title=list.title
 div#list-menu.row.nav-tabs
-    ul.nav
-        li
-            button.active(data-toggle='tab', href='#user-videos').btn.btn-outline-secondary.btn-sm="Meus vídeos"
-        li
-            button(data-toggle='tab', href='#trash').btn.btn-outline-secondary.btn-sm="Lixeira"
-    select.form-control.form-control-sm.col-3(name="turmas")
-        option="Turmas"
-    input.form-control.form-control-sm.col-4.search(type="text" placeholder="Pesquisar")
-
 #myTabContent.tab-content
     #user-videos.tab-pane.fade.show.active
         div.list-videos.row
@@ -17,13 +8,5 @@ div#list-menu.row.nav-tabs
                     .video
                         i.fas.fa-link
                         i.fas.fa-trash
-                        i.fas.fa-play
-                        i.fas.fa-pen
-    #trash.tab-pane.fade
-        div.list-videos.row
-            each video in videos
-                .col-3
-                    .video
-                        i.fas.fa-link
                         i.fas.fa-play
                         i.fas.fa-pen

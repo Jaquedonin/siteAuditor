@@ -58,6 +58,7 @@ nav#header.navbar{
 
 #user .row #fb-photo{
     flex-grow: 0;
+    margin: -10px 0 10px 0;
 }
 
 p+span, a+span{
@@ -88,10 +89,6 @@ p+span, a+span{
 
 #bem-vindo p:nth-child(5){
     font-size: 16pt
-}
-
-#list .title{
-    color: #fff;
 }
 
 #list .form-control{
@@ -153,7 +150,7 @@ p+span, a+span{
     right: 15px;
 }
 
-#send h4, #send p{
+#send h4, #send p, #list h4{
     color: #fff;
     text-align: center;
     margin: 5px 0;
@@ -237,6 +234,10 @@ footer p{ margin-bottom: 0;}
     z-index: 2;
 }
 
+#yt {
+    margin-bottom: 0;
+}
+
 #yt-preview{
     max-height: 0;
     overflow: hidden;
@@ -266,3 +267,20 @@ footer p{ margin-bottom: 0;}
     margin: 5px;
 }
 
+#dashboard{
+    height: 100%;
+}
+
+#send-list{
+    padding: 20px 15px 0 15px;
+    flex: 1;
+    height: 0;
+}
+
+#send-list > .row{
+    height: 100%;
+}
+
+#send, #list{
+    margin-bottom: 75px;
+}

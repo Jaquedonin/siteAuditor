@@ -1,44 +1,27 @@
 extends layout.pug
 block content
-    nav#header.navbar.navbar-inverse
-    nav.navbar.navbar-inverse.navbar-dark
-        .container
-            .navbar-header.navbar-nav
-                .row
-                    .col-12
-                        .container.text-center Painel de Gerenciamento
-                    #local.col-6
-                        .row
-                            p=escola.nome
-                            span="|"
-                            p=escola.cidade
-                        .row
-                            button(type="button").btn.btn-outline-secondary.btn-sm
-                                i.fas.fa-undo 
-                                span="Mudar escola"
-                            button(type="button").btn.btn-outline-secondary.btn-sm
-                                i.fas.fa-plus 
-                                span="Adicionar escola / turma"
-                    #user.col-6
-                        .row
-                            .col
+    main#dashboard.d-flex.flex-column.align-content-stretch
+        header
+            nav#header.navbar.navbar-inverse
+                .container
+                        a.navbar-brand Painel de Gerenciamento    
+                        #user.col-6
                                 .row
-                                    .container.text-right
-                                        span.text-right=user.nome
-                                .row
-                                    .container.text-right
-                                        a Editar 
-                                        span="|"
-                                        a(href="auth/logout") Sair
-                            .col#fb-photo
-                                img(src=user.foto)  
-                        
-    main.container
-        .row
-            .col-md-4#send
-                block send
-                include send
-            .col-md-8#list
-                block list
-                include list
+                                    .col
+                                        .row
+                                            .container.text-right
+                                                span.text-right=user.nome
+                                        .row
+                                            .container.text-right
+                                                a(href="auth/logout") Sair
+                                    .col#fb-photo
+                                        img(src=user.foto)                   
+        div#send-list
+            .row.d-flex.flex-row.justify-content-around
+                #send.col-md-4.d-flex.flex-column.align-content-stretch
+                    block send
+                    include send
+                .col-md-7#list
+                    block list
+                    include list
     script(src='/javascripts/dashboard.js')
