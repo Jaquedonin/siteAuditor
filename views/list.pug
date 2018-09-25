@@ -13,12 +13,13 @@ div#list-menu.row.nav-tabs
     #user-videos.tab-pane.fade.show.active
         div.list-videos.row
             each video in videos
-                .col-3
+                .col-3.m-2.p-0
                     .video
                         iframe(type='text/html' style="border-radius: 10px" width='100%' height='100%' src=video.url controls='' frameborder='0')
-                        i.fas.fa-link
-                        i.fas.fa-play
-                        i.fas.fa-pen
+                        form(method='POST' action='/delete/videos')
+                            input.hidden(name="id", value=video.id)
+                            input(type='submit',value='Apagar',data-transition='fade', data-theme='c')
+                        
                     
     #trash.tab-pane.fade
         div.list-videos.row

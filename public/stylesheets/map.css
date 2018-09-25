@@ -85,7 +85,7 @@ li.nav-item {
 }
 
 #fb-user-videos {
-    height: 180px;
+    height: auto;
 }
 
 #fb-user-videos .wrapper{

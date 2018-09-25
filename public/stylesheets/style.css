@@ -186,7 +186,7 @@ footer p{ margin-bottom: 0;}
 
 #auth.container {
     max-width: unset;
-    height: 100%;
+    height: auto;
 }
 
 #auth.container .row {
@@ -232,5 +232,9 @@ footer p{ margin-bottom: 0;}
     background-color: #354A5B;
     color: #fff;
 }
+
+.container-height{
+    min-height: 70%;
+}    
 
 

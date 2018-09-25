@@ -82,13 +82,26 @@ router.get('/dashboard', function(req, res, next) {
     }
 
     data.user = true;
-
-    database.connection.query(query.findAll("professores_escolas", req.session.professorId), function (err, result) {
+    console.log("testes")
+    database.connection.query(query.findAllVideos(req.session.professorId), function (err, result) {
         if(!err){
+            console.log(result)
             data.videos = result;
-            res.render('dashboard', data);
+            console.log(result)
+            database.connection.query(query.findAll('cidades'), function (err, result) {
+                if(!err){
+
+                    data.cidades = result;
+                    console.log(result)
+                    res.render('dashboard', data);
+                }
+            });  
+        }else{
+            console.log(err);
         }
     });  
+
+    
     
 });
 
