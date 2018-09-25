@@ -1,37 +1,6 @@
-var fbUser, fbMenuItem, formVideoUpload;
-
 window.onload = function(){
-    formVideoUpload = document.getElementById("video-upload");
+    var formVideoUpload = document.getElementById("video-upload");
 
-    var selectCidades = document.getElementById("select-cidades");
-
-    var mapa = document.getElementById("municipio-svg");
-    if(mapa){ 
-        var cidades = mapa.children;
-
-        for (var posicao in cidades){
-            var cidade = cidades[posicao];
-            if(typeof(cidade) == "object"){
-                
-                cidade.addEventListener("mouseover", function(event){
-                    document.getElementById("nome-da-cidade").innerHTML = event.target.getAttribute("data-tooltip");
-                });
-
-                cidade.addEventListener("click", function(event){
-                    window.location.href = "galeria.html?" + event.target.getAttribute("id");
-                });
-
-                var option = document.createElement("option");
-
-                option.value = cidade.id; 
-                option.innerHTML = cidade.getAttribute("data-tooltip");
-
-                selectCidades.appendChild(option);
-            }
-        }
-    }
-
-    fbMenuItem = document.getElementById("fb-login");
     setFbUser();
     
     $('#modal-videos').on('show.bs.modal', function () {
@@ -39,35 +8,34 @@ window.onload = function(){
     });
 
     if(formVideoUpload){
-    formVideoUpload.addEventListener("submit", function(e){ 
-        e.preventDefault();
-        
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                alert("Video adicionado com sucesso!");
-                formVideoUpload.reset();
-                $('#modal-videos').modal("hide");
-                $('.modal-backdrop').remove();
+
+        formVideoUpload.addEventListener("submit", function(e){ 
+            e.preventDefault();
+            
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert("Video adicionado com sucesso!");
+                    formVideoUpload.reset();
+                    $('#modal-videos').modal("hide");
+                    $('.modal-backdrop').remove();
+                }
+            };
+            
+            var formData = new FormData(formVideoUpload);
+            var values = "";
+            
+            for (var pair of formData.entries()) {
+                values += pair[0] + "=" + pair[1] + "&";
             }
-        };
-        
-        var formData = new FormData(formVideoUpload);
-        var values = "";
-        
-        for (var pair of formData.entries()) {
-            values += pair[0] + "=" + pair[1] + "&";
-        }
 
-        xhttp.open("POST", "salvar-upload.php", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(values);
+            xhttp.open("POST", "salvar-upload.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(values);
 
-        return false;
-       
-    });
+            return false;
+        });
     }
-
 }
 
 function getFbUserVideos(){
@@ -112,7 +80,6 @@ var emberLink = function(url){
 }
 
 function setFbUser(){
-
     FB.getLoginStatus(
         function(response) {
             if(response.status === 'connected'){

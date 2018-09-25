@@ -11,8 +11,6 @@ block content
                 #navbar.collapse.navbar-collapse
                     ul.navbar-nav.ml-auto
                         li.nav-item
-                            a.nav-link.js-scroll-trigger(href='galeria.html') Galeria de vídeos
-                        li.nav-item
                             a.nav-link.js-scroll-trigger(href='#contact') Sobre
                         li.nav-item#login
                             if user
@@ -20,13 +18,19 @@ block content
                                     span Painel de gerenciamento
                             else
                                 a.nav-link(href='/auth') Login
-
-
     section
       .container
         div
-          h2#nome-mapa  Mapa da Paraíba 
-          p#nome-da-cidade
+          h2#nome-mapa  Mapa da Paraíba
         include mapa.pug
+        div
+            div#close-cidade
+            p.section Cidade
+            h2#nome-municipio=escola.cidade
+            p.section Vídeos 
+            #videos
+                .video
+                    .thumbnail
+                    .desc 
     include modal-videos.pug
     

@@ -12,19 +12,6 @@ path:hover {
 
 }
 
-#nome-da-cidade {
-	background-color: #232323;
-	color: #fff;
-	float: right;
-	font-size:20px;
-	height: 2em;
-	width: 17em;
-	padding-left: 20px;
-	padding-top: 3px;
-	border-radius: 5px;
-	z-index:1100;
-}
-
 #nome-mapa {
 
 	float: left;

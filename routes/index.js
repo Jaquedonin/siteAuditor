@@ -19,7 +19,6 @@ router.get('/bem-vindo', function(req, res, next) {
     } 
     
     data.user = req.session.user
-    
     res.render('bem-vindo', data);
 });
 
@@ -41,7 +40,6 @@ router.post('/register', function(req, res, next){
             });
 
         } else {
-
             database.connection.query(
                 'INSERT INTO usuarios SET ?', 
                 [userData], 
@@ -81,5 +79,15 @@ router.get('/dashboard', function(req, res, next) {
 router.get('/auth', function(req, res, next) {
     res.render('auth');
 });
+
+router.post('/galeria', function(req, res){
+    
+    codigo.cidade = req.body.cidade;
+    
+    res.status(200).json({
+        error: 0,
+        data: "User registered successfully!" 
+    });
+}); 
 
 module.exports = router;
