@@ -6,7 +6,7 @@ div#list-menu.row.nav-tabs
             each video in videos
                 .col-3
                     .video
+                        iframe(type='text/html' style="border-radius: 10px" width='100%' height='100%' src=video.url controls='' frameborder='0')
                         i.fas.fa-link
-                        i.fas.fa-trash
                         i.fas.fa-play
                         i.fas.fa-pen

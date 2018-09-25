@@ -6,7 +6,8 @@ module.exports = {
 		return "DELETE FROM "+ table +" WHERE id = " + id
 	}, 
 	findAll : function(table, id){
-		return "SELECT * FROM "+ table +" WHERE professor_id = " + id
+		return "SELECT * FROM "+ table +" INNER JOIN videos ON professores_escolas.id = videos.professor_escola_id  WHERE professores_escolas.professor_id = " + id
+
 	}
 }
 

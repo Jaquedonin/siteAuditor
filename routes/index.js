@@ -1,5 +1,8 @@
+
 var express = require('express');
 var router = express.Router();
+var database = require('../database/database');
+var query = require('../query');
 
 var fs = require('fs');
 var data = JSON.parse(fs.readFileSync('./database/data.json', 'utf8'));
@@ -22,6 +25,21 @@ router.get('/bem-vindo', function(req, res, next) {
     res.render('bem-vindo', data);
 });
 
+router.get('/galeria', function(req, res, next) {
+    var options = { 
+        method: 'GET'
+       
+    };
+
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+
+        res.render('gallery', response);
+        console.log(body);
+    });
+    
+});
+
 router.post('/register', function(req, res, next){
 
     var userData = {
@@ -41,7 +59,7 @@ router.post('/register', function(req, res, next){
 
         } else {
             database.connection.query(
-                'INSERT INTO usuarios SET ?', 
+                'INSERT INTO professores SET ?', 
                 [userData], 
                 function(err, rows, fields) {
                 
@@ -65,15 +83,21 @@ router.post('/register', function(req, res, next){
 });
 
 router.get('/dashboard', function(req, res, next) {
-    
-    if(!req.session.user){
-        data.user = false;
+    if(!req.session.token){
         return res.redirect("/auth");
     } else {
         data.user = req.session.user;
     }
+
+    data.user = true;
+
+    database.connection.query(query.findAll("professores_escolas", req.session.professorId), function (err, result) {
+        if(!err){
+            data.videos = result;
+            res.render('dashboard', data);
+        }
+    });  
     
-    res.render('dashboard', data);
 });
 
 router.get('/auth', function(req, res, next) {

@@ -40,13 +40,14 @@ router.delete('/videos', function(req, res, next) {
 	}
 });
 
-router.get('/videos/:id', function(req, res, next) {	
-
-	if(req.params.id === undefined){
-		return res.status(400).send(err);
+router.get('/videos', function(req, res, next) {	
+	if(req.session.professorId === undefined){
+		console.log("redirect login")
+		return res.redirect('/auth');
 	}
 	else{
-		database.connection.query(query.findAll("videos", req.params.id), function (err, result) {
+		console.log(req.session.professorId)
+		database.connection.query(query.findAll("professores_escolas", req.session.professorId), function (err, result) {
 			if(err){
 				res.setHeader('Content-Type', 'application/json');
 				return res.status(400).send(err);
