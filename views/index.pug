@@ -18,6 +18,8 @@ block content
                                     span Painel de gerenciamento
                             else
                                 a.nav-link(href='/auth') Login
+                        li.nav-item(style="height:2rem")
+                            img(style="height:100%; margin: 8px;" src="images/logo_tce.png")
     section
       .container
         include mapa.pug
@@ -25,7 +27,18 @@ block content
             div.d-flex.flex-column.align-content-stretch
                 div#close-cidade.fas.fa-times
                 p.section Cidade
-                h2#nome-municipio=escola.cidade
+                h2#nome-municipio
+                p.section Estatísticas
+                .row.text-white.text-center
+                    .col-4 
+                        p="Colaboradores"
+                        p="0"
+                    .col-4 
+                        p="Vídeos"
+                        p="0"    
+                    .col-4 
+                        p="Escolas"
+                        p="0"
                 p.section Vídeos 
                 #videos
                     .video
