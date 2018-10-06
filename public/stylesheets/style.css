@@ -111,7 +111,6 @@ p+span, a+span{
 .video{
     height: 110px;
     position: relative;
-    background: #000;
     border-radius: 10px;
     background-size: cover;
     background-position: center;
