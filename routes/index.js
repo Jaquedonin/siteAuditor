@@ -84,13 +84,12 @@ router.post('/register', function(req, res, next){
 
 router.get('/dashboard', function(req, res, next) {
 
-    if(!req.session.user){
-        data.user = false;
+    if(!req.session.token){
         return res.redirect("/auth");
     } else {
         data.user = req.session.user;
     }
-    
+
     res.render('dashboard', data);
 
     data.user = true;
@@ -112,7 +111,6 @@ router.get('/dashboard', function(req, res, next) {
             console.log(err);
         }
     });  
-
 });
 
 router.get('/auth', function(req, res, next) {
