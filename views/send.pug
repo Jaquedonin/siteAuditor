@@ -19,8 +19,9 @@ form(method='POST' action='/videos')
     div.row
         .col-12.mb-2
             select(name='codigo')#cidade.form-control 
-                each cidade in cidades 
-                    option(value=cidade.codigo) #{cidade.nome}
+                if cidades
+                    each cidade in cidades 
+                        option(value=cidade.codigo) #{cidade.nome}
     input#linkVideo.form-control.form-control-sm.mb-2.send-link(type="text", name='url', placeholder="Inserir link do vídeo") 
     input.pull-rigth(type='submit',value='Enviar',data-transition='fade', data-theme='c')
 p="Ou pelo facebook"

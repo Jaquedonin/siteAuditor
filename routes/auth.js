@@ -84,31 +84,28 @@ auth.post('/login', function(req, res) {
             if (rows.length > 0) {
                 
                 if (rows[0].senha == senha) {
-                     database.connection.query(        
+                    var payload = JSON.parse(JSON.stringify(rows[0]));
+                    
+                    var token = jwt.sign(payload, process.env.SECRET_KEY, {
+                        expiresIn: 1440
+                    });
+
+                    req.session.token = token;
+                    req.session.professorId = rows[0].id;
+                    
+                    database.connection.query(        
                         'SELECT * FROM professores_escolas WHERE professor_id = ?', 
                         [rows[0].id], function(err, rowsProf, fields) {
-
-                            var payload = JSON.parse(JSON.stringify(rows[0]));
+                            req.session.professorEscolaId = rowsProf[0] ? rowsProf[0].id : false;
                             
-                            var token = jwt.sign(payload, process.env.SECRET_KEY, {
-                                expiresIn: 1440
-                            });
-
-                            console.log(process.env.SECRET_KEY)
-
-                            console.log(token)
-                            
-                            req.session.token = token;
-                            req.session.professorId = rows[0].id;
-                            req.session.professorEscolaId = rowsProf[0].id;
-                            return res.redirect('/dashboard');
                     });
-    
+
                     req.session.user = {
                         "nome": req.body['fb-name'],
                         "foto": req.body['fb-photo']
                     };
-
+                    
+                    console.log("login", req.session);    
                     return res.redirect('/bem-vindo');
 
                 } else {

@@ -84,6 +84,7 @@ router.post('/register', function(req, res, next){
 
 router.get('/dashboard', function(req, res, next) {
 
+    console.log("dashboard", req.session);
     if(!req.session.token){
         return res.redirect("/auth");
     } else {
