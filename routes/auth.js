@@ -84,15 +84,25 @@ auth.post('/login', function(req, res) {
             if (rows.length > 0) {
                 
                 if (rows[0].senha == senha) {
+                     database.connection.query(        
+                        'SELECT * FROM professores_escolas WHERE professor_id = ?', 
+                        [rows[0].id], function(err, rowsProf, fields) {
 
-                    var payload = JSON.parse(JSON.stringify(rows[0]));
-                    
-                    var token = jwt.sign(payload, process.env.SECRET_KEY, {
-                        expiresIn: 1440
+                            var payload = JSON.parse(JSON.stringify(rows[0]));
+                            
+                            var token = jwt.sign(payload, process.env.SECRET_KEY, {
+                                expiresIn: 1440
+                            });
+
+                            console.log(process.env.SECRET_KEY)
+
+                            console.log(token)
+                            
+                            req.session.token = token;
+                            req.session.professorId = rows[0].id;
+                            req.session.professorEscolaId = rowsProf[0].id;
+                            return res.redirect('/dashboard');
                     });
-                    
-                    req.session.token = token;
-                    req.session.professorId = rows[0].id;
 
                     req.session.user = {
                         "nome": req.body['fb-name'],

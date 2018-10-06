@@ -85,8 +85,7 @@ li.nav-item {
 }
 
 #fb-user-videos {
-    flex: 1;
-    overflow-y: scroll;
+    height: auto;
 }
 
 #fb-user-videos .wrapper{
