@@ -231,8 +231,62 @@ footer p{ margin-bottom: 0;}
 .container-height{
     min-height: 70%;
 }    
+#yt input,
+#yt .input-group-append{
+    z-index: 2;
+}
 
 #yt {
     margin-bottom: 0;
 }
 
+#yt-preview{
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 10px;
+    transition: 1s;
+    background: #fff;
+    top: calc(-1.8125rem);
+    border-radius: .2rem;
+    border: 1px solid #ced4da;
+    z-index: 1;
+}
+
+#yt-preview.show{
+    padding: 10px;
+    padding-top: calc(1.8125rem + 10px);
+    max-height: 200px;
+}
+
+
+#yt-thumb {
+    width: 100%;
+}
+
+#yt-preview button{
+    width: auto;
+    float: right;
+    margin: 5px;
+}
+
+#dashboard{
+    height: 100%;
+}
+
+#send-list{
+    padding: 20px 15px 0 15px;
+    flex: 1;
+    height: 0;
+}
+
+#send-list > .row{
+    height: 100%;
+}
+
+.container-height{
+    min-height: 70%;
+}    
+
+#send, #list{
+    margin-bottom: 75px;
+}

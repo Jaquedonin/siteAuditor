@@ -83,14 +83,17 @@ router.post('/register', function(req, res, next){
 });
 
 router.get('/dashboard', function(req, res, next) {
+
     if(!req.session.token){
         return res.redirect("/auth");
     } else {
         data.user = req.session.user;
     }
 
+    res.render('dashboard', data);
+
     data.user = true;
-    console.log("testes")
+
     database.connection.query(query.findAllVideos(req.session.professorId), function (err, result) {
         if(!err){
             console.log(result)
@@ -108,9 +111,6 @@ router.get('/dashboard', function(req, res, next) {
             console.log(err);
         }
     });  
-
-    
-    
 });
 
 router.get('/auth', function(req, res, next) {

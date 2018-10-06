@@ -10,15 +10,3 @@ div#list-menu.row.nav-tabs
                             input.invisible(name="id", value=video.id)
                             input(type='submit',class='btn btn-outline-secondary btn-sm pagination btn-pagination justify-content-center',value='Deletar ',data-transition='fade', data-theme='c')
                         iframe(type='text/html' style="border-radius: 10px" width='100%' height='100%' src=video.url controls='' frameborder='0')
-                        
-                            
-                        
-                    
-    #trash.tab-pane.fade
-        div.list-videos.row
-            each video in videos
-                .col-3
-                    .video
-                        i.fas.fa-link
-                        i.fas.fa-play
-                        i.fas.fa-pen

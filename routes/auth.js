@@ -103,7 +103,7 @@ auth.post('/login', function(req, res) {
                             req.session.professorEscolaId = rowsProf[0].id;
                             return res.redirect('/dashboard');
                     });
-
+    
                     req.session.user = {
                         "nome": req.body['fb-name'],
                         "foto": req.body['fb-photo']
