@@ -10,6 +10,7 @@ auth.use(cors());
 
 process.env.SECRET_KEY = "devesh";
 
+
 auth.post('/register', function(req, res) {
     var userData = {
         fb_user: req.body["fb-register-user"], 
@@ -29,7 +30,7 @@ auth.post('/register', function(req, res) {
         } else {
 
             database.connection.query(
-                'INSERT INTO usuarios SET ?', 
+                'INSERT INTO professores SET ?', 
                 [userData], 
                 function(err, rows, fields) {
                 
@@ -66,27 +67,41 @@ auth.post('/login', function(req, res) {
     var fbUser = req.body['fb-login-user'];
     var email = req.body.email;
     var senha = req.body.senha;
-   
+
     database.connection.query(
         
-        'SELECT * FROM usuarios WHERE email = ? AND fb_user = ?', 
-        [email, fbUser], function(err, rows, fields) {
+        'SELECT * FROM professores WHERE email = ? AND senha = ?', 
+        [email, senha], function(err, rows, fields) {
         
         if (err) {
             res.status(400).json({
                 error: 1,
-                data: "Error occured!"
+                data: "Error occured!",
+                err: err
             });
         } else {
             
             if (rows.length > 0) {
                 
                 if (rows[0].senha == senha) {
+                     database.connection.query(        
+                        'SELECT * FROM professores_escolas WHERE professor_id = ?', 
+                        [rows[0].id], function(err, rowsProf, fields) {
 
-                    var payload = JSON.parse(JSON.stringify(rows[0]));
-                    
-                    let token = jwt.sign(payload, process.env.SECRET_KEY, {
-                        expiresIn: 1440
+                            var payload = JSON.parse(JSON.stringify(rows[0]));
+                            
+                            var token = jwt.sign(payload, process.env.SECRET_KEY, {
+                                expiresIn: 1440
+                            });
+
+                            console.log(process.env.SECRET_KEY)
+
+                            console.log(token)
+                            
+                            req.session.token = token;
+                            req.session.professorId = rows[0].id;
+                            req.session.professorEscolaId = rowsProf[0].id;
+                            return res.redirect('/dashboard');
                     });
                     
                     req.session.token = token;

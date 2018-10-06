@@ -107,7 +107,6 @@ p+span, a+span{
 .video{
     height: 110px;
     position: relative;
-    background: #000;
     border-radius: 10px;
     background-size: cover;
     background-position: center;
@@ -182,7 +181,7 @@ footer p{ margin-bottom: 0;}
 
 #auth.container {
     max-width: unset;
-    height: 100%;
+    height: auto;
 }
 
 #auth.container .row {
@@ -280,6 +279,10 @@ footer p{ margin-bottom: 0;}
 #send-list > .row{
     height: 100%;
 }
+
+.container-height{
+    min-height: 70%;
+}    
 
 #send, #list{
     margin-bottom: 75px;

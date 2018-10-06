@@ -1,5 +1,8 @@
+
 var express = require('express');
 var router = express.Router();
+var database = require('../database/database');
+var query = require('../query');
 
 var fs = require('fs');
 var data = JSON.parse(fs.readFileSync('./database/data.json', 'utf8'));
@@ -22,6 +25,21 @@ router.get('/bem-vindo', function(req, res, next) {
     res.render('bem-vindo', data);
 });
 
+router.get('/galeria', function(req, res, next) {
+    var options = { 
+        method: 'GET'
+       
+    };
+
+    request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+
+        res.render('gallery', response);
+        console.log(body);
+    });
+    
+});
+
 router.post('/register', function(req, res, next){
 
     var userData = {
@@ -41,7 +59,7 @@ router.post('/register', function(req, res, next){
 
         } else {
             database.connection.query(
-                'INSERT INTO usuarios SET ?', 
+                'INSERT INTO professores SET ?', 
                 [userData], 
                 function(err, rows, fields) {
                 
@@ -65,7 +83,7 @@ router.post('/register', function(req, res, next){
 });
 
 router.get('/dashboard', function(req, res, next) {
-    
+
     if(!req.session.user){
         data.user = false;
         return res.redirect("/auth");
@@ -74,6 +92,27 @@ router.get('/dashboard', function(req, res, next) {
     }
     
     res.render('dashboard', data);
+
+    data.user = true;
+
+    database.connection.query(query.findAllVideos(req.session.professorId), function (err, result) {
+        if(!err){
+            console.log(result)
+            data.videos = result;
+            console.log(result)
+            database.connection.query(query.findAll('cidades'), function (err, result) {
+                if(!err){
+
+                    data.cidades = result;
+                    console.log(result)
+                    res.render('dashboard', data);
+                }
+            });  
+        }else{
+            console.log(err);
+        }
+    });  
+
 });
 
 router.get('/auth', function(req, res, next) {
