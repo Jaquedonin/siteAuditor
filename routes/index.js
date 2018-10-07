@@ -17,7 +17,8 @@ router.get('/', function(req, res, next) {
 router.get('/bem-vindo', function(req, res, next) {
     
     if(!req.session.user){
-        data.user = false;
+        //data.user = false;
+        data.professores = false;
         return res.redirect("/auth");
     } 
     
@@ -84,9 +85,11 @@ router.post('/register', function(req, res, next){
 
 router.get('/dashboard', function(req, res, next) {
 
-    console.log("dashboard", req.session);
-    if(!req.session.token){
+    /*console.log("dashboard", req.session);
+    if(!req.session.token)
+    {
         return res.redirect("/auth");
+
     } else {
         data.user = req.session.user;
     }
@@ -94,7 +97,6 @@ router.get('/dashboard', function(req, res, next) {
     res.render('dashboard', data);
 
     data.user = true;
-
     database.connection.query(query.findAllVideos(req.session.professorId), function (err, result) {
         if(!err){
             console.log(result)
@@ -111,7 +113,32 @@ router.get('/dashboard', function(req, res, next) {
         }else{
             console.log(err);
         }
-    });  
+    }); 
+    */
+    if(!req.session.token){
+        return res.redirect("/auth");
+    }
+
+    data.user = true;
+    console.log("testes")
+    database.connection.query(query.findAllVideos(req.session.professorId), function (err, result) {
+        if(!err){
+            console.log(result)
+            data.videos = result;
+            console.log(result)
+            database.connection.query(query.findAll('cidades'), function (err, result) {
+                if(!err){
+
+                    data.cidades = result;
+                    console.log(result)
+                    res.render('dashboard', data);
+                }
+            });  
+        }else{
+            console.log(err);
+        }
+    });
+     
 });
 
 router.get('/auth', function(req, res, next) {

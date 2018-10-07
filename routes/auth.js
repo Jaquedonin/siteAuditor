@@ -83,9 +83,27 @@ auth.post('/login', function(req, res) {
             
             if (rows.length > 0) {
                 
-                if (rows[0].senha == senha) {
+                if (rows[0].senha == senha) 
+                {
+                    database.connection.query(        
+                        'SELECT * FROM professores_escolas WHERE professor_id = ?', 
+                        [rows[0].id], function(err, rowsProf, fields) {
+
+                            var payload = JSON.parse(JSON.stringify(rows[0]));
+                            var token = jwt.sign(payload, process.env.SECRET_KEY, {
+                                expiresIn: 1440
+                            });
+
+                            console.log(process.env.SECRET_KEY)
+                            console.log(token)
+                            
+                            req.session.token = token;
+                            req.session.professorId = rows[0].id;
+                            req.session.professorEscolaId = rowsProf[0].id;
+                            return res.redirect('/dashboard');
+                    });
+                    /*
                     var payload = JSON.parse(JSON.stringify(rows[0]));
-                    
                     var token = jwt.sign(payload, process.env.SECRET_KEY, {
                         expiresIn: 1440
                     });
@@ -107,8 +125,9 @@ auth.post('/login', function(req, res) {
                     
                     console.log("login", req.session);    
                     return res.redirect('/bem-vindo');
+                */} 
 
-                } else {
+                else {
                     res.status(204).json({
                         error: 1,
                         data: 'Email and Password does not match'
