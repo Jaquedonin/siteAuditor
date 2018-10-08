@@ -52,8 +52,6 @@ auth.post('/register', function(req, res) {
 
         }
     });
-
-
 });
 
 auth.get('/logout', function(req, res) {
@@ -64,10 +62,9 @@ auth.get('/logout', function(req, res) {
 
 auth.post('/login', function(req, res) {
 
-    var fbUser = req.body['fb-login-user'];
     var email = req.body.email;
     var senha = req.body.senha;
-
+ 
     database.connection.query(
         
         'SELECT * FROM professores WHERE email = ? AND senha = ?', 
@@ -85,49 +82,35 @@ auth.post('/login', function(req, res) {
                 
                 if (rows[0].senha == senha) 
                 {
-                    database.connection.query(        
-                        'SELECT * FROM professores_escolas WHERE professor_id = ?', 
-                        [rows[0].id], function(err, rowsProf, fields) {
-
-                            var payload = JSON.parse(JSON.stringify(rows[0]));
-                            var token = jwt.sign(payload, process.env.SECRET_KEY, {
-                                expiresIn: 1440
-                            });
-
-                            console.log(process.env.SECRET_KEY)
-                            console.log(token)
-                            
-                            req.session.token = token;
-                            req.session.professorId = rows[0].id;
-                            req.session.professorEscolaId = rowsProf[0].id;
-                            return res.redirect('/dashboard');
-                    });
-                    /*
+                    var professorId = rows[0].id;
                     var payload = JSON.parse(JSON.stringify(rows[0]));
                     var token = jwt.sign(payload, process.env.SECRET_KEY, {
                         expiresIn: 1440
                     });
-
-                    req.session.token = token;
-                    req.session.professorId = rows[0].id;
                     
-                    database.connection.query(        
-                        'SELECT * FROM professores_escolas WHERE professor_id = ?', 
-                        [rows[0].id], function(err, rowsProf, fields) {
-                            req.session.professorEscolaId = rowsProf[0] ? rowsProf[0].id : false;
+                    req.session.token = token;
+                    req.session.professorId = professorId;
+                    
+                    var getProfEscolaId = new Promise(function(resolve, reject) {      
+                        database.connection.query(        
+                                'SELECT * FROM professores_escolas WHERE professor_id = ?', 
+                                [professorId], function(err, rowsProf, fields) {
+                                    resolve(rowsProf[0] ? rowsProf[0].id : false);
+                        })
+                    })
+                    
+                    getProfEscolaId.then(function(professorEscolaId){
+                        req.session.professorEscolaId = professorEscolaId
+                        
+                        req.session.user = {
+                            "nome": req.body['fb-name'],
+                            "foto": req.body['fb-photo']
+                        };
                             
+                        return res.redirect('/bem-vindo');
                     });
 
-                    req.session.user = {
-                        "nome": req.body['fb-name'],
-                        "foto": req.body['fb-photo']
-                    };
-                    
-                    console.log("login", req.session);    
-                    return res.redirect('/bem-vindo');
-                */} 
-
-                else {
+                } else {
                     res.status(204).json({
                         error: 1,
                         data: 'Email and Password does not match'
