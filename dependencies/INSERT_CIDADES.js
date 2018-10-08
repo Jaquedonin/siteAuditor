@@ -1,16 +1,15 @@
-
-var sql = "INSERT INTO cidades ( nome,codigo) VALUES ?";
+var sql = "INSERT INTO cidades (nome,codigo) VALUES ?";
 var values = 
 [
-	['Água Branca','2500106 '], 
+	['Água Branca','2500106'], 
 	['Aguiar', '2500205'],
 	['Alagoa Grande','2500304'],
 	['Alagoa Nova','2500403'],
 	['Alagoinha','2500502'],
 	['Alcantil','2500536'],
 	['Algodão de Jandaíra','2500577'],
-	['Alhandra','2500601'] 
-	['Amparo','2500734'''],
+	['Alhandra','2500601'],
+	['Amparo','2500734'],
 	['Aparecida','2500775'],
 	['Araçagi','2500809'],
 	['Arara','2500908'],
@@ -19,7 +18,7 @@ var values =
 	['Areia de Baraúnas','2501153'],
 	['Areial','2501203'],
 	['Aroeiras','2501302'],
-	['Assunção','2501351']
+	['Assunção','2501351'],
 	['Baía da Traição','2501401'],
 	['Bananeiras','2501500'],
 	['Baraúna','2501534'],
@@ -111,7 +110,7 @@ var values =
 	['Lucena','2508604'],
 	['Mãe d Água','2508703'],
 	['Malta','2508802'],
-	['Mamanguape','2508901'],
+	['Mamanguape','2508901'],   
 	['Manaíra','2509008'],
 	['Marcação','2509057'],
 	['Mari','2509107'],
@@ -225,23 +224,23 @@ var values =
 	['Várzea','2517100'],
 	['Vieirópolis','2517209'],
 	['Zabelê','2517407']
-
-
 ];
 		
+var database = require('../database/database');
+database.connection.connect(function(err){
+    if(err){
+        console.log("Erro ao conectar", err);
+    } else {
+        database.connection.query(sql, [values], function (err, result) {
 
-con.query(sql, [values], function (err, result) {
-
-	if (err) {
-		console.log(" Not Connected!");
-
-	} 
-	else{
-		 console.log("Number of records inserted: " + result.affectedRows);
-
-		}
-		   
- });
+            if (err) {
+                console.log("Erro ao executar consulta", err);
+            } else {
+                console.log("Number of records inserted: " + result.affectedRows);
+            }
+        })
+    }
+})
 
 
 
