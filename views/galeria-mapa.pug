@@ -1,0 +1,21 @@
+div.d-flex.flex-column.align-content-stretch
+                div#close-cidade.fas.fa-times(onclick="toggleGalery(false);")
+                p.section Cidade
+                h2#nome-municipio=cidade
+                p.section Estatísticas
+                .row.text-white.text-center
+                    .col-4 
+                        p="Colaboradores"
+                        p#estatisticas-colaboradores=colaboradores
+                    .col-4 
+                        p="Vídeos"
+                        p#estatisticas-videos=videos.length   
+                    .col-4 
+                        p="Escolas"
+                        p#estatisticas-escolas=escolas
+                p.section Vídeos  recentes
+                #videos
+                    if videos
+                        each video in videos
+                            .video
+                                iframe(type='text/html' style="border-radius: 10px" width='100%' height='100%' src=video.url controls='' frameborder='0')   
