@@ -161,7 +161,6 @@ footer{
 
 footer p{ margin-bottom: 0;}
 
-
 #auth .title, #auth .subtitle {
     text-align: center;
     margin: 20px 0;
@@ -181,7 +180,7 @@ footer p{ margin-bottom: 0;}
 
 #auth.container {
     max-width: unset;
-    height: auto;
+    height: 100%;
 }
 
 #auth.container .row {

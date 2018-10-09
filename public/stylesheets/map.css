@@ -1,3 +1,19 @@
+#mapa-header {
+    background: #0e0f11;
+    color: #fff;
+}
+
+#mapa-header .col-4:nth-child(2){
+    text-align: center;
+}
+
+#mapa-header a{
+    color: #fff;
+}
+
+#mapa-header #logo img{
+    height: 2em;
+}
 
 path {
 	fill: #ccc;
