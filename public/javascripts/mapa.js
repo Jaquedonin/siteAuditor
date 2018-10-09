@@ -3,7 +3,6 @@ get("javascripts/cidades.json", initMapa);
 function initMapa(nomes){
     var mapa = document.getElementById("municipios");
     if(mapa){ 
-
         var cidades = mapa.children;
 
         for (var posicao in cidades){
@@ -17,12 +16,7 @@ function initMapa(nomes){
                 });
             }
         }
-
         $('[data-toggle="tooltip"]').tooltip();
-        
-        document.getElementById("close-cidade").addEventListener("click", function(){
-            toggleGalery(false);
-        });
     }
 
 }
