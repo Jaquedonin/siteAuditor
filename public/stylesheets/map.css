@@ -35,7 +35,7 @@ path:hover {
 
 #galery > div{
     height: 100%;
-    padding: 20px 20px 59px 20px;
+    padding: 20px;
 }
 
 #galery #nome-municipio{
@@ -51,7 +51,8 @@ path:hover {
 #galery p.section{
     color: #1fd2e5;
     border-bottom: 1px solid #1fd2e5;
-    font-size: .7em
+    font-size: .8em;
+    padding-bottom: .5em;
 }
 
 #galery #videos{

@@ -31,10 +31,10 @@ function openGalery(cidade){
     toggleGalery(false);  
     post("galeria", {"cidade": cidade}, function(response){
         setTimeout(function(){
-            document.getElementById("nome-municipio").innerHTML = response.data;
+            document.getElementById("galery").innerHTML = response.html;
             toggleGalery(true); 
         }, 1000)
-    });
+    }, false);
 }
 
 function toggleGalery(show){

@@ -138,12 +138,58 @@ router.get('/auth', function(req, res, next) {
 router.post('/galeria', function(req, res)
 {
     var codigo = req.body.cidade;
-    var cidades = JSON.parse(fs.readFileSync('public/javascripts/cidades.json', 'utf8'));
 
-    res.status(200).json({
-        
-        error: 0,
-        data: cidades[codigo]
+    //buscar cidade selecionada  e suas estatisticas
+    var getGaleriaInfo = function(codigo, index, data) {
+        return new Promise(function(resolve, reject) {
+            database.connection.query(
+                "SELECT group_concat(distinct cidades.nome) as nome, count(distinct escolas.id) as escolas, count(distinct professores_escolas.id) as colaboradores FROM cidades" +
+                " LEFT JOIN escolas ON cidade_id = cidades.id" +
+                " LEFT JOIN professores_escolas ON escola_id = escolas.id" +
+                " WHERE cidades.id = " + codigo
+                , function (err, result) { 
+                    if(err){
+                        reject(err);
+                    } else {
+                        data = {
+                            cidade: result[0].nome,
+                            colaboradores: result[0].colaboradores,
+                            escolas: result[0].escolas
+                        }
+                        resolve(data);
+                    }
+                }
+            )
+        });
+    }
+    
+    //buscar videos da cidade selecionada
+    var getGaleriaVideos = function(codigo, data) {
+        return new Promise(function(resolve, reject) {
+            database.connection.query(
+                "SELECT * FROM videos" +
+                " INNER JOIN professores_escolas ON professores_escolas.id = videos.professor_escola_id" +
+                " INNER JOIN escolas ON escola_id = escolas.id AND cidade_id = " + codigo     
+                , function (err, result) { 
+                    if(err){
+                        reject(err);
+                    } else {
+                        data.videos = result;
+                        resolve(data);
+                    }
+                }
+            )
+        });
+    }
+    
+    //buscar informacoes e retornar a pagina da galeria como resposta
+    getGaleriaInfo(codigo).then(function(data){
+        getGaleriaVideos(codigo, data).then(function(data){
+            //ao final, envia a view galeria-mapa como resposta
+            res.app.render('galeria-mapa', data, function(err, html){
+                res.send({html:html});
+            });
+        });
     });
 }); 
 
