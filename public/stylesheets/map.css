@@ -13,10 +13,57 @@ path:hover {
 }
 
 #nome-mapa {
-
 	float: left;
 	color: #fff;
+}
 
+#mapa-wrapper{
+    overflow: hidden;
+}
+
+#mapa-nav{
+    justify-content: flex-end;
+}
+
+#mapa-nav #select-cidade{
+    color: #fff;
+    background: #2e3c49;
+    border-radius: 0;
+    border-color: #2e3c49;
+}
+
+#zoom{
+    top: 1.5em;
+    position: relative;
+    z-index: 99;
+}
+#zoom > div{
+    background-color: #73818e;
+    color: #fff;
+    font-size: 1.1em;
+    text-align: center;
+    display: inline-block;
+}
+
+#zoom-in, #zoom-out{  
+    padding: .5em .6em;
+    background-color: #73818e;
+    border-radius: 100%;    
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+}    
+
+#zoom-in{
+    margin-top: -.9em;
+}
+
+#zoom-out{
+    margin-bottom: -.9em;
+}
+
+#mapa{
+    transition: transform .5s;
 }
 
 #galery{

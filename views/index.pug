@@ -20,9 +20,21 @@ block content
                                 a.nav-link(href='/auth') Login
                         li.nav-item(style="height:2rem")
                             img(style="height:100%; margin: 8px;" src="images/logo_tce.png")
-    section
+    section#mapa-wrapper
       .container
+        .navbar#mapa-nav.row
+            select#select-cidade(type='text' name='codigo').col-4.form-control.form-control-sm
+                option(value="") Municípios
+                if cidades
+                    each cidade in cidades
+                        if cidades
+                            each cidade in cidades 
+                                option(value=cidade.codigo) #{cidade.nome}
+            #zoom.col-1
+                div 
+                    #zoom-in(onclick="zoomIn()") +
+                    #zoom-out(onclick="zoomOut()") -
         include mapa.pug
         div#galery
     include modal-videos.pug
-    
+    script(type='text/javascript', src='javascripts/mapa.js')

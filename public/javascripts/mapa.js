@@ -19,6 +19,10 @@ function initMapa(nomes){
         $('[data-toggle="tooltip"]').tooltip();
     }
 
+    document.getElementById("select-cidade").addEventListener("change", function(e){
+        openGalery(e.target.value);
+    });
+
 }
 
 function openGalery(cidade){
@@ -41,3 +45,11 @@ function toggleGalery(show){
         galery.setAttribute("class", "show");
     }
 }
+
+function zoomIn(){
+    document.getElementById("mapa").style.transform = "scale(1.3)"
+};
+
+function zoomOut(){
+    document.getElementById("mapa").style.transform = "scale(1)"
+};

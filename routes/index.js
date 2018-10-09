@@ -6,14 +6,15 @@ var query = require('../query');
 var fs = require('fs');
 var data = JSON.parse(fs.readFileSync('./database/data.json', 'utf8'));
 
-
-
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
     
     data.user = req.session.user;
-    res.render('index', data);
+    
+    database.connection.query(query.findAll('cidades'), function (err, result) {       
+        data.cidades = !err ? result : false;
+        res.render('index', data);
+    });
 });
 
 router.get('/bem-vindo', function(req, res, next) {
