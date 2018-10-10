@@ -1,7 +1,7 @@
 div.d-flex.flex-column.align-content-stretch
                 div#close-cidade.fas.fa-times(onclick="toggleGalery(false);")
                 p.section Cidade
-                h2#nome-municipio=cidade
+                h2#nome-municipio=cidade.nome
                 p.section Estatísticas
                 .row.text-white.text-center
                     .col-4 
@@ -19,3 +19,6 @@ div.d-flex.flex-column.align-content-stretch
                         each video in videos
                             .video
                                 iframe(type='text/html' style="border-radius: 10px" width='100%' height='100%' src=video.url controls='' frameborder='0')   
+                a#ver-galeria.btn.btn-danger(href="galeria/" + cidade.codigo) 
+                    i.fas.fa-play
+                    span Ver galeria
