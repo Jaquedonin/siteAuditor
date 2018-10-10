@@ -29,20 +29,38 @@ router.get('/bem-vindo', function(req, res, next) {
     res.render('bem-vindo', data);
 });
 
-router.get('/galeria', function(req, res, next) {
+router.get('/galeria/:cidade/:categoria', function(req, res, next) {
     
-    var options = { 
-        method: 'GET'
-       
-    };
+    //buscar videos da cidade selecionada
+    var getGaleriaVideos = function(cidade, categoria) {
 
-    request(options, function (error, response, body) {
+        var query = "SELECT * FROM videos" +
+        " INNER JOIN cidades ON cidades.id = " + cidade +
+        " INNER JOIN professores_escolas ON professores_escolas.id = videos.professor_escola_id" +
+        " INNER JOIN escolas ON escola_id = escolas.id AND cidade_id = " + cidade;
         
-        if (error) throw new Error(error);
+        if(categoria){
+            query += " INNER JOIN categorias ON id = videos.categoria_id"
+            query += " WHERE categorias.id = " + categoria 
+        }
+        
+        return new Promise(function(resolve, reject) {
+            database.connection.query(query, function (err, result) { 
+                    if(err){
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            )
+        });
+    }
 
-        res.render('gallery', response);
-        console.log(body);
+    getGaleriaVideos(req.params.cidade).then(function(data){
+        console.log(data);
+        res.render('galeria', {videos:data});
     });
+
     
 });
 
@@ -131,7 +149,6 @@ router.get('/dashboard', function(req, res, next) {
 });
 
 router.get('/auth', function(req, res, next) {
-    
     res.render('auth');
 });
 
@@ -140,7 +157,7 @@ router.post('/galeria', function(req, res)
     var codigo = req.body.cidade;
 
     //buscar cidade selecionada  e suas estatisticas
-    var getGaleriaInfo = function(codigo, index, data) {
+    var getCidadeInfo = function(codigo, index, data) {
         return new Promise(function(resolve, reject) {
             database.connection.query(
                 "SELECT group_concat(distinct cidades.nome) as nome, count(distinct escolas.id) as escolas, count(distinct professores_escolas.id) as colaboradores FROM cidades" +
@@ -152,7 +169,10 @@ router.post('/galeria', function(req, res)
                         reject(err);
                     } else {
                         data = {
-                            cidade: result[0].nome,
+                            cidade: {
+                                codigo: codigo,
+                                nome: result[0].nome,
+                            },
                             colaboradores: result[0].colaboradores,
                             escolas: result[0].escolas
                         }
@@ -164,7 +184,7 @@ router.post('/galeria', function(req, res)
     }
     
     //buscar videos da cidade selecionada
-    var getGaleriaVideos = function(codigo, data) {
+    var getCidadeVideos = function(codigo, data) {
         return new Promise(function(resolve, reject) {
             database.connection.query(
                 "SELECT * FROM videos" +
@@ -183,8 +203,8 @@ router.post('/galeria', function(req, res)
     }
     
     //buscar informacoes e retornar a pagina da galeria como resposta
-    getGaleriaInfo(codigo).then(function(data){
-        getGaleriaVideos(codigo, data).then(function(data){
+    getCidadeInfo(codigo).then(function(data){
+        getCidadeVideos(codigo, data).then(function(data){
             //ao final, envia a view galeria-mapa como resposta
             res.app.render('galeria-mapa', data, function(err, html){
                 res.send({html:html});
