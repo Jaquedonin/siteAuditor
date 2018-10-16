@@ -10,11 +10,8 @@ var data = JSON.parse(fs.readFileSync('./database/data.json', 'utf8'));
 router.get('/', function(req, res, next) {
     
     data.user = req.session.user;
-    
-    database.connection.query(query.findAll('cidades'), function (err, result) {       
-        data.cidades = !err ? result : false;
-        res.render('index', data);
-    });
+    res.render('index', data);
+   
 });
 
 router.get('/bem-vindo', function(req, res, next) {
@@ -31,18 +28,39 @@ router.get('/bem-vindo', function(req, res, next) {
 });
 
 router.get('/galeria/:cidade/:categoria', function(req, res, next) {
-    
-    //buscar videos da cidade selecionada
-    var getGaleriaVideos = function(cidade, categoria) {
 
-        var query = "SELECT * FROM videos" +
-        " INNER JOIN cidades ON cidades.id = " + cidade +
-        " INNER JOIN professores_escolas ON professores_escolas.id = videos.professor_escola_id" +
-        " INNER JOIN escolas ON escola_id = escolas.id AND cidade_id = " + cidade;
+    var getCidade = function (cidade,categoria){
         
-        if(categoria){
-            query += " INNER JOIN categorias ON id = videos.categoria_id"
-            query += " WHERE categorias.id = " + categoria 
+        var data = {
+            categoria: {
+                id: categoria
+            }
+        }
+
+        return new Promise(function(resolve, reject) {
+            database.connection.query("SELECT * FROM cidades WHERE codigo = " + cidade, function (err, result) { 
+                    if(err){
+                        reject(err);
+                    } else {
+                        data.cidade = result[0]; 
+                        resolve(data);
+                    }
+                }
+            )
+        });
+    }
+
+    //buscar videos da cidade selecionada
+    var getGaleriaVideos = function(data) {
+        
+        var query = "SELECT videos.id, videos.url, categorias.descricao FROM videos" +
+        " INNER JOIN cidades ON cidades.codigo = " + data.cidade.codigo +
+        " INNER JOIN professores_escolas ON professores_escolas.id = videos.professor_escola_id" +
+        " INNER JOIN escolas ON escola_id = escolas.id AND cidade_id = " + data.cidade.codigo;
+        
+        if(data.categoria){
+            query += " INNER JOIN categorias ON categorias.id = videos.categoria_id"
+            query += " WHERE categorias.id = " + data.categoria.id 
         }
         
         return new Promise(function(resolve, reject) {
@@ -50,17 +68,37 @@ router.get('/galeria/:cidade/:categoria', function(req, res, next) {
                     if(err){
                         reject(err);
                     } else {
-                        resolve(result);
+                        data.categoria.descricao = result[0] ? result[0].descricao : false;
+                        data.categoria.videos = result;
+                        resolve(data);
                     }
                 }
             )
         });
     }
 
-    getGaleriaVideos(req.params.cidade).then(function(data){
-        console.log(data);
-        res.render('galeria', {videos:data});
-    });
+    var getCategorias = function (data, categoria){
+
+        return new Promise(function(resolve, reject) {
+            database.connection.query("SELECT id, descricao FROM categorias", function (err, result) { 
+                    if(err){
+                        reject(err);
+                    } else {
+                        data.categorias = result 
+                        resolve(data);
+                    }
+                }
+            )
+        });
+    }
+
+    getCidade(req.params.cidade, req.params.categoria).then(function(data){
+        getGaleriaVideos(data).then(function(data){
+            getCategorias(data).then(function(data){
+                res.render('galeria', data);
+            });
+        });
+    })
 
     
 });

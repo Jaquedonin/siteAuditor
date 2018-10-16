@@ -21,7 +21,7 @@ path {
 	stroke-width: 15em;
 }
 
-path:hover {
+#mapa-wrapper path:hover, path.selected {
     fill: #932121;
     opacity: 0.9;
     stroke: black;
@@ -169,3 +169,79 @@ li.nav-item {
 #fb-user-videos .wrapper iframe{
     float:left;
 }
+
+#ver-galeria{
+    margin-top: 15px;
+    border-color: #942023;
+    background:#942023;
+}
+
+#ver-galeria > *{
+    margin: 0 5px;
+}
+#voltar-galeria {
+    width: 100px;
+    height: 140px;
+    background: #611313;
+    font-size: 40px;
+    line-height: 150px;
+    color: #fff;
+    text-align: center;
+    left: -17px;
+    position: relative;
+    display: block;
+}
+
+#miniatura{
+    transform: scale(.5);
+    text-align: center;
+}
+
+#miniatura p{
+    font-size: 24pt;
+}
+
+#galeria-navbar{
+    justify-content: baseline;
+    background: #932121;
+    height: 140px;
+}
+
+#galeria-navbar *{
+    color: #fff;
+}
+
+#galeria-navbar .navbar-nav{
+    margin: 15px 0 15px 15px;
+}
+
+#galeria-navbar li.nav-item a{
+    padding: 5px 10px;
+}
+
+#galeria-navbar li.nav-item.selected {
+    background: #fff;
+    border-radius: 5px;
+}
+
+#galeria-navbar li.nav-item.selected a{
+    color: #932121;
+}
+
+#galeria-navbar select,
+#galeria-navbar input{
+    color: #fff;
+    background: #702021;
+    border-radius: 0;
+    border-color: #702021;
+}
+
+#galeria-navbar .input-group-text{
+    border-color:  #702021;
+    background: #702021;
+}
+
+#galeria-navbar .input-group-text:before{
+    line-height: 24px;
+}
+
