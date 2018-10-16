@@ -103,6 +103,15 @@ router.get('/galeria/:cidade/:categoria', function(req, res, next) {
     
 });
 
+router.post('/api/cidades', function(req, res, next){
+    database.connection.query(
+        "SELECT codigo as 'value', nome as 'label' FROM cidades WHERE nome LIKE '%"+ req.body.term + "%'", 
+        function (err, result) {       
+        data.cidades = !err ? result : false;
+        res.json(result);
+    });
+});
+
 router.post('/register', function(req, res, next){
 
     var userData = 

@@ -19,9 +19,23 @@ function initMapa(nomes){
         $('[data-toggle="tooltip"]').tooltip();
     }
 
-    document.getElementById("select-cidade").addEventListener("change", function(e){
-        openGalery(e.target.value);
-    });
+    $( "#select-cidade" ).autocomplete({
+        source: function(request, response){
+            post("/api/cidades", {term: request.term}, response)
+        },
+        select: function( event, ui ) {
+            console.log(ui)
+            $( "#select-cidade" ).val( ui.item.label );
+            openGalery(ui.item.value);
+            return false;
+        },
+        open: function() {
+          $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+        },
+        close: function() {
+          $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+        }
+      });
 
 }
 

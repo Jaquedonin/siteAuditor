@@ -46,6 +46,7 @@ path {
     background: #2e3c49;
     border-radius: 0;
     border-color: #2e3c49;
+    max-width: 175pt;
 }
 
 #zoom{

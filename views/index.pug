@@ -25,13 +25,7 @@ block content
     section#mapa-wrapper
       .container
         .navbar#mapa-nav.row
-            select#select-cidade(type='text' name='codigo').col-4.form-control.form-control-sm
-                option(value="") Municípios
-                if cidades
-                    each cidade in cidades
-                        if cidades
-                            each cidade in cidades 
-                                option(value=cidade.codigo) #{cidade.nome}
+            input#select-cidade(type='text' name='codigo' placeholder="Pesquisar municípios").col-4.form-control.form-control-sm
             #zoom.col-1
                 div 
                     #zoom-in(onclick="zoomIn()") +
