@@ -104,7 +104,7 @@ p+span, a+span{
     border: none;
 }
 
-.video{
+#send-list .video{
     height: 110px;
     position: relative;
     border-radius: 10px;
@@ -113,7 +113,7 @@ p+span, a+span{
     margin-bottom: 15px;
 }
 
-.video div{
+#send-list .video div{
     background: rgba(0,0,0,0.5);
     width: 100%;
     height: 100%;

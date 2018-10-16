@@ -56,18 +56,18 @@ router.get('/galeria/:cidade/:categoria', function(req, res, next) {
         var query = "SELECT videos.id, videos.url, categorias.descricao FROM videos" +
         " INNER JOIN cidades ON cidades.codigo = " + data.cidade.codigo +
         " INNER JOIN professores_escolas ON professores_escolas.id = videos.professor_escola_id" +
-        " INNER JOIN escolas ON escola_id = escolas.id AND cidade_id = " + data.cidade.codigo;
-        
-        if(data.categoria){
-            query += " INNER JOIN categorias ON categorias.id = videos.categoria_id"
+        " INNER JOIN escolas ON escola_id = escolas.id AND cidade_id = " + data.cidade.codigo +
+        " LEFT JOIN categorias ON categorias.id = videos.categoria_id"
+
+        if(data.categoria && data.categoria.id != 1){
             query += " WHERE categorias.id = " + data.categoria.id 
         }
-        
         return new Promise(function(resolve, reject) {
             database.connection.query(query, function (err, result) { 
                     if(err){
                         reject(err);
                     } else {
+
                         data.categoria.descricao = result[0] ? result[0].descricao : false;
                         data.categoria.videos = result;
                         resolve(data);
@@ -95,6 +95,7 @@ router.get('/galeria/:cidade/:categoria', function(req, res, next) {
     getCidade(req.params.cidade, req.params.categoria).then(function(data){
         getGaleriaVideos(data).then(function(data){
             getCategorias(data).then(function(data){
+                console.log(data.categoria.videos); 
                 res.render('galeria', data);
             });
         });

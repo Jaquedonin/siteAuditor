@@ -1,63 +1,73 @@
 extends layout.pug
 block content
-    body#page-top
-    header#mapa-header
-        nav.navbar.navbar-expand-lg.navbar-dark.navbar-fixed-top
-            .container
-                a.navbar-brand.col-4(href='#page-top') MAPA DE  CONTROLE SOCIAL
-                #logo.navbar-brand.col-4 
-                    img(src="/images/logo-tce.png")
-                button.navbar-toggler.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar', aria-label='Toggle navigation')
-                    span.sr-only Toggle navigation
-                    span.navbar-toggler-icon
-                #navbar.col-4.collapse.navbar-collapse
-                    ul.navbar-nav.ml-auto
-                        li.nav-item
-                            a.nav-link Como participar
-                        li.nav-item#login
-                            if user
-                                a.nav-link(href="/dashboard") 
-                                    span Gerenciador
-                            else
-                                a.nav-link(href='/auth') Login
-                        li.nav-item
-                            a.nav-link Sobre
-    nav.navbar.navbar-expand-lg#galeria-navbar 
-        a#voltar-galeria(href="/")
-            i.fas.fa-arrow-left
-        #miniatura
-            include mapa.pug
-            p=cidade.nome
-        div.col
-            div.row
-                .col
-                    select#escolas.form-control
-                        option Escolas
-                        if escolas
-                            each escola in escolas
-                                option(value=escola.id)=escola.nome
-                .col
-                    .input-group
-                        input.form-control#pesquisar(placeholder="Pesquisar")
-                        .input-group-append
-                            i.input-group-text.fas.fa-search
-            div.row
-                if categorias
-                    ul.navbar-nav
-                        each cat in categorias
-                            li(class= categoria.id == cat.id ? "nav-item selected" : "nav-item")
-                                a.nav-link(href=cat.id)=cat.descricao
-
-    main
-        if categoria && categoria.videos && categoria.videos.length > 0
-            - var destaque = true;
-            div(id=categoria.nome).categoria
-                each video in categoria.videos
-                    if destaque
-                    #destaque(id=categoria.nome).categoria
-                    else
-                        .video
-                        .preview
-                            iframe(type='text/html' style="border-radius: 10px" width='100%' height='100%' src=video.url controls='' frameborder='0')   
-                        .autor
-                        .titulo 
+    main#galeria.d-flex.flex-column.align-content-stretch
+        header#mapa-header
+            nav.navbar.navbar-expand-lg.navbar-dark.navbar-fixed-top
+                .container
+                    a.navbar-brand.col-4(href='#page-top') MAPA DE  CONTROLE SOCIAL
+                    #logo.navbar-brand.col-4 
+                        img(src="/images/logo-tce.png")
+                    button.navbar-toggler.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar', aria-label='Toggle navigation')
+                        span.sr-only Toggle navigation
+                        span.navbar-toggler-icon
+                    #navbar.col-4.collapse.navbar-collapse
+                        ul.navbar-nav.ml-auto
+                            li.nav-item
+                                a.nav-link Como participar
+                            li.nav-item#login
+                                if user
+                                    a.nav-link(href="/dashboard") 
+                                        span Gerenciador
+                                else
+                                    a.nav-link(href='/auth') Login
+                            li.nav-item
+                                a.nav-link Sobre
+        nav.navbar.navbar-expand-lg#galeria-navbar 
+            a#voltar-galeria(href="/")
+                i.fas.fa-arrow-left
+            #miniatura
+                include mapa.pug
+                p=cidade.nome
+            div.col
+                div.row
+                    .col
+                        select#escolas.form-control
+                            option Escolas
+                            if escolas
+                                each escola in escolas
+                                    option(value=escola.id)=escola.nome
+                    .col
+                        .input-group
+                            input.form-control#pesquisar(placeholder="Pesquisar")
+                            .input-group-append
+                                i.input-group-text.fas.fa-search
+                div.row
+                    if categorias
+                        ul.navbar-nav
+                            each cat in categorias
+                                li(class= categoria.id == cat.id ? "nav-item selected" : "nav-item")
+                                    a.nav-link(href=cat.id)=cat.descricao
+        #categoria.row
+            if categoria && categoria.videos && categoria.videos.length > 0
+                - var destaque = true;
+                    each video in categoria.videos
+                        if destaque
+                            div(id=categoria.nome).destaque.col-12
+                                .video.row
+                                    .preview.col-6
+                                        iframe(type='text/html' width='100%' height='100%' src=video.url controls='' frameborder='0')   
+                                    .info.col-6
+                                        .autor="Nome do autor"
+                                        .titulo
+                                            b="Título do vídeo"
+                                        .descr="Quisque interdum augue eget augue feugiat porttitor. Curabitur id congue orci. Ut sed purus vitae mi convallis euismod. Proin vel nibh libero. Maecenas cursus risus at ultricies iaculis."
+                            - destaque = false                        
+                        else
+                            .video.col-4
+                                .row
+                                    .preview.col-6
+                                        iframe(type='text/html' width='100%' height='100%' src=video.url controls='' frameborder='0')   
+                                    .info.col-6
+                                        .autor="Nome do autor"
+                                        .titulo
+                                        b="Título do vídeo"
