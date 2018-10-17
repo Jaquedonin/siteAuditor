@@ -80,7 +80,7 @@ router.get('/galeria/:cidade/:categoria', function(req, res, next) {
     var getCategorias = function (data, categoria){
 
         return new Promise(function(resolve, reject) {
-            database.connection.query("SELECT id, descricao FROM categorias", function (err, result) { 
+            database.connection.query("SELECT id, tipo FROM categorias", function (err, result) { 
                     if(err){
                         reject(err);
                     } else {
@@ -177,6 +177,7 @@ router.get('/dashboard', function(req, res, next) {
     {
         if(!err)
         {
+
             data.videos = result;
             database.connection.query(query.findAll('cidades'), function (err, result) {
                 
@@ -186,6 +187,18 @@ router.get('/dashboard', function(req, res, next) {
                     res.render('dashboard', data);
                 }
             }); 
+        }
+
+        else
+        {
+            console.log(err);
+        }
+    });
+    database.connection.query(query.findAll('categorias'), function (err, result) 
+    {
+        if(!err)
+        {
+            data.categorias = result;
         }
 
         else

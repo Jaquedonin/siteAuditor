@@ -26,7 +26,8 @@ router.post('/videos', function(req, res, next) {
 		var url_embed = "Erro em url_embed";
 	}
 
-	var data = [req.session.professorEscolaId, url_embed , req.body.codigo];
+	var data = [req.session.professorEscolaId, url_embed , req.body.codigo, parseInt(req.body.categoria_id), req.body.titulo];
+	console.log(data);
 	database.connection.query(query.insertOne("videos", data ), function (err, result) {
 		if(err){
 			res.setHeader('Content-Type', 'application/json');
@@ -40,8 +41,9 @@ router.post('/videos', function(req, res, next) {
 
 
 router.post('/delete/videos', function(req, res, next) {
-	if(req.body.id === undefined)
-		return false;
+	if(req.body.id === undefined){
+		console.log("req.body.id UNDEFINED");
+		return false;}
 	else{
 		database.connection.query(query.deleteOne("videos", req.body.id), function (err, result) {
 			if(err){
@@ -71,11 +73,11 @@ router.get('/videos', function(req, res, next) {
 				res.setHeader('Content-Type', 'application/json');
 				res.json(result);
 				res.end('video')
+
 			}
 		}); 	
 	}
 });
-
 
 
 module.exports = router;
