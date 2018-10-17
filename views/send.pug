@@ -21,7 +21,12 @@ h4="Enviar vídeos"
                                 option(value=cidade.codigo) #{cidade.nome}
                     button#yt-add.form-control.form-control-sm Adicionar
                     button#yt-cancel.form-control.form-control-sm Cancelar
+
     div.row
         .col-12.mb-2
+
 p="Ou pelo facebook"
+p#fb-login.fb-login.text-center
+    fb:login-button#fb-login-btn(scope='public_profile,email,user_photos,user_videos,user_link,user_posts,user_likes', onlogin='setFbUser()')
 div#fb-user-videos.row
+
