@@ -19,8 +19,13 @@ h4="Enviar vídeos"
                         if cidades
                             each cidade in cidades 
                                 option(value=cidade.codigo) #{cidade.nome}
+                    select(type='text' name='categoria_id')#categoria.form-control.form-control.sm
+                        if categorias
+                            each categoria in categorias 
+                                option(value=categoria.id) #{categoria.tipo}
                     button#yt-add.form-control.form-control-sm Adicionar
                     button#yt-cancel.form-control.form-control-sm Cancelar
+
     div.row
         .col-12.mb-2
 

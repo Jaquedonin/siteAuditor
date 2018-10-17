@@ -96,7 +96,7 @@ p+span, a+span{
 }
 
 .list-videos .col-3{
-    height: 100px;
+    height: auto;
     margin: 10px 0 0 0;
 }
 
@@ -104,13 +104,17 @@ p+span, a+span{
     border: none;
 }
 
+#fb-user-videos > .col-6 > .video{
+    height: 110px !important;
+    margin-bottom: 15px;
+}
+
 .video{
-    height: 110px;
+    height: auto;
     position: relative;
     border-radius: 10px;
     background-size: cover;
     background-position: center;
-    margin-bottom: 15px;
 }
 
 .video div{
@@ -240,7 +244,7 @@ footer p{ margin-bottom: 0;}
 }
 
 #yt-preview{
-    max-height: 0;
+    max-height: auto;
     overflow: hidden;
     padding: 0 10px;
     transition: 1s;
@@ -254,7 +258,7 @@ footer p{ margin-bottom: 0;}
 #yt-preview.show{
     padding: 10px;
     padding-top: calc(1.8125rem + 10px);
-    max-height: 200px;
+    max-height: auto;
 }
 
 
