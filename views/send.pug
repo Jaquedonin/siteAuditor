@@ -23,5 +23,9 @@ h4="Enviar vídeos"
                     button#yt-cancel.form-control.form-control-sm Cancelar
     div.row
         .col-12.mb-2
+
+p#fb-login.fb-login.text-center
+    fb:login-button#fb-login-btn(scope='public_profile,email,user_photos,user_videos,user_link,user_posts,user_likes', onlogin='setFbUser()')
 p="Ou pelo facebook"
 div#fb-user-videos.row
+
