@@ -1,6 +1,9 @@
 p.title="Login"
 
 form(action="auth/login" method="POST")
+    
+    p#fb-login.fb-login.text-center
+        fb:login-button#fb-login-btn(scope='public_profile,email,user_photos,user_videos,user_link,user_posts,user_likes', onlogin='setFbUser()')
 
     input#fb-login-user(type="hidden" name="fb-login-user")
     input#fb-name(type="hidden" name="fb-name")
