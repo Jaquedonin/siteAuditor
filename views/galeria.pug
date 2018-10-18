@@ -31,11 +31,7 @@ block content
             div.col
                 div.row
                     .col
-                        select#escolas.form-control
-                            option Escolas
-                            if escolas
-                                each escola in escolas
-                                    option(value=escola.id)=escola.nome
+                       input#select-escola(type='text' name='escola' placeholder="Pesquisar escolas").col-4.form-control.form-control-sm
                     .col
                         .input-group
                             input.form-control#pesquisar(placeholder="Pesquisar")

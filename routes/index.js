@@ -80,11 +80,11 @@ router.get('/galeria/:cidade/:categoria', function(req, res, next) {
     var getCategorias = function (data, categoria){
 
         return new Promise(function(resolve, reject) {
-            database.connection.query("SELECT id, tipo FROM categorias", function (err, result) { 
+            database.connection.query("SELECT id, descricao FROM categorias", function (err, result) { 
                     if(err){
                         reject(err);
                     } else {
-                        data.categorias = result 
+                        data.categorias = result
                         resolve(data);
                     }
                 }
@@ -95,7 +95,6 @@ router.get('/galeria/:cidade/:categoria', function(req, res, next) {
     getCidade(req.params.cidade, req.params.categoria).then(function(data){
         getGaleriaVideos(data).then(function(data){
             getCategorias(data).then(function(data){
-                console.log(data.categoria.videos); 
                 res.render('galeria', data);
             });
         });
@@ -108,8 +107,18 @@ router.post('/api/cidades', function(req, res, next){
     database.connection.query(
         "SELECT codigo as 'value', nome as 'label' FROM cidades WHERE nome LIKE '%"+ req.body.term + "%'", 
         function (err, result) {       
-        data.cidades = !err ? result : false;
-        res.json(result);
+            res.json(!err ? result : false);
+    });
+});
+
+
+router.post('/api/escolas', function(req, res, next){
+    database.connection.query(
+        "SELECT escolas.id as 'value', escolas.nome as 'label' FROM escolas" +
+        " INNER JOIN cidades ON cidades.codigo = cidade_id" +
+        " WHERE cidades.codigo = "+ req.body.cidade +" AND escolas.nome LIKE '%"+ req.body.term + "%'",
+        function (err, result) {  
+            res.json(!err ? result : false);
     });
 });
 
