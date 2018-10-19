@@ -31,7 +31,7 @@ block content
             div.col
                 div.row
                     .col
-                       input#select-escola(type='text' name='escola' placeholder="Pesquisar escolas").col-4.form-control.form-control-sm
+                       input#select-escola(type='text' name='escola' placeholder="Pesquisar escolas" value=escola.nome).form-control.form-control-sm
                     .col
                         .input-group
                             input.form-control#pesquisar(placeholder="Pesquisar")
@@ -40,9 +40,11 @@ block content
                 div.row
                     if categorias
                         ul.navbar-nav
+                            li(class= categoria.destaque ? "nav-item selected" : "nav-item")
+                                a.nav-link(href="destaques")="destaques"
                             each cat in categorias
-                                li(class= categoria.id == cat.id ? "nav-item selected" : "nav-item")
-                                    a.nav-link(href=cat.id)=cat.descricao
+                                li(class= cat.selected ? "nav-item selected" : "nav-item")
+                                    a.nav-link(href=cat.descricao)=cat.descricao
         #categoria.row
             if categoria && categoria.videos && categoria.videos.length > 0
                 - var destaque = true;
