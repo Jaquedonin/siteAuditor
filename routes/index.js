@@ -118,13 +118,11 @@ router.get('/galeria/:cidade/:escola/:categoria?', function(req, res, next) {
             id: req.params.escola == "todas" ? false : req.params.escola
         },
         categoria: {
-            destaque: req.params.categoria == "destaques",
+            destaque: !req.params.categoria || req.params.categoria == "destaques",
             descricao: req.params.categoria == "destaques" ? false : req.params.categoria
         }
     }
     
-    console.log(data);
-
     getGaleriaVideos(data).then(function(data){
         getCidade(data).then(function(data){
             getCategorias(data).then(function(data){
