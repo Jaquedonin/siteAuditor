@@ -14,7 +14,8 @@ h4="Enviar vídeos"
                     input#yt-name.form-control.form-control-sm(type="text" name="nome-aluno")
                     input#yt-title.form-control.form-control-sm(type="text" name="titulo")
                     input#yt-desc.form-control.form-control-sm(type="text" name="descricao")
-                    input#yt-url(type="hidden", name='url') 
+                    input#yt-url(type="hidden", name='url')
+                    input#yt.form-control.form-control-sm(type="text" name="escola" placeholder="Nome Escola")
                     select(type='text' name='codigo')#cidade.form-control.form-control.sm
                         if cidades
                             each cidade in cidades 
@@ -22,7 +23,7 @@ h4="Enviar vídeos"
                     select(type='text' name='categoria_id')#categoria.form-control.form-control.sm
                         if categorias
                             each categoria in categorias 
-                                option(value=categoria.id) #{categoria.tipo}
+                                option(value=categoria.id) #{categoria.descricao}
                     button#yt-add.form-control.form-control-sm Adicionar
                     button#yt-cancel.form-control.form-control-sm Cancelar
 

@@ -194,6 +194,7 @@ router.get('/dashboard', function(req, res, next) {
             console.log(err);
         }
     });
+    
     database.connection.query(query.findAll('categorias'), function (err, result) 
     {
         if(!err)
