@@ -53,6 +53,7 @@ window.addEventListener("load", function(){
     function fillYtForm(url, thumb, name, title, desc){
         document.getElementById("yt-url").value = url ? url : "";
         document.getElementById("yt-thumb").src = thumb ? thumb : "";
+        document.getElementById("yt-img").value = thumb ? thumb : "";
         document.getElementById("yt-name").value = name ? name : "";
         document.getElementById("yt-title").value = title ? title : "";
         document.getElementById("yt-desc").value = desc ? desc : "";
