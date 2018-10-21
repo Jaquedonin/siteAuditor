@@ -1,36 +1,31 @@
-get("cidades.json", initGaleria);
+window.addEventListener("load", function(){
+    $( "#select-escola" ).autocomplete({
+        source: function(request, response){
+            post("/api/escolas", {
+                term: request.term, 
+                cidade: window.location.pathname.split("/")[2]
+            }, response)
+        },
+        select: function( event, ui ) {
+            
+            console.log("select");
+            $( "#select-escola" ).val( ui.item.label );
+            
+            var path = window.location.pathname.split("/");
+            path[3] = ui.item.value;
 
-function initGaleria(cidades){
-    
-    var cidadeId = window.location.search.replace("?", "");
-    var cidadeNome = cidades[cidadeId];
-    
-    document.getElementById("nome-municipio").innerHTML = cidadeNome;
-    
-    get("fb-videos.json", function(galeria) {
-        galeria.forEach(function(video){
-            if(video['cidade'] == cidadeId){
-                
-                var wrapVideo = document.createElement("div");
-                wrapVideo.setAttribute("class", "wrapper");
-
-                var url = "https://www.facebook.com/" + video.user + "/videos/"+ video.id + "/";
-                
-                var previewVideo = document.createElement("iframe");
-                previewVideo.setAttribute("controls", true);
-                previewVideo.setAttribute('src', emberLink(url));
-
-                var descrCidade = document.createElement("p");
-                descrCidade.innerHTML = cidadeNome;
-                var descrEscola = document.createElement("p");
-                descrEscola.innerHTML = video.escola;
-
-                wrapVideo.appendChild(previewVideo);
-                wrapVideo.appendChild(descrCidade);
-                wrapVideo.appendChild(descrEscola);
-
-                videos.appendChild(wrapVideo);
-            }
-        });
+            window.location = window.location.origin + path.join("/");
+            return false;
+        },
+        open: function() {
+          $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+        },
+        close: function() {
+          $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+        },
+        focus: function(event, ui) {
+            $( "#select-escola" ).val( ui.item.label );
+            return false;
+        }
     });
-}
+})

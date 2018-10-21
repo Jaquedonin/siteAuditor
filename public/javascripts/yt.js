@@ -2,7 +2,9 @@ window.addEventListener("load", function(){
     gapi.client.setApiKey("AIzaSyA_l5mfOIWiR437wfKU3fU-8c2FS36uf48");
     gapi.client.load("youtube", "v3", function(){
 
-        document.getElementById('yt-btn').addEventListener("click", function(){
+    var btn = document.getElementById('yt-btn');
+    if(btn){
+        btn.addEventListener("click", function(){
             var url = document.getElementById('yt-link').value;
             if(url.match("[\?&]v=([^&#]*)") != null){
                 videoId = url.match("[\?&]v=([^&#]*)")[1];
@@ -20,16 +22,12 @@ window.addEventListener("load", function(){
                         snippet.title,
                         snippet.description
                     );
-                    
                     toggleYtPreview(true);
-
-                    
-
                 }, function(err) { console.error("Yt:", err); });
-              
+            
             }      
         })
-
+    
         document.getElementById('yt-add').addEventListener("click", function(){
             toggleYtPreview();
         });
@@ -37,7 +35,8 @@ window.addEventListener("load", function(){
         document.getElementById('yt-cancel').addEventListener("click", function(){
             toggleYtPreview();
         });
-    })
+    }
+})
 
     function toggleYtPreview(show){
         var ytPreview = document.getElementById("yt-preview");
