@@ -244,7 +244,7 @@ footer p{ margin-bottom: 0;}
 }
 
 #yt-preview{
-    max-height: auto;
+    max-height: 0;
     overflow: hidden;
     padding: 0 10px;
     transition: 1s;
@@ -258,7 +258,7 @@ footer p{ margin-bottom: 0;}
 #yt-preview.show{
     padding: 10px;
     padding-top: calc(1.8125rem + 10px);
-    max-height: auto;
+    max-height: 1000px;
 }
 
 
