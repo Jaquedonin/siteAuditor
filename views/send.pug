@@ -9,13 +9,14 @@ h4="Enviar vídeos"
         .row
             .col-4
                 img#yt-thumb
+                input#yt-img(type="hidden", name='img')
             .col-8
                 form(method='POST' action='/videos')
                     input#yt-name.form-control.form-control-sm(type="text" name="nome-aluno")
                     input#yt-title.form-control.form-control-sm(type="text" name="titulo")
                     input#yt-desc.form-control.form-control-sm(type="text" name="descricao")
                     input#yt-url(type="hidden", name='url')
-                    input#yt.form-control.form-control-sm(type="text" name="escola" placeholder="Nome Escola")
+                    input#yt-escol.form-control.form-control-sm(type="text" name="escola" placeholder="Nome Escola")
                     select(type='text' name='codigo')#cidade.form-control.form-control.sm
                         if cidades
                             each cidade in cidades 
