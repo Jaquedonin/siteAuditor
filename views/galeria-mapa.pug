@@ -17,8 +17,20 @@ div.d-flex.flex-column.align-content-stretch
                 #videos
                     if videos
                         each video in videos
-                            .video
-                                iframe(type='text/html' style="border-radius: 10px" width='100%' height='100%' src=video.url controls='' frameborder='0')   
+                            - var thumb = video.thumb ? video.thumb : "https://picsum.photos/160/160"
+                            - var title = video.title ? video.title : "Título do vídeo"
+                            - var description = video.desc ? video.desc : "Descrição do vídeo"
+                            - var author = video.autor ? video.autor : "Autor do vídeo"
+
+                            .video(onclick="visualizarVideo("+video.id+")")
+                                .row
+                                    .preview.col-6(style="background-image: url("+thumb+")")
+                                        i.fa.fa-play
+                                    .info.col-6
+                                        .autor=author
+                                        .titulo
+                                            b=title
+                                        .short=description
                 a#ver-galeria.btn.btn-danger(href="galeria/" + cidade.codigo + "/todas/") 
                     i.fas.fa-play
                     span VER GALERIA

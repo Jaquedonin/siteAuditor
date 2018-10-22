@@ -6,6 +6,7 @@ function get(url, onsuccess) {
     }
 
     request.open("GET", url, true);
+    request.setRequestHeader("Content-type", "application/json");
     request.send();
 }
 

@@ -7,7 +7,7 @@
 6 silly lifecycle nodejs@0.0.0~prestart: no script for prestart, continuing
 7 info lifecycle nodejs@0.0.0~start: nodejs@0.0.0
 8 verbose lifecycle nodejs@0.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle nodejs@0.0.0~start: PATH: /usr/share/npm/bin/node-gyp-bin:/var/www/html/lavid/siteauditor/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+9 verbose lifecycle nodejs@0.0.0~start: PATH: /usr/share/npm/bin/node-gyp-bin:/var/www/html/lavid/siteauditor/node_modules/.bin:/home/morgendoffer/Programas/google-cloud-sdk-220.0.0-linux-x86_64/google-cloud-sdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 10 verbose lifecycle nodejs@0.0.0~start: CWD: /var/www/html/lavid/siteauditor
 11 silly lifecycle nodejs@0.0.0~start: Args: [ '-c', 'node ./bin/www' ]
 12 silly lifecycle nodejs@0.0.0~start: Returned: code: 1  signal: null

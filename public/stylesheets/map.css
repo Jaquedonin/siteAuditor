@@ -83,7 +83,7 @@ path {
     transition: transform .5s;
 }
 
-#galery{
+#galeria-mapa{
     width: 30%;
     height: 100%;
     background: #26292b;
@@ -93,36 +93,64 @@ path {
     transition: all 1s;
 }
 
-#galery.show{
+#galeria-mapa.show{
     left:0;
 }
 
-#galery > div{
+#galeria-mapa > div{
     height: 100%;
     padding: 20px;
 }
 
-#galery #nome-municipio{
+#galeria-mapa #nome-municipio{
     color: #fff;
     margin-bottom: 2rem;
 }
 
-#galery #close-cidade{
+#galeria-mapa #close-cidade{
     color: #fff;
     text-align: right;
 }
 
-#galery p.section{
+#galeria-mapa p.section{
     color: #1fd2e5;
     border-bottom: 1px solid #1fd2e5;
     font-size: .8em;
     padding-bottom: .5em;
 }
 
-#galery #videos{
+#galeria-mapa #videos{
     padding: 0 10px 0 0;
     flex: 1;
     overflow-y:scroll;
+}
+
+#galeria-mapa .video .row{
+    height: 100%;
+    margin: 0;
+}
+
+#galeria-mapa .video{
+    height: 100px;
+    margin-bottom: 10px;
+    border-radius: 0;
+}
+
+#galeria-mapa .video .preview{
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+
+#galeria-mapa .video .preview,
+#galeria .video .preview{
+    min-height: 100px;
+    background-size: cover;
+    background-position: center;
+}
+
+#galeria .destaque .video .preview{
+    height: 200px;
 }
 
 li.nav-item {
@@ -180,6 +208,7 @@ li.nav-item {
 #ver-galeria > *{
     margin: 0 5px;
 }
+
 #voltar-galeria {
     width: 100px;
     height: 140px;
@@ -259,29 +288,59 @@ li.nav-item {
     overflow-y: scroll;
 }
 
-#galeria #categoria .info{
+#galeria #categoria .video .info,
+#galeria-mapa .video .info{
     border: 1px solid #fff;
     padding: 10px;
     color: #fff;
 }
 
-#galeria #categoria .destaque .info .titulo{
+#galeria #categoria .destaque .video .info .titulo,
+#galeria-mapa .destaque .video .info .titulo{
     margin: 10px 0;
 }
 
-#galeria #categoria > .video{
+#galeria #categoria > .video,
+#galeria -mapa .video{
     padding: 5px 0;
 }
 
-
-#galeria #categoria > .video > .row{
-    margin: 0;
+#galeria #categoria > .video > .row,
+#galeria-mapa > .video > .row{
+        margin: 0;
 }
 
 #galeria #categoria > .video:nth-child(3n){
     padding: 5px 10px;
 }
 
-#galeria #categoria .preview{
+#galeria #categoria .video .preview,
+#galeria-mapa .video .preview{
     padding:0;
 }
+
+#visualizar-video .modal-content {
+    background: #272727;
+    border-radius: 0;
+}
+
+#visualizar-video *{
+    color: #fff;
+}
+
+#visualizar-video .views{
+    text-align: right;
+    margin-bottom: 20px
+}
+#visualizar-video .modal-header {
+    border: 0;
+    padding: 15px 15px 0 45px;
+}
+
+#visualizar-video button.close {
+    padding: 10px 15px 0 0;
+}
+
+#visualizar-video .modal-body {
+    padding: 5px 45px;
+}   
