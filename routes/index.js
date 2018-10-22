@@ -256,6 +256,27 @@ router.get('/auth', function(req, res, next) {
     res.render('auth');
 });
 
+router.get('/video/:id', function(req, res) {
+    
+    var getVideo = function (id){
+        return new Promise(function(resolve, reject){
+            database.connection.query("SELECT * FROM videos WHERE id = " + id, function(err, result){
+                if(err){
+                    reject(err);
+                } else {
+                    resolve(result ? result[0] : false)
+                }
+            });
+        });
+    }
+
+    getVideo(req.params.id).then(function(data){
+        res.app.render('video', {video: data}, function(err, html){
+            res.send({html:html});
+        });
+    });
+});
+
 router.post('/galeria', function(req, res)
 {
     var codigo = req.body.cidade;
@@ -291,7 +312,7 @@ router.post('/galeria', function(req, res)
     var getCidadeVideos = function(codigo, data) {
         return new Promise(function(resolve, reject) {
             database.connection.query(
-                "SELECT * FROM videos" +
+                "SELECT videos.* FROM videos" +
                 " INNER JOIN professores_escolas ON professores_escolas.id = videos.professor_escola_id" +
                 " INNER JOIN escolas ON escola_id = escolas.id AND cidade_id = " + codigo     
                 , function (err, result) { 

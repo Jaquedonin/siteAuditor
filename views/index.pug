@@ -30,6 +30,8 @@ block content
                     #zoom-in(onclick="zoomIn()") +
                     #zoom-out(onclick="zoomOut()") -
         include mapa.pug
-        div#galery
-    include modal-videos.pug
+        div#galeria-mapa
     script(type='text/javascript', src='javascripts/mapa.js')
+
+block modal
+    #visualizar-video.modal(tabindex='-1', role='dialog')

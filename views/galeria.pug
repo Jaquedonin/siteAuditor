@@ -49,23 +49,31 @@ block content
             if categoria && categoria.videos && categoria.videos.length > 0
                 - var destaque = true;
                     each video in categoria.videos
+                        - var thumb = video.thumb ? video.thumb : "https://picsum.photos/1024/500"
+                        - var title = video.title ? video.title : "Título do vídeo"
+                        - var description = video.desc ? video.desc : "Descrição do vídeo"
+                        - var author = video.autor ? video.autor : "Autor do vídeo"
+
                         if destaque
                             div(id=categoria.nome).destaque.col-12
-                                .video.row
-                                    .preview.col-6
-                                        iframe(type='text/html' width='100%' height='100%' src=video.url controls='' frameborder='0')   
+                                .video.row(onclick="visualizarVideo("+video.id+")")
+                                    .preview.col-6(style="background-image: url("+thumb+")")
+                                        i.fa.fa-play
                                     .info.col-6
-                                        .autor="Nome do autor"
+                                        .autor=author
                                         .titulo
-                                            b="Título do vídeo"
-                                        .descr="Quisque interdum augue eget augue feugiat porttitor. Curabitur id congue orci. Ut sed purus vitae mi convallis euismod. Proin vel nibh libero. Maecenas cursus risus at ultricies iaculis."
+                                            b=title
+                                        .descr=description
                             - destaque = false                        
                         else
-                            .video.col-4
-                                .row
-                                    .preview.col-6
-                                        iframe(type='text/html' width='100%' height='100%' src=video.url controls='' frameborder='0')   
+                            .video.col-4(onclick="visualizarVideo("+video.id+")")
+                                .row(onclick="visualizarVideo("+video.id+")")
+                                    .preview.col-6(style="background-image: url("+thumb+")")
+                                        i.fa.fa-play
                                     .info.col-6
-                                        .autor="Nome do autor"
+                                        .autor=author
                                         .titulo
-                                        b="Título do vídeo"
+                                            b=title
+                                        .descr=description
+block modal
+    #visualizar-video.modal(tabindex='-1', role='dialog')

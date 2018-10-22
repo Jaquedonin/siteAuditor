@@ -12,7 +12,7 @@ function initMapa(nomes){
                 cidade.setAttribute("data-original-title", nomes[cidade.id]);
                 
                 cidade.addEventListener("click", function(event){
-                    openGalery(event.target.id);
+                    openGaleria(event.target.id);
                 });
             }
         }
@@ -26,7 +26,7 @@ function initMapa(nomes){
         select: function( event, ui ) {
             console.log(ui)
             $( "#select-cidade" ).val( ui.item.label );
-            openGalery(ui.item.value);
+            openGaleria(ui.item.value);
             return false;
         },
         open: function() {
@@ -39,24 +39,24 @@ function initMapa(nomes){
 
 }
 
-function openGalery(cidade){
-    toggleGalery(false);  
+function openGaleria(cidade){
+    toggleGaleria(false);  
     post("galeria", {"cidade": cidade}, function(response){
         setTimeout(function(){
-            document.getElementById("galery").innerHTML = response.html;
-            toggleGalery(true); 
+            document.getElementById("galeria-mapa").innerHTML = response.html;
+            toggleGaleria(true); 
         }, 1000)
     }, false);
 }
 
-function toggleGalery(show){
-    var galery = document.getElementById("galery");
-    var toggled = galery.getAttribute("class") == "show";
+function toggleGaleria(show){
+    var galeria = document.getElementById("galeria-mapa");
+    var toggled = galeria.getAttribute("class") == "show";
 
     if(toggled && !show){
-        galery.setAttribute("class", "");
+        galeria.setAttribute("class", "");
     } else {
-        galery.setAttribute("class", "show");
+        galeria.setAttribute("class", "show");
     }
 }
 

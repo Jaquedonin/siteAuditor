@@ -28,6 +28,10 @@ window.addEventListener("load", function(){
             getYtVideo(ytVideo.getAttribute("data-url"));
         }
     }
+
+    $("#visualizar-video").on("hidden.bs.modal", function(){
+        $("#visualizar-video").html("");
+    });
 });
 
 function getVideoInfo(urls, onsuccess) {
@@ -96,3 +100,11 @@ function fillVideoForm(video){
     document.getElementById("yt-title").value = video.title;
     document.getElementById("yt-desc").value = video.description;
 }
+
+function visualizarVideo(id){
+    get("/video/" + id, function (response) {
+        $("#visualizar-video").html(response.html);
+        $("#visualizar-video").modal("show");
+    })
+}
+
