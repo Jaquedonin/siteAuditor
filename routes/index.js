@@ -337,6 +337,9 @@ router.post('/galeria', function(req, res)
         //buscar informacoes e retornar a pagina da galeria como resposta
         getCidadeInfo(codigo).then(function(data){
             getCidadeVideos(codigo, data).then(function(data){
+
+
+                data.user = req.session.user
                 //ao final, envia a view galeria-mapa como resposta
                 res.app.render('galeria-mapa', data, function(err, html){
                     res.send({html:html});

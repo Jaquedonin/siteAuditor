@@ -11,9 +11,19 @@
     color: #fff;
 }
 
-#mapa-header #logo img{
+#logo img{
     height: 2em;
+    position: relative;
+    top: -.25em;
 }
+
+#logo span{
+    font-size: 10pt;
+    display: inline-block;
+    text-align: left;
+    margin: 5pt 0 0 5pt;
+}
+
 
 path {
 	fill: #ccc;

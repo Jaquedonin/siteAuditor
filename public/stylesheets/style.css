@@ -239,31 +239,64 @@ footer p{ margin-bottom: 0;}
     z-index: 2;
 }
 
+#yt .input-group-append .input-group-text {
+    background: #354A5B;
+    color: #fff;
+}
+
 #yt {
     margin-bottom: 0;
 }
 
+#yt .row input, #yt .row select {
+    border-radius: 12px;
+    padding-left: 10px;
+    margin-bottom: 4px;
+    font-size: 10pt;
+    border-color: #354A5B;
+}
+
 #yt-preview{
-    max-height: 0;
     overflow: hidden;
-    padding: 0 10px;
     transition: 1s;
     background: #fff;
     top: calc(-1.8125rem);
     border-radius: .2rem;
     border: 1px solid #ced4da;
     z-index: 1;
-}
-
-#yt-preview.show{
     padding: 10px;
     padding-top: calc(1.8125rem + 10px);
-    max-height: 1000px;
 }
 
+div#yt-preview:after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    content: "Insira o link do vídeo";
+    color: rgba(255,255,255,0.8);
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.9);
+    padding-top: 75px;
+    text-align: center;
+}
+
+div#yt-preview.show:after{
+    display:none;
+} 
+
+#yt-preview .row .col-4{
+    align-items: center;
+    display: flex;
+}
 
 #yt-thumb {
     width: 100%;
+    min-height: 131px;
+    background-color: #000;
+    display: block;
+    border-radius: 10px;
+    margin-top: -25px;
 }
 
 #yt-preview button{

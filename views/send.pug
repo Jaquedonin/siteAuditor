@@ -12,16 +12,18 @@ h4="Enviar vídeos"
                 input#yt-img(type="hidden", name='img')
             .col-8
                 form(method='POST' action='/videos')
-                    input#yt-name.form-control.form-control-sm(type="text" name="nome-aluno")
-                    input#yt-title.form-control.form-control-sm(type="text" name="titulo")
-                    input#yt-desc.form-control.form-control-sm(type="text" name="descricao")
+                    input#yt-name.form-control.form-control-sm(type="text" name="nome-aluno" placeholder="Nome do aluno")
+                    input#yt-title.form-control.form-control-sm(type="text" name="titulo" placeholder="Título")
+                    input#yt-desc.form-control.form-control-sm(type="text" name="descricao" placeholder="Descrição")
                     input#yt-url(type="hidden", name='url')
                     input#yt-escol.form-control.form-control-sm(type="text" name="escola" placeholder="Nome Escola")
                     select(type='text' name='codigo')#cidade.form-control.form-control.sm
+                        option="Cidade"
                         if cidades
                             each cidade in cidades 
                                 option(value=cidade.codigo) #{cidade.nome}
                     select(type='text' name='categoria_id')#categoria.form-control.form-control.sm
+                        option="Categoria"
                         if categorias
                             each categoria in categorias 
                                 option(value=categoria.id) #{categoria.descricao}
@@ -30,9 +32,4 @@ h4="Enviar vídeos"
 
     div.row
         .col-12.mb-2
-
-p#fb-login.fb-login.text-center
-    fb:login-button#fb-login-btn(scope='public_profile,email,user_photos,user_videos,user_link,user_posts,user_likes', onlogin='setFbUser()')
-p="Ou pelo facebook"
-div#fb-user-videos.row
 

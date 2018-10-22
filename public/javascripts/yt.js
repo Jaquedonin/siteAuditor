@@ -86,19 +86,19 @@ function toggleYtPreview(show){
 
     if(toggled && !show){
         ytPreview.setAttribute("class", "col-12");
-        setTimeout(fillVideoForm, 1000);
+        fillVideoForm({});
     } else {
         ytPreview.setAttribute("class", "col-12 show");
     }
 }
 
 function fillVideoForm(video){
-    document.getElementById("yt-url").value = video.url;
-    document.getElementById("yt-thumb").src = video.thumb;
-    document.getElementById("yt-img").value = video.thumb;
-    document.getElementById("yt-name").value = video.name;
-    document.getElementById("yt-title").value = video.title;
-    document.getElementById("yt-desc").value = video.description;
+    document.getElementById("yt-url").value = video.url ? video.url : "";
+    document.getElementById("yt-thumb").src = video.thumb ? video.thumb : "";
+    document.getElementById("yt-img").value = video.thumb ? video.thumb : "";
+    document.getElementById("yt-name").value = video.name ? video.name : "";
+    document.getElementById("yt-title").value = video.title ? video.title : "";
+    document.getElementById("yt-desc").value = video.description ? video.description : "";
 }
 
 function visualizarVideo(id){

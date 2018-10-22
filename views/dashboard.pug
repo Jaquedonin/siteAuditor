@@ -1,21 +1,21 @@
 extends layout.pug
 block content
-    main#dashboard.d-flex.flex-column.align-content-stretch
-        header
-            nav#header.navbar.navbar-inverse
-                .container
-                        a.navbar-brand Painel de Gerenciamento    
-                        #user.col-6
-                                .row
-                                    .col
-                                        .row
-                                            .container.text-right
-                                                span.text-right=user.nome
-                                        .row
-                                            .container.text-right
-                                                a(href="auth/logout") Sair
-                                    .col#fb-photo
-                                        img(src=user.foto)                   
+    header#mapa-header
+        nav.navbar.navbar-expand-lg.navbar-dark.navbar-fixed-top
+            .container
+                a.navbar-brand.col-4(href='#page-top') PAINEL DE GERENCIAMENTO
+                #logo.navbar-brand.col-4
+                    img(src="images/logo_tce.png")
+                    span Tribunal de Contas do <br/> Estado da Paraíba
+                button.navbar-toggler.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar', aria-label='Toggle navigation')
+                    span.sr-only Toggle navigation
+                    span.navbar-toggler-icon
+                #navbar.col-4.collapse.navbar-collapse
+                    ul.navbar-nav.ml-auto
+                        li.nav-item
+                            a.nav-link(href="auth/logout") SAIR
+                                    
+    main#dashboard.d-flex.flex-column.align-content-stretch                
         div#send-list
             .row.d-flex.flex-row.justify-content-around
                 #send.col-md-4.d-flex.flex-column.align-content-stretch
