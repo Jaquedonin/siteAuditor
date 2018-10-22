@@ -27,16 +27,27 @@ router.post('/videos', function(req, res, next) {
 	}
 
 	var data = [req.session.professorEscolaId, url_embed , req.body.codigo, parseInt(req.body.categoria_id), req.body.titulo];
-	console.log(data);
-	database.connection.query(query.insertOne("videos", data ), function (err, result) {
-		if(err){
-			res.setHeader('Content-Type', 'application/json');
-			return res.status(400).send(err);
-		}
-		else{
-			return res.redirect('/dashboard');
-		}
-	});
+    console.log(data);
+    database.connection.connect(function(err){
+        if(err) {
+
+            res.status(500).json({
+                error: 1,
+                data: "Internal Server Error"
+            });
+
+        } else {
+            database.connection.query(query.insertOne("videos", data ), function (err, result) {
+                if(err){
+                    res.setHeader('Content-Type', 'application/json');
+                    return res.status(400).send(err);
+                }
+                else{
+                    return res.redirect('/dashboard');
+                }
+            });
+        }
+    });
 });
 
 
@@ -45,15 +56,26 @@ router.post('/delete/videos', function(req, res, next) {
 		console.log("req.body.id UNDEFINED");
 		return false;}
 	else{
-		database.connection.query(query.deleteOne("videos", req.body.id), function (err, result) {
-			if(err){
-				res.setHeader('Content-Type', 'application/json');
-				return res.status(400).send(err);
-			}
-			else{
-				return res.redirect('/dashboard');
-			}
-		});
+        database.connection.connect(function(err){
+            if(err) {
+    
+                res.status(500).json({
+                    error: 1,
+                    data: "Internal Server Error"
+                });
+    
+            } else {
+                database.connection.query(query.deleteOne("videos", req.body.id), function (err, result) {
+                    if(err){
+                        res.setHeader('Content-Type', 'application/json');
+                        return res.status(400).send(err);
+                    }
+                    else{
+                        return res.redirect('/dashboard');
+                    }
+                });
+            }
+        })
 	}
 });
 
@@ -63,19 +85,30 @@ router.get('/videos', function(req, res, next) {
 		return res.redirect('/auth');
 	}
 	else{
-		console.log(req.session.professorId)
-		database.connection.query(query.findAllVideos("professores_escolas", req.session.professorId), function (err, result) {
-			if(err){
-				res.setHeader('Content-Type', 'application/json');
-				return res.status(400).send(err);
-			}
-			else{
-				res.setHeader('Content-Type', 'application/json');
-				res.json(result);
-				res.end('video')
+        console.log(req.session.professorId)
+        database.connection.connect(function(err){
+            if(err) {
+    
+                res.status(500).json({
+                    error: 1,
+                    data: "Internal Server Error"
+                });
+    
+            } else {
+                database.connection.query(query.findAllVideos("professores_escolas", req.session.professorId), function (err, result) {
+                    if(err){
+                        res.setHeader('Content-Type', 'application/json');
+                        return res.status(400).send(err);
+                    }
+                    else{
+                        res.setHeader('Content-Type', 'application/json');
+                        res.json(result);
+                        res.end('video')
 
-			}
-		}); 	
+                    }
+                }); 
+            }
+        });	
 	}
 });
 

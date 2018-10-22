@@ -173,10 +173,7 @@ router.post('/register', function(req, res, next){
                 data: "Internal Server Error"
             });
 
-        } 
-
-        else 
-        {
+        } else {
             database.connection.query(
                 'INSERT INTO professores SET ?', 
                 [userData], 
@@ -215,41 +212,53 @@ router.get('/dashboard', function(req, res, next) {
 
     data.user = true;
 
-    database.connection.query(query.findAllVideos(req.session.professorId), function (err, result) 
-    {
-        if(!err)
+    database.connection.connect(function(err){
+        
+        if(err) 
         {
 
-            data.videos = result;
-            database.connection.query(query.findAll('cidades'), function (err, result) {
-                
+            res.status(500).json({
+                error: 1,
+                data: "Internal Server Error"
+            });
+
+        } else {
+            database.connection.query(query.findAllVideos(req.session.professorId), function (err, result) 
+            {
                 if(!err)
                 {
-                    data.cidades = result;
-                    res.render('dashboard', data);
+
+                    data.videos = result;
+                    database.connection.query(query.findAll('cidades'), function (err, result) {
+                        
+                        if(!err)
+                        {
+                            data.cidades = result;
+                            res.render('dashboard', data);
+                        }
+                    }); 
                 }
-            }); 
-        }
 
-        else
-        {
-            console.log(err);
+                else
+                {
+                    console.log(err);
+                }
+            });
+            
+            database.connection.query(query.findAll('categorias'), function (err, result) 
+            {
+                if(!err)
+                {
+                    data.categorias = result;
+                }
+
+                else
+                {
+                    console.log(err);
+                }
+            });
         }
     });
-    
-    database.connection.query(query.findAll('categorias'), function (err, result) 
-    {
-        if(!err)
-        {
-            data.categorias = result;
-        }
-
-        else
-        {
-            console.log(err);
-        }
-    });
-
 });
 
 router.get('/auth', function(req, res, next) {
@@ -269,11 +278,24 @@ router.get('/video/:id', function(req, res) {
             });
         });
     }
+    database.connection.connect(function(err){
+        
+        if(err) 
+        {
 
-    getVideo(req.params.id).then(function(data){
-        res.app.render('video', {video: data}, function(err, html){
-            res.send({html:html});
-        });
+            res.status(500).json({
+                error: 1,
+                data: "Internal Server Error"
+            });
+
+        } else {
+            getVideo(req.params.id).then(function(data){
+                res.app.render('video', {video: data}, function(err, html){
+                    res.send({html:html});
+                });
+                
+            });
+        }
     });
 });
 
@@ -327,15 +349,28 @@ router.post('/galeria', function(req, res)
         });
     }
     
-    //buscar informacoes e retornar a pagina da galeria como resposta
-    getCidadeInfo(codigo).then(function(data){
-        getCidadeVideos(codigo, data).then(function(data){
-            //ao final, envia a view galeria-mapa como resposta
-            res.app.render('galeria-mapa', data, function(err, html){
-                res.send({html:html});
+    database.connection.connect(function(err){
+        
+        if(err) 
+        {
+
+            res.status(500).json({
+                error: 1,
+                data: "Internal Server Error"
             });
-        });
-    });
+
+        } else {
+            //buscar informacoes e retornar a pagina da galeria como resposta
+            getCidadeInfo(codigo).then(function(data){
+                getCidadeVideos(codigo, data).then(function(data){
+                    //ao final, envia a view galeria-mapa como resposta
+                    res.app.render('galeria-mapa', data, function(err, html){
+                        res.send({html:html});
+                    });
+                });
+            });
+        }
+    })
 }); 
 
 module.exports = router;
