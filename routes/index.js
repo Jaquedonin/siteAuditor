@@ -289,6 +289,12 @@ router.post('/galeria', function(req, res)
 
     //buscar cidade selecionada  e suas estatisticas
     var getCidadeInfo = function(codigo, index, data) {
+
+        console.log("SELECT group_concat(distinct cidades.nome) as nome, count(distinct escolas.id) as escolas, count(distinct professores_escolas.professor_id) as colaboradores FROM cidades" +
+        " LEFT JOIN escolas ON cidade_id = cidades.codigo" +
+        " LEFT JOIN professores_escolas ON escola_id = escolas.id" +
+        " WHERE cidades.codigo = " + codigo);
+
         return new Promise(function(resolve, reject) {
             database.connection.query(
                 "SELECT group_concat(distinct cidades.nome) as nome, count(distinct escolas.id) as escolas, count(distinct professores_escolas.id) as colaboradores FROM cidades" +
@@ -296,7 +302,7 @@ router.post('/galeria', function(req, res)
                 " LEFT JOIN professores_escolas ON escola_id = escolas.id" +
                 " WHERE cidades.codigo = " + codigo
                 , function (err, result) { 
-                    if(err){
+                    if(err){galeria-mapa
                         reject(err);
                     } else {
                         data = {
