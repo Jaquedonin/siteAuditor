@@ -6,57 +6,34 @@ var functions = require('../include/functions')
 
 //inserir videos
 router.post('/videos', function(req, res, next) {
-	//variables to test url Facebook and Youtube 
 
-	var regexYouTube = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
-	var regexFacebook = /(?:http:\/\/)?(?:www\.)?facebook\.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-]*)/;
-
-	if(regexYouTube.test(req.body.url))
-	{
-		console.log(functions)
-		var url_embed = 'https://youtube.com/embed/'+functions.encodeYouTubeUrl(req.body.url);
-		
-	}
-	else if(regexFacebook.test(req.body.url))
-	{
-		var url_embed = functions.encodeFacebookUrl(req.body.url);	
-	}
-	else
-	{
-		var url_embed = "Erro em url_embed";
-	}
-
-	var data = [req.session.professorEscolaId, url_embed , req.body.codigo, parseInt(req.body.categoria_id), req.body.titulo];
-    console.log(data);
+    var cols = ["professor_id", "escola_id", "cidade_id", "categoria_id", "url", "titulo", "thumb"];
+	var vals = [
+        parseInt(req.session.professorId), 
+        parseInt(req.body.escola_id),
+        parseInt(req.body.cidade_id), 
+        parseInt(req.body.categoria_id), 
+        req.body.url, 
+        req.body.titulo,
+        req.body.thumb
+    ];
+       
     functions.connectDB(database.connection).then(function(){
-        database.connection.query(query.insertOne("videos", data ), function (err, result) {
-            if(err){
-                res.setHeader('Content-Type', 'application/json');
-                return res.status(400).send(err);
-            }
-            else{
-                return res.redirect('/dashboard');
-            }
+        database.connection.query(query.insertOne("videos", cols, vals), function (err, result) {
+            var status =  err ? 400 : 200;
+            return res.redirect('/dashboard', status);
         });
     });
 });
 
-
 router.post('/delete/videos', function(req, res, next) {
 	if(req.body.id === undefined){
-		console.log("req.body.id UNDEFINED");
-		return false;}
-	else{
-
+        return false;
+    } else {
         functions.connectDB(database.connection).then(function(){
             database.connection.query(query.deleteOne("videos", req.body.id), function (err, result) {
-                if(err){
-                    res.setHeader('Content-Type', 'application/json');
-                    return res.status(400).send(err);
-                }
-                else{
-                    return res.redirect('/dashboard');
-                }
+                var status =  err ? 400 : 200;
+                return res.redirect('/dashboard', status);
             });
         })
 	}
@@ -64,28 +41,15 @@ router.post('/delete/videos', function(req, res, next) {
 
 router.get('/videos', function(req, res, next) {	
 	if(req.session.professorId === undefined){
-		console.log("redirect login")
 		return res.redirect('/auth');
-	}
-	else{
-        console.log(req.session.professorId)
+	} else {
         functions.connectDB(database.connection).then(function(){
-            database.connection.query(query.findAllVideos("professores_escolas", req.session.professorId), function (err, result) {
-                if(err){
-                    res.setHeader('Content-Type', 'application/json');
-                    return res.status(400).send(err);
-                }
-                else{
-                    res.setHeader('Content-Type', 'application/json');
-                    res.json(result);
-                    res.end('video')
-                    
-                }
+            database.connection.query(query.findAllVideos(req.session.professorId), function (err, result) {
+                var status =  err ? 400 : 200;
+                res.json(status, result);
             }); 
-        
         });
     }
 });
-
 
 module.exports = router;

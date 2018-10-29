@@ -7,8 +7,6 @@ window.addEventListener("load", function(){
             }, response)
         },
         select: function( event, ui ) {
-            
-            console.log("select");
             $( "#select-escola" ).val( ui.item.label );
             
             var path = window.location.pathname.split("/");

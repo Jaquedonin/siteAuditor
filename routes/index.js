@@ -5,6 +5,7 @@ var query = require('../query');
 var fs = require('fs');
 var data = JSON.parse(fs.readFileSync('./database/data.json', 'utf8'));
 var functions = require('../include/functions');
+var https = require('https');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -47,7 +48,8 @@ router.get('/galeria/:cidade/:escola/:categoria?', function(req, res, next) {
 
     var getCategorias = function (data, categoria){
         return new Promise(function(resolve, reject) {
-            database.connection.query("SELECT id, descricao, CASE WHEN descricao LIKE '"+data.categoria.descricao+"' THEN 1 ELSE 0 END as selected FROM categorias", function (err, result) { 
+            database.connection.query(
+                "SELECT id, descricao, CASE WHEN descricao LIKE '"+data.categoria.descricao+"' THEN 1 ELSE 0 END as selected FROM categorias", function (err, result) { 
                     if(err){
                         reject(err);
                     } else {
@@ -80,8 +82,7 @@ router.get('/galeria/:cidade/:escola/:categoria?', function(req, res, next) {
         
         var query = "SELECT videos.id, videos.url, escolas.nome as escola FROM videos" +
         " INNER JOIN cidades ON cidades.codigo = " + data.cidade.codigo +
-        " INNER JOIN professores_escolas ON professores_escolas.id = videos.professor_escola_id" +
-        " INNER JOIN escolas ON escola_id = escolas.id AND cidade_id = " + data.cidade.codigo;
+        " INNER JOIN escolas ON videos.escola_id = escolas.id AND escolas.cidade_id = " + data.cidade.codigo;
 
         if(data.escola.id){
             query += " AND escolas.id = " + data.escola.id;
@@ -137,23 +138,43 @@ router.get('/galeria/:cidade/:escola/:categoria?', function(req, res, next) {
         
 });
 
+router.post('/api/fb', function(req, res, next){
+
+    var id = req.body.id;
+    var fields = req.body.fields;
+    var accessToken = "460691281030259|NI2_FSbKRZCLjcV9NhQI8UuNmIQ";
+
+    console.log(id, fields, accessToken);
+    console.log('https://graph.facebook.com/v3.0/'+id+'?fields=' + fields + '&access_token=' + accessToken);
+    
+    https.get('https://graph.facebook.com/v3.0/'+id+'?fields=' + fields + '&access_token=' + accessToken , function(resp) {
+    
+        var data = '';
+        
+        resp.on('data', function(chunk) {
+            data += chunk;
+        }).on('end', function() {
+            res.json(JSON.parse(data));
+        });
+
+    });
+});
+
 router.post('/api/cidades', function(req, res, next){
-    functions.connectDB(database.connection).then(function(){
+    functions.connectDB(database.connection).then(function(){       
         database.connection.query(
             "SELECT codigo as 'value', nome as 'label' FROM cidades WHERE nome LIKE '%"+ req.body.term + "%'", 
-            function (err, result) {       
+            function (err, result) {
                 res.json(!err ? result : false);
         });
     });
 });
 
-
 router.post('/api/escolas', function(req, res, next){
     functions.connectDB(database.connection).then(function(){
         database.connection.query(
             "SELECT escolas.id as 'value', escolas.nome as 'label' FROM escolas" +
-            " INNER JOIN cidades ON cidades.codigo = cidade_id" +
-            " WHERE cidades.codigo = "+ req.body.cidade +" AND escolas.nome LIKE '%"+ req.body.term + "%'",
+            " WHERE escolas.nome LIKE '%"+ req.body.term + "%'",
             function (err, result) {  
                 res.json(!err ? result : false);
         });
@@ -290,13 +311,19 @@ router.post('/galeria', function(req, res)
     //buscar cidade selecionada  e suas estatisticas
     var getCidadeInfo = function(codigo, index, data) {
         return new Promise(function(resolve, reject) {
+            console.log(
+                "SELECT group_concat(distinct cidades.nome) as nome, count(distinct escolas.id) as escolas, count(distinct videos.professor_id) as colaboradores FROM cidades" +
+                " LEFT JOIN escolas ON escolas.cidade_id = cidades.codigo" +
+                " LEFT JOIN videos ON videos.cidade_id = cidades.codigo" +
+                " WHERE cidades.codigo = " + codigo
+            );
             database.connection.query(
-                "SELECT group_concat(distinct cidades.nome) as nome, count(distinct escolas.id) as escolas, count(distinct professores_escolas.professor_id) as colaboradores FROM cidades" +
-                " LEFT JOIN escolas ON cidade_id = cidades.codigo" +
-                " LEFT JOIN professores_escolas ON escola_id = escolas.id" +
+                "SELECT group_concat(distinct cidades.nome) as nome, count(distinct escolas.id) as escolas, count(distinct videos.professor_id) as colaboradores FROM cidades" +
+                " LEFT JOIN escolas ON escolas.cidade_id = cidades.codigo" +
+                " LEFT JOIN videos ON videos.cidade_id = cidades.codigo" +
                 " WHERE cidades.codigo = " + codigo
                 , function (err, result) { 
-                    if(err){galeria-mapa
+                    if(err){
                         reject(err);
                     } else {
                         data = {
@@ -319,8 +346,7 @@ router.post('/galeria', function(req, res)
         return new Promise(function(resolve, reject) {
             database.connection.query(
                 "SELECT videos.* FROM videos" +
-                " INNER JOIN professores_escolas ON professores_escolas.id = videos.professor_escola_id" +
-                " INNER JOIN escolas ON escola_id = escolas.id AND cidade_id = " + codigo     
+                " INNER JOIN escolas ON escola_id = escolas.id AND escolas.cidade_id = " + codigo     
                 , function (err, result) { 
                     if(err){
                         reject(err);
@@ -337,8 +363,6 @@ router.post('/galeria', function(req, res)
         //buscar informacoes e retornar a pagina da galeria como resposta
         getCidadeInfo(codigo).then(function(data){
             getCidadeVideos(codigo, data).then(function(data){
-
-
                 data.user = req.session.user
                 //ao final, envia a view galeria-mapa como resposta
                 res.app.render('galeria-mapa', data, function(err, html){

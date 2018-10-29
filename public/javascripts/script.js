@@ -17,8 +17,14 @@ function post(url, send, onsuccess) {
             onsuccess(JSON.parse(request.response));
     }
 
-    
     request.open("POST", url, true);
     request.setRequestHeader("Content-type", "application/json");
     request.send(JSON.stringify(send));
+}
+
+function visualizarVideo(id){
+    get("/video/" + id, function (response) {
+        $("#visualizar-video").html(response.html);
+        $("#visualizar-video").modal("show");
+    })
 }
