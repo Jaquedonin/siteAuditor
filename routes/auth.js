@@ -80,24 +80,10 @@ auth.post('/login', function(req, res) {
                         req.session.token = token;
                         req.session.professorId = professorId;
                         
-                        var getProfEscolaId = new Promise(function(resolve, reject) {      
-                            database.connection.query(        
-                                    'SELECT * FROM professores_escolas WHERE professor_id = ?', 
-                                    [professorId], function(err, rowsProf, fields) {
-                                        resolve(rowsProf[0] ? rowsProf[0].id : false);
-                            })
-                        })
-                        
-                        getProfEscolaId.then(function(professorEscolaId){
-                            req.session.professorEscolaId = professorEscolaId
-                            
-                            req.session.user = {
-                                "nome": req.body['fb-name'],
-                                "foto": req.body['fb-photo']
-                            };
-                                
-                            return res.redirect('/bem-vindo');
-                        });
+                        req.session.user = {
+                            "nome": req.body['fb-name'],
+                            "foto": req.body['fb-photo']
+                        };
 
                     } else {
                         res.status(204).json({
