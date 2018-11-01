@@ -133,6 +133,7 @@ path {
     padding: 0 10px 0 0;
     flex: 1;
     overflow-y:scroll;
+    padding-top: 1px;
 }
 
 #galeria-mapa .video .row{
@@ -302,12 +303,19 @@ li.nav-item {
 
 #galeria #categoria .video .info,
 #galeria-mapa .video .info{
-    border: 1px solid #fff;
+    outline: 1px solid #FFF;
     padding: 10px;
     color: #fff;
     overflow: hidden;   
 }
 
+#galeria-mapa .video .info{
+    border-bottom: 10px solid rgb(38, 41, 43);
+}
+
+#galeria #categoria .video .info{
+    border-bottom: 10px solid #354A5B;
+}
 #galeria #categoria .destaque .video .info .titulo,
 #galeria-mapa .destaque .video .info .titulo{
     margin: 10px 0;
