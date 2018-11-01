@@ -22,23 +22,54 @@ window.addEventListener("load", function(){
         });
     }      
     
-    var galeriaYtVideo = document.getElementsByClassName('galeria-yt-video');
-    if(galeriaYtVideo.length > 0){
-        for(ytVideo in galeriaYtVideo){
-            getYtVideo(ytVideo.getAttribute("data-url"));
-        }
-    }
-
     $("#visualizar-video").on("hidden.bs.modal", function(){
         $("#visualizar-video").html("");
     });
 
+    $( "#select-cidade" ).autocomplete({
+        source: function(request, response){
+            post("/api/cidades", {term: request.term}, response)
+        },
+        search: function(){
+            $("#select-escola").val("");
+            $("#escola-id").val("");
+            $("#select-escola").attr("readonly", true)
+        },
+        select: function( event, ui ) {
+
+            $("#select-escola").val("");
+            $("#escola-id").val("");
+
+            if(ui.item.value){
+                $("#select-escola").removeAttr("readonly")
+            }
+
+            $( "#select-cidade" ).val( ui.item.label );
+            $( "#cidade-id" ).val( ui.item.value );
+            return false;
+            
+        },
+        open: function() {
+          $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+        },
+        close: function() {
+          $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+        },
+        focus: function(event, ui) {
+            $( "#select-cidade" ).val( ui.item.label );
+            $( "#cidade-id" ).val( ui.item.value );
+            return false;
+        }
+    });
+
     $( "#select-escola" ).autocomplete({
         source: function(request, response){
-            post("/api/escolas", {term: request.term}, response);
+            post("/api/escolas", {term: request.term, cidade: $("#cidade-id").val()}, response);
         },
         select: function( event, ui ) {
             $( "#select-escola" ).val( ui.item.label );
+            $( "#escola-id" ).val( ui.item.value );
+            return false;
         },
         open: function() {
           $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
@@ -48,22 +79,8 @@ window.addEventListener("load", function(){
         },
         focus: function(event, ui) {
             $( "#select-escola" ).val( ui.item.label );
+            $( "#escola-id" ).val( ui.item.value );
             return false;
-        }
-    });
-
-    $( "#select-cidade" ).autocomplete({
-        source: function(request, response){
-            post("/api/cidades", {term: request.term}, response)
-        },
-        select: function( event, ui ) {
-            $( "#select-cidade" ).val( ui.item.label );
-        },
-        open: function() {
-          $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-        },
-        close: function() {
-          $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
         }
     });
 });
@@ -95,13 +112,10 @@ function getVideoInfo(urls, onsuccess) {
 
         if(matchFb){
             
-            return post("api/fb/",
-                { 
-                    id: matchFb[1], 
-                    fields: ["permalink_url,picture,from,title,description"]
-                },
+            return post(
+                "api/fb/",
+                { id: matchFb[1], fields: ["picture,from,title,description"]},
                 function (response) {
-                    console.log(response);
                     if (response) {
                         return onsuccess({
                             url: "https://www.facebook.com/video/embed?video_id="+matchFb[1]+"&width=500&show_text=false&height=280&appId",

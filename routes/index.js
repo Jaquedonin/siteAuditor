@@ -169,10 +169,15 @@ router.post('/api/cidades', function(req, res, next){
 
 router.post('/api/escolas', function(req, res, next){
     functions.connectDB(database.connection).then(function(){
-        database.connection.query(
-            "SELECT escolas.id as 'value', escolas.nome as 'label' FROM escolas" +
-            " WHERE escolas.nome LIKE '%"+ req.body.term + "%'",
-            function (err, result) {  
+
+        var query =  "SELECT escolas.id as 'value', escolas.nome as 'label' FROM escolas" +
+        " WHERE escolas.nome LIKE '%"+ req.body.term + "%'"
+
+        if(req.body.cidade){
+            query += " AND escolas.cidade_id = " + req.body.cidade
+        }
+
+        database.connection.query(query, function (err, result) {  
                 res.json(!err ? result : false);
         });
     });
@@ -233,7 +238,17 @@ router.get('/dashboard', function(req, res, next) {
     }
 
     data.user = true;
-    
+
+    if(req.session.delete){
+        console.log(req.session.delete.status, req.session.delete.msg);
+        req.session.delete = false;
+    }
+
+    if(req.session.insert){
+        console.log(req.session.insert.status, req.session.insert.msg);
+        req.session.insert = false;
+    }
+
     functions.connectDB(database.connection).then(function(){
         database.connection.query(query.findAllVideos(req.session.professorId), function (err, result) 
         {
@@ -308,12 +323,6 @@ router.post('/galeria', function(req, res)
     //buscar cidade selecionada  e suas estatisticas
     var getCidadeInfo = function(codigo, index, data) {
         return new Promise(function(resolve, reject) {
-            console.log(
-                "SELECT group_concat(distinct cidades.nome) as nome, count(distinct escolas.id) as escolas, count(distinct videos.professor_id) as colaboradores FROM cidades" +
-                " LEFT JOIN escolas ON escolas.cidade_id = cidades.codigo" +
-                " LEFT JOIN videos ON videos.cidade_id = cidades.codigo" +
-                " WHERE cidades.codigo = " + codigo
-            );
             database.connection.query(
                 "SELECT group_concat(distinct cidades.nome) as nome, count(distinct escolas.id) as escolas, count(distinct videos.professor_id) as colaboradores FROM cidades" +
                 " LEFT JOIN escolas ON escolas.cidade_id = cidades.codigo" +

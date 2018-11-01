@@ -15,7 +15,7 @@ module.exports = {
 		return "SELECT * FROM "+ table;
 	},
 	findAllVideos : function(id){
-		return "SELECT videos.id as id, videos.url as url FROM videos WHERE professor_id = " + id
+		return "SELECT id, url, thumb FROM videos WHERE professor_id = " + id
 	}
 }
 

@@ -11,11 +11,13 @@ h4="Enviar vídeos"
                 img#yt-thumb
             .col-8
                 form(method='POST' action='/videos')
-                    input#yt-name.form-control.form-control-sm(type="text" name="nome-aluno" placeholder="Nome do aluno")
+                    input#yt-name.form-control.form-control-sm(type="text" name="autor" placeholder="Autor")
                     input#yt-title.form-control.form-control-sm(type="text" name="titulo" placeholder="Título")
                     input#yt-desc.form-control.form-control-sm(type="text" name="descricao" placeholder="Descrição")
-                    input#select-escola(type='text' name='escola_id' placeholder="Selecionar escola").form-control.form-control-sm
-                    input#select-cidade(type='text' name='cidade_id' placeholder="Selecionar cidade").form-control.form-control-sm
+                    input#select-cidade(type='text' name='cidade' placeholder="Selecionar cidade").form-control.form-control-sm
+                    input#select-escola(type='text' name='escola' placeholder="Selecionar escola" readonly).form-control.form-control-sm
+                    input#escola-id(type='hidden' name='escola_id')
+                    input#cidade-id(type='hidden' name='cidade_id')
                     select(type='text' name='categoria_id')#categoria.form-control.form-control.sm
                         option="Categoria"
                         if categorias
