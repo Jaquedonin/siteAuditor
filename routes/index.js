@@ -92,8 +92,9 @@ router.get('/galeria/:cidade/:escola/:categoria?', function(req, res, next) {
             query += " INNER JOIN categorias ON categorias.id = videos.categoria_id AND categorias.descricao LIKE '" + data.categoria.descricao + "'"; 
         } else {
             query += " LEFT JOIN categorias ON categorias.id = videos.categoria_id";
-            // query += " ORDER BY videos.views"
         }
+        
+        query += " ORDER BY videos.views DESC";
         
         return new Promise(function(resolve, reject) {
             database.connection.query(query, function (err, result) { 
@@ -365,7 +366,8 @@ router.post('/galeria', function(req, res)
         return new Promise(function(resolve, reject) {
             database.connection.query(
                 "SELECT videos.* FROM videos" +
-                " INNER JOIN escolas ON escola_id = escolas.id AND escolas.cidade_id = " + codigo     
+                " INNER JOIN escolas ON escola_id = escolas.id AND escolas.cidade_id = " + codigo +     
+                " ORDER BY videos.views DESC"
                 , function (err, result) { 
                     if(err){
                         reject(err);

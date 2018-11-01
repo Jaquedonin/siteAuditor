@@ -85,6 +85,7 @@ auth.post('/login', function(req, res) {
                             "foto": req.body['fb-photo']
                         };
 
+                        res.redirect("/bem-vindo");
                     } else {
                         res.status(204).json({
                             error: 1,
