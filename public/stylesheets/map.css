@@ -159,8 +159,10 @@ path {
     background-position: center;
 }
 
-#galeria .destaque .video .preview{
+#galeria .destaque .video .preview,
+#galeria .destaque .video .info{
     height: 200px;
+    overflow: hidden;
 }
 
 li.nav-item {
