@@ -80,7 +80,7 @@ router.get('/galeria/:cidade/:escola/:categoria?', function(req, res, next) {
     //buscar videos da cidade selecionada
     var getGaleriaVideos = function(data) {
         
-        var query = "SELECT videos.id, videos.url, escolas.nome as escola FROM videos" +
+        var query = "SELECT videos.*, escolas.nome as escola FROM videos" +
         " INNER JOIN cidades ON cidades.codigo = " + data.cidade.codigo +
         " INNER JOIN escolas ON videos.escola_id = escolas.id AND escolas.cidade_id = " + data.cidade.codigo;
 
@@ -144,9 +144,6 @@ router.post('/api/fb', function(req, res, next){
     var fields = req.body.fields;
     var accessToken = "460691281030259|NI2_FSbKRZCLjcV9NhQI8UuNmIQ";
 
-    console.log(id, fields, accessToken);
-    console.log('https://graph.facebook.com/v3.0/'+id+'?fields=' + fields + '&access_token=' + accessToken);
-    
     https.get('https://graph.facebook.com/v3.0/'+id+'?fields=' + fields + '&access_token=' + accessToken , function(resp) {
     
         var data = '';

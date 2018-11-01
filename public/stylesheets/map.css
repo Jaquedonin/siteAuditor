@@ -303,6 +303,7 @@ li.nav-item {
     border: 1px solid #fff;
     padding: 10px;
     color: #fff;
+    overflow: hidden;   
 }
 
 #galeria #categoria .destaque .video .info .titulo,
