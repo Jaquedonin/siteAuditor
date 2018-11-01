@@ -305,12 +305,25 @@ router.get('/video/:id', function(req, res) {
         });
     }
 
+    var incrementViews = function(data){
+        return new Promise(function(resolve, reject){    
+            database.connection.query(query.updateOne("videos", data.id, "views = views + 1"), function (err, result) {
+                if(err){
+                    reject(err);
+                } else {
+                    resolve(data);
+                }
+            });
+        });
+    } 
+
     functions.connectDB(database.connection).then(function(){
         getVideo(req.params.id).then(function(data){
-            res.app.render('video', {video: data}, function(err, html){
-                res.send({html:html});
+            incrementViews(data).then(function(data){
+                res.app.render('video', {video: data}, function(err, html){
+                    res.send({html:html});
+                });
             });
-            
         });
     });
         
