@@ -18,26 +18,59 @@ function initMapa(nomes){
         }
         $('[data-toggle="tooltip"]').tooltip();
     }
+
+    $( "#select-cidade" ).autocomplete({
+        source: function(request, response){
+            post("/api/cidades", {term: request.term}, response)
+        },
+        select: function( event, ui ) {
+            $( "#select-cidade" ).val( ui.item.label );
+            openGaleria(ui.item.value);
+            return false;
+        },
+        open: function() {
+          $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+        },
+        close: function() {
+          $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+        },
+        focus: function(event, ui) {
+            $( "#select-cidade" ).val( ui.item.label );
+            return false;
+        }
+      });
 }
 
 function openGaleria(cidade){
-    toggleGaleria(false);  
+    toggleGaleria(cidade, false);  
+    
     post("galeria", {"cidade": cidade}, function(response){
         setTimeout(function(){
             document.getElementById("galeria-mapa").innerHTML = response.html;
-            toggleGaleria(true); 
+            toggleGaleria(cidade, true); 
         }, 1000)
     }, false);
 }
 
-function toggleGaleria(show){
+function toggleGaleria(cidade, show){
     var galeria = document.getElementById("galeria-mapa");
     var toggled = galeria.getAttribute("class") == "show";
+    
+    var cidadeToShow = document.getElementById(cidade);
+    var cidadeToHideId = galeria.getAttribute("data-cidade");
 
     if(toggled && !show){
         galeria.setAttribute("class", "");
+        galeria.removeAttribute("data-cidade");
+
+        if(cidadeToHideId){
+            var cidadeToHide = document.getElementById(cidadeToHideId);
+            cidadeToHide.setAttribute("class", "btn");
+        }
     } else {
         galeria.setAttribute("class", "show");
+        galeria.setAttribute("data-cidade", cidade);
+        cidadeToShow.setAttribute("class", "btn selected");
     }
 }
 

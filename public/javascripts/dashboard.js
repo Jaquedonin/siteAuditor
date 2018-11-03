@@ -9,16 +9,16 @@ window.addEventListener("load", function(){
             gapi.client.load("youtube", "v3", function(){
                 getVideoInfo([url], function(info){
                     fillVideoForm(info);
-                    toggleYtPreview(true);
+                    toggleVideoPreview(true);
                 });
             });
                 
         });
 
-        document.getElementById('yt-add').addEventListener("click", toggleYtPreview);
+        document.getElementById('yt-add').addEventListener("click", toggleVideoPreview);
         document.getElementById('yt-cancel').addEventListener("click", function(event){
             event.preventDefault();
-            toggleYtPreview();
+            toggleVideoPreview();
         });
     }      
     
@@ -132,7 +132,7 @@ function getVideoInfo(urls, onsuccess) {
 
 }
 
-function toggleYtPreview(show){
+function toggleVideoPreview(show){
     var ytPreview = document.getElementById("yt-preview");
     var toggled = ytPreview.getAttribute("class") == "col-12 show";
 
