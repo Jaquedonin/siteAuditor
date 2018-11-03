@@ -29,6 +29,8 @@ block content
             #miniatura
                 include mapa.pug
                 p=cidade.nome
+                script.
+                    $("##{cidade.codigo}").attr("class", "selected")
             div.col
                 div.row
                     .col

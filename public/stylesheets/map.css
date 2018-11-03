@@ -244,6 +244,12 @@ li.nav-item {
     font-size: 24pt;
 }
 
+#miniatura path,
+#miniatura path:hover {
+    cursor: auto;
+    stroke: #ccc;
+}
+
 #galeria-navbar{
     justify-content: baseline;
     background: #932121;

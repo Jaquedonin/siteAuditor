@@ -38,7 +38,7 @@ router.get('/galeria/:cidade/:escola/:categoria?', function(req, res, next) {
                     if(err){
                         reject(err);
                     } else {
-                        data.cidade.nome = result.length > 0 ? result[0].cidade : "";
+                        data.cidade.nome = result.length > 0 ? result[0].nome : "";
                         resolve(data);
                     }
                 }
