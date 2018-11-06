@@ -45,47 +45,23 @@ block content
                                 input(type="submit" style="display:none")    
                     .row
                         .col
-                            if categorias
-                                ul.navbar-nav
-                                    li(class= categoria.destaque ? "nav-item selected" : "nav-item")
-                                        a.nav-link(href="destaques")="destaques"
+                            if categorias            
+                                ul.navbar-nav#categorias
+                                    li(data-categoria="destaques" data-selected=categoria.destaque ? 1 : 0 class= categoria.destaque ? "nav-item selected" : "nav-item")
+                                        a.nav-link(onclick="carrossel('destaques')")="destaques"
                                     each cat in categorias
                                         li(class= cat.selected ? "nav-item selected" : "nav-item")
                                             a.nav-link(href=cat.descricao)=cat.descricao
                         .col#col-limpar-pesquisa
+
                             if busca
                                 a#limpar-pesquisa.btn.btn-danger(href="") Limpar pesquisa
-
-        #categoria.row
-            if categoria && categoria.videos && categoria.videos.length > 0
-                - var destaque = true;
-                    each video in categoria.videos
-                        - var thumb = video.thumb ? video.thumb : "https://image.shutterstock.com/z/stock-photo-beautiful-joyful-african-american-teenager-girl-holding-smart-phone-photo-camera-with-hands-taking-662752159.jpg"
-                        - var title = video.titulo ? video.titulo : "Título do vídeo"
-                        - var description = video.descricao ? video.descricao : "Descrição do vídeo"
-                        - var author = video.autor ? video.autor : "Autor do vídeo"
-
-                        if destaque
-                            div(id=categoria.nome).destaque.col-12
-                                .video.row(onclick="visualizarVideo("+video.id+")")
-                                    .preview.col-6(style="background-image: url("+thumb+")")
-                                        i.fa.fa-play
-                                    .info.col-6
-                                        .autor=author
-                                        .titulo
-                                            b=title
-                                        .descr=description
-                            - destaque = false                        
-                        else
-                            .video.col-4(onclick="visualizarVideo("+video.id+")")
-                                .row(onclick="visualizarVideo("+video.id+")")
-                                    .preview.col-6(style="background-image: url("+thumb+")")
-                                        i.fa.fa-play
-                                    .info.col-6
-                                        .autor=author
-                                        .titulo
-                                            b=title.substring(0,30)
-                                        .descr=description.substring(0,80)
+        #categorias-galeria.d-flex.flex-row
+            #categoria-anterior
+            #categoria-principal
+                .row
+                    include categoria
+            #categoria-seguinte
 block modal
     #visualizar-video.modal(tabindex='-1', role='dialog')
     script(type='text/javascript', src='/javascripts/galeria.js')

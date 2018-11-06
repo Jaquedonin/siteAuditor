@@ -150,13 +150,20 @@ router.all('/galeria/:cidade/:escola/:categoria?', function(req, res, next) {
         },
         user: !(!req.session.token)
     }
-    
+
     getGaleriaVideos(data).then(function(data){
         getCidade(data).then(function(data){
             getCategorias(data).then(function(data){
                 
                 getEscola(data).then(function(data){
-                    res.render('galeria', data);
+                    
+                    if(req.body.carrossel){
+                        res.app.render('categoria', data, function(err, html){
+                            res.send({html:html});
+                        }); 
+                    } else {
+                        res.render('galeria', data);
+                    }
                 }).catch(function(err) {
                     console.log(err);
                     res.redirect("/");
