@@ -52,7 +52,7 @@ block content
                                     each cat in categorias
                                         li(class= cat.selected ? "nav-item selected" : "nav-item")
                                             a.nav-link(href=cat.descricao)=cat.descricao
-                        .col
+                        .col#col-limpar-pesquisa
                             if busca
                                 a#limpar-pesquisa.btn.btn-danger(href="") Limpar pesquisa
 

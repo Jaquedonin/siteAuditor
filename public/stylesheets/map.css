@@ -256,8 +256,18 @@ li.nav-item {
     background: #702021;
     border-color: #702021;
     margin-top: 15px;
-    margin-left: -15px;
+    margin-right: -15px;
 }
+
+
+#inputs-galeria {
+    justify-content: flex-end;
+}
+
+#col-limpar-pesquisa{
+    text-align: right;
+}
+
 
 #galeria-navbar{
     justify-content: baseline;
@@ -307,10 +317,6 @@ li.nav-item {
     line-height: 24px;
 }
 
-#inputs-galeria {
-    justify-content: flex-end;
-}
-
 #galeria{
     height: 100%;
     padding: 0 0 10px 0;
@@ -330,6 +336,11 @@ li.nav-item {
     padding: 10px;
     color: #fff;
     overflow: hidden;   
+}
+
+#galeria #categoria > .video .info
+{
+    height: 100px;
 }
 
 #galeria-mapa .video .info{
