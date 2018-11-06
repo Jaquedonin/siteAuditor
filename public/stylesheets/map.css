@@ -307,6 +307,10 @@ li.nav-item {
     line-height: 24px;
 }
 
+#inputs-galeria {
+    justify-content: flex-end;
+}
+
 #galeria{
     height: 100%;
     padding: 0 0 10px 0;

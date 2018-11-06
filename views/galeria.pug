@@ -4,7 +4,7 @@ block content
         header#mapa-header
             nav.navbar.navbar-expand-lg.navbar-dark.navbar-fixed-top
                 .container
-                    a.navbar-brand.col-4(href='#page-top') MAPA DE  CONTROLE SOCIAL
+                    a.navbar-brand.col-4(href='#page-top') MAPA COLABORATIVO CIDADÃO
                     #logo.navbar-brand.col-4
                         img(src="/images/logo_tce.png")
                         span Tribunal de Contas do <br/> Estado da Paraíba
@@ -27,16 +27,15 @@ block content
             a#voltar-galeria(href="/")
                 i.fas.fa-arrow-left
             #miniatura
-                include mapa.pug
                 p=cidade.nome
                 script.
                     $("##{cidade.codigo}").attr("class", "selected")
             div.col
                 form(method="POST" action="/galeria/" + cidade.codigo + "/" + (escola.id ? escola.id : "todas") + "/" + (categoria.id ? categoria.id : "")) 
-                    .row
-                        .col
+                    .row#inputs-galeria
+                        .col-3
                             input#select-escola(type='text' name='escola' placeholder="Pesquisar escolas" value=escola.nome).form-control.form-control-sm
-                        .col
+                        .col-3
                             .row
                                 .input-group
                                     input.form-control.form-control-sm#pesquisar(name="termo" placeholder="Pesquisar" value=busca?busca:"")
