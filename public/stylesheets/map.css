@@ -250,6 +250,15 @@ li.nav-item {
     stroke: #ccc;
 }
 
+#limpar-pesquisa{
+    color: #fff;
+    border-radius: 0;
+    background: #702021;
+    border-color: #702021;
+    margin-top: 15px;
+    margin-left: -15px;
+}
+
 #galeria-navbar{
     justify-content: baseline;
     background: #932121;
@@ -288,6 +297,10 @@ li.nav-item {
 #galeria-navbar .input-group-text{
     border-color: #702021;
     background: #702021;
+    padding: 0px 10px;
+    font-size: 10pt;
+    line-height: 22pt;
+    height: 100%;
 }
 
 #galeria-navbar .input-group-text:before{

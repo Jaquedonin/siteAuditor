@@ -2,7 +2,6 @@ var database = require('../database/database');
 var query = require('../query');
 var express = require('express');
 var router = express.Router();
-var functions = require('../include/functions')
 var emojiStrip = require('emoji-strip')
 
 //inserir videos
@@ -31,9 +30,10 @@ router.post('/videos', function(req, res, next) {
         emojiStrip(req.body.descricao)
     ];
     
-    functions.connectDB(database.connection).then(function(){
-        database.connection.query(query.insertOne("videos", cols, vals), function (err, result) {
-                 
+    database.pool.getConnection(function(err, connection) {
+        connection.query(query.insertOne("videos", cols, vals), function (err, result) {
+            connection.release();
+
             req.session.insert = {
                 status: err ? 400 : 200,
                 msg: err ? err : "Vídeo inserido com sucesso!"
@@ -51,9 +51,10 @@ router.post('/delete/videos', function(req, res, next) {
         return false;
     } else {
         
-        return functions.connectDB(database.connection).then(function(){
-            return database.connection.query(query.deleteOne("videos", req.body.id), function (err, result) {
-               
+        return database.pool.getConnection(function(err, connection) {
+            return connection.query(query.deleteOne("videos", req.body.id), function (err, result) {
+                connection.release();
+
                 req.session.delete = {
                     status: err ? 400 : 200,
                     msg: err ? err : "Vídeo excluído com sucesso!"
@@ -70,10 +71,12 @@ router.get('/videos', function(req, res, next) {
 	if(req.session.professorId === undefined){
 		return res.redirect('/auth');
 	} else {
-        functions.connectDB(database.connection).then(function(){
-            database.connection.query(query.findAllVideos(req.session.professorId), function (err, result) {
-                var status =  err ? 400 : 200;
-                res.json(status, result);
+        database.pool.getConnection(function(err, connection) {
+            connection.query(query.findAllVideos(req.session.professorId), function (err, result) {
+                connection.release();
+                if(err) res.json(400, false);
+                
+                res.json(200, result);
             }); 
         });
     }

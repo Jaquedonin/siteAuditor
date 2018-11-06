@@ -4,12 +4,10 @@ var database = require('../database/database');
 var query = require('../query');
 var fs = require('fs');
 var data = JSON.parse(fs.readFileSync('./database/data.json', 'utf8'));
-var functions = require('../include/functions');
 var https = require('https');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    
     data.user = req.session.user;
     res.render('index', data);
    
@@ -28,52 +26,68 @@ router.get('/bem-vindo', function(req, res, next) {
     res.render('bem-vindo', data);
 });
 
-router.get('/galeria/:cidade/:escola/:categoria?', function(req, res, next) {
+router.all('/galeria/:cidade/:escola/:categoria?', function(req, res, next) {
 
     var getCidade = function (data){
         return new Promise(function(resolve, reject) {
-            database.connection.query(
-                "SELECT * FROM cidades WHERE codigo = " + data.cidade.codigo
-                , function (err, result) { 
-                    if(err){
-                        reject(err);
-                    } else {
+            database.pool.getConnection(function(err, connection) {
+                if (err) reject(err);
+              
+                var query = "SELECT * FROM cidades WHERE codigo = " + data.cidade.codigo;
+                    
+                connection.query(query, function (err, result) {
+                    connection.release();
+                
+                    if (err) reject(err); 
+                    
                         data.cidade.nome = result.length > 0 ? result[0].nome : "";
                         resolve(data);
-                    }
-                }
-            )
+                    
+                })
+        });
+            
         });
     }
 
-    var getCategorias = function (data, categoria){
+    var getCategorias = function (data){
         return new Promise(function(resolve, reject) {
-            database.connection.query(
-                "SELECT id, descricao, CASE WHEN descricao LIKE '"+data.categoria.descricao+"' THEN 1 ELSE 0 END as selected FROM categorias", function (err, result) { 
-                    if(err){
-                        reject(err);
-                    } else {
+            database.pool.getConnection(function(err, connection) {
+                if (err) reject(err);
+                
+                var query = "SELECT id, descricao, CASE WHEN descricao LIKE '"+data.categoria.descricao+"' THEN 1 ELSE 0 END as selected FROM categorias";
+                  
+                connection.query(query, function (err, result) {
+                    connection.release();
+                
+                    if (err) reject(err); 
+                    
                         data.categorias = result
                         resolve(data);
-                    }
-                }
-            )
+                    
+                });  
+            });
         });
     }
 
     var getEscola = function (data){
         return new Promise(function(resolve, reject) {
-            database.connection.query(
-                "SELECT * FROM escolas WHERE id = " + data.escola.id
-                , function (err, result) { 
-                    if(err){
-                        reject(err);
-                    } else {
-                        data.escola.nome = result.length > 0 ? result[0].nome : ""
+            
+            database.pool.getConnection(function(err, connection) {
+                if (err) reject(err);
+                
+                var query = "SELECT * FROM escolas WHERE id = " + data.escola.id;
+                  
+                connection.query(query, function (err, result) {
+                    connection.release();
+                
+                    if (err) reject(err); 
+                    
+                    data.escola.nome = result.length > 0 ? result[0].nome : "";
                         resolve(data);
-                    }
-                }
-            )
+                    
+                });  
+            });
+                        
         });
     }
 
@@ -94,25 +108,36 @@ router.get('/galeria/:cidade/:escola/:categoria?', function(req, res, next) {
             query += " LEFT JOIN categorias ON categorias.id = videos.categoria_id";
         }
         
+        if(data.busca){
+            query += " WHERE videos.titulo LIKE '%" + data.busca + "%' OR videos.descricao LIKE '%" + data.busca + "%'";
+        }
+        
         query += " ORDER BY videos.views DESC";
         
         return new Promise(function(resolve, reject) {
-            database.connection.query(query, function (err, result) { 
-                    if(err){
-                        reject(err);
-                    } else {
-                        if(result.length > 0){
-                            data.escola.nome = data.escola.id ? result[0].escola : "";
-                            data.categoria.videos = result;
-                        }
-                        resolve(data);
+            database.pool.getConnection(function(err, connection) {
+                connection.query(query, function (err, result) {
+                    
+                    connection.release();
+                    
+                    if (err) return err; 
+
+                    if(result.length > 0){
+                        data.escola.nome = data.escola.id ? result[0].escola : "";
+                        data.categoria.videos = result;
                     }
-                }
-            )
+
+                    resolve(data);
+                    
+                }).on('error', function(err) {
+                    reject(err);
+                }); 
+            });
         });
     }
 
     var data = {
+        busca: req.body.termo,
         cidade: {
             codigo: req.params.cidade
         },
@@ -122,19 +147,34 @@ router.get('/galeria/:cidade/:escola/:categoria?', function(req, res, next) {
         categoria: {
             destaque: !req.params.categoria || req.params.categoria == "destaques",
             descricao: req.params.categoria == "destaques" ? false : req.params.categoria
-        }
+        },
+        user: !(!req.session.token)
     }
     
-    functions.connectDB(database.connection).then(function(){
-        getGaleriaVideos(data).then(function(data){
-            getCidade(data).then(function(data){
-                getCategorias(data).then(function(data){
-                    getEscola(data).then(function(data){
-                        res.render('galeria', data);
-                    })
-                })
-            })
-        })
+    getGaleriaVideos(data).then(function(data){
+        getCidade(data).then(function(data){
+            getCategorias(data).then(function(data){
+                
+                getEscola(data).then(function(data){
+                    res.render('galeria', data);
+                }).catch(function(err) {
+                    console.log(err);
+                    res.redirect("/");
+                });
+
+            }).catch(function(err) {
+                console.log(err);
+                res.redirect("/");
+            });
+
+        }).catch(function(err) {
+            console.log(err);
+            res.redirect("/");
+        });
+        
+    }).catch(function(err) {
+        console.log(err);
+        res.redirect("/");
     });
         
 });
@@ -159,17 +199,23 @@ router.post('/api/fb', function(req, res, next){
 });
 
 router.post('/api/cidades', function(req, res, next){
-    functions.connectDB(database.connection).then(function(){       
-        database.connection.query(
-            "SELECT codigo as 'value', nome as 'label' FROM cidades WHERE nome LIKE '%"+ req.body.term + "%'", 
-            function (err, result) {
-                res.json(!err ? result : false);
-        });
+    database.pool.getConnection(function(err, connection) {
+        if (err) reject(err);
+      
+        var query = "SELECT codigo as 'value', nome as 'label' FROM cidades WHERE nome LIKE '%"+ req.body.term + "%'"; 
+            
+        connection.query(query, function (err, result) {
+            connection.release();
+        
+            if (err) res.json(false); 
+            
+            res.json(result);
+        })
     });
 });
 
 router.post('/api/escolas', function(req, res, next){
-    functions.connectDB(database.connection).then(function(){
+    database.pool.getConnection(function(err, connection) {
 
         var query =  "SELECT escolas.id as 'value', escolas.nome as 'label' FROM escolas" +
         " WHERE escolas.nome LIKE '%"+ req.body.term + "%'"
@@ -178,57 +224,34 @@ router.post('/api/escolas', function(req, res, next){
             query += " AND escolas.cidade_id = " + req.body.cidade
         }
 
-        database.connection.query(query, function (err, result) {  
-                res.json(!err ? result : false);
-        });
+        connection.query(query, function (err, result) {
+            connection.release();
+        
+            if (err) res.json(false); 
+            
+            res.json(result);
+        })
     });
 });
 
 router.post('/register', function(req, res, next){
 
-    var userData = 
-    {
-        fbUser: req.body["fb-register-user"], 
+    var userData = { 
         email: req.body.email,
         senha: req.body.senha
     };
 
-    functions.connectDB(database.connection).then(function(){    
-        if(err) 
-        {
+    database.pool.getConnection(function(err, connection) {
 
-            res.status(500).json({
-                error: 1,
-                data: "Internal Server Error"
-            });
+        var query = 'INSERT INTO professores SET ?';
 
-        } else {
-            database.connection.query(
-                'INSERT INTO professores SET ?', 
-                [userData], 
-                function(err, rows, fields) 
-                {
+        connection.query(query, [userData], function (err, result) {
+            connection.release();
                 
-                    if (err) 
-                    {
-                        res.status(400).json({
-                            error: 1,
-                            data: "Error Occured!"
-                        });
-                    } 
+            if (err) res.status(400).json({ error: 1, data: "Error Occured!"});
 
-                    else 
-                    {             
-                        res.status(201).json({
-                            error: 0,
-                            data: "User registered successfully!" 
-                        });
-                    }
-                
-                    database.connection.end();
-                }
-            );
-        }
+            res.status(201).json({ error: 0, data: "User registered successfully!"});
+        });
     });
 });
 
@@ -250,40 +273,31 @@ router.get('/dashboard', function(req, res, next) {
         req.session.insert = false;
     }
 
-    functions.connectDB(database.connection).then(function(){
-        database.connection.query(query.findAllVideos(req.session.professorId), function (err, result) 
-        {
-            if(!err)
-            {
+    database.pool.getConnection(function(err, connection) {
 
-                data.videos = result;
-                database.connection.query(query.findAll('cidades'), function (err, result) {
-                    
-                    if(!err)
-                    {
-                        data.cidades = result;
-                        res.render('dashboard', data);
-                    }
-                }); 
-            }
+        var queryVideos = query.findAllVideos(req.session.professorId);
+        var queryCidades = query.findAll('cidades');
+        var queryCategorias = query.findAll('categorias');
 
-            else
-            {
-                console.log(err);
-            }
-        });
+        connection.query(queryVideos, function (err, result) {
+            if (err) res.redirect('/') 
 
-        database.connection.query(query.findAll('categorias'), function (err, result) 
-        {
-            if(!err)
-            {
-                data.categorias = result;
-            }
+            data.videos = result;
+            
+            connection.query(queryCidades, function (err, result) {
+                if (err) res.redirect('/') 
 
-            else
-            {
-                console.log(err);
-            }
+                data.cidades = result;
+
+                connection.query(queryCategorias, function (err, result){
+                    connection.release();
+
+                    if (err) res.redirect('/') 
+
+                    data.categorias = result;
+                    res.render('dashboard', data);
+                });
+            }); 
         });
     });
 });
@@ -295,103 +309,111 @@ router.get('/auth', function(req, res, next) {
 router.get('/video/:id', function(req, res) {
     
     var getVideo = function (id){
-        return new Promise(function(resolve, reject){
-            database.connection.query("SELECT * FROM videos WHERE id = " + id, function(err, result){
-                if(err){
-                    reject(err);
-                } else {
-                    resolve(result ? result[0] : false)
-                }
+        var queryVideo = "SELECT * FROM videos WHERE id = " + id;
+        return new Promise(function(resolve, reject){   
+            database.pool.getConnection(function(err, connection) {
+                connection.query(queryVideo, function(err, result){
+                    connection.release();
+                    
+                    if(err) reject(false);
+                    
+                    resolve(result)
+                });
             });
-        });
+        })
     }
 
     var incrementViews = function(data){
-        return new Promise(function(resolve, reject){    
-            database.connection.query(query.updateOne("videos", data.id, "views = views + 1"), function (err, result) {
-                if(err){
-                    reject(err);
-                } else {
+        var queryIncrement = query.updateOne("videos", data[0].id, "views = views + 1");
+        return new Promise(function(resolve, reject){       
+            database.pool.getConnection(function(err, connection) {
+                connection.query(queryIncrement, function (err, result) {
+                    connection.release();
+
+                    if(err) reject(err);
+                    
                     resolve(data);
-                }
-            });
+                });
+            })
+
         });
     } 
 
-    functions.connectDB(database.connection).then(function(){
-        getVideo(req.params.id).then(function(data){
-            incrementViews(data).then(function(data){
-                res.app.render('video', {video: data}, function(err, html){
-                    res.send({html:html});
-                });
+    getVideo(req.params.id).then(function(data){
+        incrementViews(data).then(function(data){
+            res.app.render('video', {video: data[0]}, function(err, html){
+                res.send({html:html});
             });
         });
     });
         
 });
 
-router.post('/galeria', function(req, res)
-{
+router.post('/galeria', function(req, res){
     var codigo = req.body.cidade;
 
     //buscar cidade selecionada  e suas estatisticas
     var getCidadeInfo = function(codigo, index, data) {
-        return new Promise(function(resolve, reject) {
-            database.connection.query(
-                "SELECT group_concat(distinct cidades.nome) as nome, count(distinct escolas.id) as escolas, count(distinct videos.professor_id) as colaboradores FROM cidades" +
+        return new Promise(function(resolve, reject){       
+            database.pool.getConnection(function(err, connection) {
+                
+                var query = "SELECT group_concat(distinct cidades.nome) as nome, count(distinct escolas.id) as escolas, count(distinct videos.professor_id) as colaboradores FROM cidades" +
                 " LEFT JOIN escolas ON escolas.cidade_id = cidades.codigo" +
                 " LEFT JOIN videos ON videos.cidade_id = cidades.codigo" +
-                " WHERE cidades.codigo = " + codigo
-                , function (err, result) { 
-                    if(err){
-                        reject(err);
-                    } else {
-                        data = {
-                            cidade: {
-                                codigo: codigo,
-                                nome: result[0].nome,
-                            },
-                            colaboradores: result[0].colaboradores,
-                            escolas: result[0].escolas
-                        }
-                        resolve(data);
+                " WHERE cidades.codigo = " + codigo;
+               
+                
+                connection.query(query, function (err, result) { 
+                    
+                    connection.release();
+
+                    if(err) reject(err);
+                    
+                    data = {
+                        cidade: {
+                            codigo: codigo,
+                            nome: result[0].nome,
+                        },
+                        colaboradores: result[0].colaboradores,
+                        escolas: result[0].escolas
                     }
-                }
-            )
-        });
+
+                    resolve(data);
+                })
+            })
+        })
     }
     
     //buscar videos da cidade selecionada
     var getCidadeVideos = function(codigo, data) {
-        return new Promise(function(resolve, reject) {
-            database.connection.query(
-                "SELECT videos.* FROM videos" +
+        return new Promise(function(resolve, reject){       
+            database.pool.getConnection(function(err, connection) {
+                
+                var query = "SELECT videos.* FROM videos" +
                 " INNER JOIN escolas ON escola_id = escolas.id AND escolas.cidade_id = " + codigo +     
-                " ORDER BY videos.views DESC"
-                , function (err, result) { 
-                    if(err){
-                        reject(err);
-                    } else {
-                        data.videos = result;
-                        resolve(data);
-                    }
-                }
-            )
+                " ORDER BY videos.views DESC";
+                
+                connection.query(query, function (err, result) { 
+                    if(err)  reject(err);
+                    
+                    data.videos = result;
+                    resolve(data);
+                })
+            });
         });
     }
     
-    functions.connectDB(database.connection).then(function(){
-        //buscar informacoes e retornar a pagina da galeria como resposta
-        getCidadeInfo(codigo).then(function(data){
-            getCidadeVideos(codigo, data).then(function(data){
-                data.user = req.session.user
-                //ao final, envia a view galeria-mapa como resposta
-                res.app.render('galeria-mapa', data, function(err, html){
-                    res.send({html:html});
-                });
+    
+    //buscar informacoes e retornar a pagina da galeria como resposta
+    getCidadeInfo(codigo).then(function(data){
+        getCidadeVideos(codigo, data).then(function(data){
+            data.user = req.session.user
+            //ao final, envia a view galeria-mapa como resposta
+            res.app.render('galeria-mapa', data, function(err, html){
+                res.send({html:html});
             });
         });
-    })
+    });
 
 }); 
 

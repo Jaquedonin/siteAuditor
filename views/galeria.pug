@@ -32,22 +32,31 @@ block content
                 script.
                     $("##{cidade.codigo}").attr("class", "selected")
             div.col
-                div.row
-                    .col
-                       input#select-escola(type='text' name='escola' placeholder="Pesquisar escolas" value=escola.nome).form-control.form-control-sm
-                    .col
-                        .input-group
-                            input.form-control#pesquisar(placeholder="Pesquisar")
-                            .input-group-append
-                                i.input-group-text.fas.fa-search
-                div.row
-                    if categorias
-                        ul.navbar-nav
-                            li(class= categoria.destaque ? "nav-item selected" : "nav-item")
-                                a.nav-link(href="destaques")="destaques"
-                            each cat in categorias
-                                li(class= cat.selected ? "nav-item selected" : "nav-item")
-                                    a.nav-link(href=cat.descricao)=cat.descricao
+                form(method="POST" action="/galeria/" + cidade.codigo + "/" + (escola.id ? escola.id : "todas") + "/" + (categoria.id ? categoria.id : "")) 
+                    .row
+                        .col
+                            input#select-escola(type='text' name='escola' placeholder="Pesquisar escolas" value=escola.nome).form-control.form-control-sm
+                        .col
+                            .row
+                                .input-group
+                                    input.form-control.form-control-sm#pesquisar(name="termo" placeholder="Pesquisar" value=busca?busca:"")
+                                    input(type="hidden" name="cidade_id" value=cidade.codigo)
+                                    .input-group-append
+                                        i.input-group-text.fas.fa-search 
+                                input(type="submit" style="display:none")    
+                    .row
+                        .col
+                            if categorias
+                                ul.navbar-nav
+                                    li(class= categoria.destaque ? "nav-item selected" : "nav-item")
+                                        a.nav-link(href="destaques")="destaques"
+                                    each cat in categorias
+                                        li(class= cat.selected ? "nav-item selected" : "nav-item")
+                                            a.nav-link(href=cat.descricao)=cat.descricao
+                        .col
+                            if busca
+                                a#limpar-pesquisa.btn.btn-danger(href="") Limpar pesquisa
+
         #categoria.row
             if categoria && categoria.videos && categoria.videos.length > 0
                 - var destaque = true;
@@ -81,4 +90,3 @@ block content
 block modal
     #visualizar-video.modal(tabindex='-1', role='dialog')
     script(type='text/javascript', src='/javascripts/galeria.js')
-
