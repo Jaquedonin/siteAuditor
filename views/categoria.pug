@@ -5,9 +5,8 @@ if categoria && categoria.videos && categoria.videos.length > 0
             - var title = video.titulo ? video.titulo : "Título do vídeo"
             - var description = video.descricao ? video.descricao : "Descrição do vídeo"
             - var author = video.autor ? video.autor : "Autor do vídeo"
-
             if destaque
-                div(id=categoria.nome).destaque.col-12
+                .destaque.col-12
                     .video.row(onclick="visualizarVideo("+video.id+")")
                         .preview.col-6(style="background-image: url("+thumb+")")
                             i.fa.fa-play

@@ -46,22 +46,25 @@ block content
                     .row
                         .col
                             if categorias            
+                                - var slideTo = 0
                                 ul.navbar-nav#categorias
-                                    li(data-categoria="destaques" data-selected=categoria.destaque ? 1 : 0 class= categoria.destaque ? "nav-item selected" : "nav-item")
-                                        a.nav-link(onclick="carrossel('destaques')")="destaques"
+                                    li(data-categoria="destaques" data-slide-to=slideTo data-target="#categoria" class= categoria.destaque ? "nav-item selected" : "nav-item")                                        
+                                        a.nav-link="destaques"
                                     each cat in categorias
-                                        li(class= cat.selected ? "nav-item selected" : "nav-item")
-                                            a.nav-link(href=cat.descricao)=cat.descricao
+                                        -slideTo++
+                                        li(data-slide-to=slideTo data-target="#categoria" data-categoria=cat.descricao class= cat.selected ? "nav-item selected" : "nav-item")
+                                            a.nav-link=cat.descricao
                         .col#col-limpar-pesquisa
-
                             if busca
                                 a#limpar-pesquisa.btn.btn-danger(href="") Limpar pesquisa
-        #categorias-galeria.d-flex.flex-row
-            #categoria-anterior
-            #categoria-principal
-                .row
+        #categoria.carousel.slide(data-ride='carousel' data-interval="false")       
+            .carousel-inner
+                .carousel-item.row.active
                     include categoria
-            #categoria-seguinte
+                if categorias 
+                    each cat in categorias
+                        .carousel-item.row
+                            include categoria
 block modal
     #visualizar-video.modal(tabindex='-1', role='dialog')
     script(type='text/javascript', src='/javascripts/galeria.js')
