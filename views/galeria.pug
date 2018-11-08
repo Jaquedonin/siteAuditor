@@ -59,12 +59,14 @@ block content
                                 a#limpar-pesquisa.btn.btn-danger(href="") Limpar pesquisa
         #categoria.carousel.slide(data-ride='carousel' data-interval="false")       
             .carousel-inner
-                .carousel-item.row.active
-                    include categoria
+                .carousel-item.active
+                    .row
+                        include categoria
                 if categorias 
                     each cat in categorias
-                        .carousel-item.row
-                            include categoria
+                        .carousel-item
+                            .row    
+                                include categoria
 block modal
     #visualizar-video.modal(tabindex='-1', role='dialog')
     script(type='text/javascript', src='/javascripts/galeria.js')
