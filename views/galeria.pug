@@ -31,7 +31,7 @@ block content
                 script.
                     $("##{cidade.codigo}").attr("class", "selected")
             div.col
-                form(method="POST" action="/galeria/" + cidade.codigo + "/" + (escola.id ? escola.id : "todas") + "/" + (categoria.id ? categoria.id : "")) 
+                form(method="POST" action="/galeria/" + cidade.codigo + "/" + (escola.id ? escola.id : "todas")) 
                     .row#inputs-galeria
                         .col-3
                             input#select-escola(type='text' name='escola' placeholder="Pesquisar escolas" value=escola.nome).form-control.form-control-sm
@@ -46,27 +46,35 @@ block content
                     .row
                         .col
                             if categorias            
-                                - var slideTo = 0
                                 ul.navbar-nav#categorias
-                                    li(data-categoria="destaques" data-slide-to=slideTo data-target="#categoria" class= categoria.destaque ? "nav-item selected" : "nav-item")                                        
-                                        a.nav-link="destaques"
-                                    each cat in categorias
-                                        -slideTo++
-                                        li(data-slide-to=slideTo data-target="#categoria" data-categoria=cat.descricao class= cat.selected ? "nav-item selected" : "nav-item")
-                                            a.nav-link=cat.descricao
+                                    each categoria, index in categorias
+                                        li(data-slide-to=index data-target="#categoria" data-categoria=categoria.descricao class= categoria.selected ? "nav-item selected" : "nav-item")
+                                            a.nav-link=categoria.descricao
                         .col#col-limpar-pesquisa
                             if busca
                                 a#limpar-pesquisa.btn.btn-danger(href="") Limpar pesquisa
         #categoria.carousel.slide(data-ride='carousel' data-interval="false")       
             .carousel-inner
-                .carousel-item.active
-                    .row
-                        include categoria
-                if categorias 
-                    each cat in categorias
-                        .carousel-item
-                            .row    
-                                include categoria
+                each categoria, index in categorias
+                    .carousel-item
+                        .row
+                            - var destaque = true
+                            if videos 
+                                each video in videos[index]
+                                    - var classe = destaque ? ".video.destaque.col-12" : ".video.col-4";
+                                    - var title = destaque ? video.titulo : video.titulo.substring(0,30);
+                                    - var description =  destaque ? video.descricao : video.descricao.substring(0,80)
+                                    div(class=classe)
+                                        .row(onclick="visualizarVideo("+video.id+")")
+                                            .preview.col-6(style="background-image: url("+video.thumb+")")
+                                                i.fa.fa-play
+                                            .info.col-6
+                                                .autor=video.author
+                                                .titulo
+                                                    b=title
+                                                .descr=description
+                                    - destaque = false                        
+                                
 block modal
     #visualizar-video.modal(tabindex='-1', role='dialog')
     script(type='text/javascript', src='/javascripts/galeria.js')
