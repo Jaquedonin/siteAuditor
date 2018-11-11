@@ -27,6 +27,7 @@ window.addEventListener("load", function(){
         }
     });
     
+    $($('#categorias').children()[0]).addClass("selected");
     $($('#categoria .carousel-inner').children()[0]).addClass("active");
 
     $('#categoria').on('slide.bs.carousel', function (e) {

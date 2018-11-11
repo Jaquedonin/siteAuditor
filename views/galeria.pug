@@ -61,7 +61,7 @@ block content
                             - var destaque = true
                             if videos 
                                 each video in videos[index]
-                                    - var classe = destaque ? ".video.destaque.col-12" : ".video.col-4";
+                                    - var classe = destaque ? "video destaque col-12" : "video col-4";
                                     - var title = destaque ? video.titulo : video.titulo.substring(0,30);
                                     - var description =  destaque ? video.descricao : video.descricao.substring(0,80)
                                     div(class=classe)
@@ -73,7 +73,8 @@ block content
                                                 .titulo
                                                     b=title
                                                 .descr=description
-                                    - destaque = false                        
+                                    - destaque = false 
+                                .clearfix
                                 
 block modal
     #visualizar-video.modal(tabindex='-1', role='dialog')

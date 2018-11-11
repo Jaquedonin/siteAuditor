@@ -3,7 +3,7 @@ var emojiStrip = require('emoji-strip');
 
 var findByCategoria = function(categorias, params) {
     var queries = [];
-    
+    console.log(params);
     categorias.forEach(function(categoria){
         var query = "SELECT * FROM videos";
 
@@ -11,7 +11,7 @@ var findByCategoria = function(categorias, params) {
             query += " INNER JOIN categorias ON categorias.id = videos.categoria_id AND categorias.id = " + categoria.id; 
            
         if(params.cidade)
-            query += " INNER JOIN cidades ON cidades.codigo = " + params.cidade;
+            query += " INNER JOIN cidades ON cidades.codigo = videos.cidade_id AND cidades.codigo = " + params.cidade;
         
         if(params.escola) {
             query += " INNER JOIN escolas ON videos.escola_id = escolas.id AND escolas.id = " + params.escola;
@@ -30,7 +30,6 @@ var findByCategoria = function(categorias, params) {
     });
 
     var query = queries.join(";");
-
     return db.doQuery(query);
 }  
 
