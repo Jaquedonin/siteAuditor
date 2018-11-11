@@ -204,35 +204,6 @@ router.get('/auth', function(req, res, next) {
     res.render('auth');
 });
 
-router.get('/video/:id', function(req, res) {
-    
-    var getVideo = function (id){
-        return new Promise(function(resolve, reject){
-            var videos = require("../models/videos");
-           
-            //busca video
-            videos.findById(id).then(function(results){   
-                if(!results)
-                    reject(false);
-                    
-                var video = results[0];
-                
-                // adiciona visualização
-                return videos.incrementViews(video.id).then(function(){
-                    //retorna video
-                    resolve(video);
-                });   
-            })
-        })
-    }   
-
-    getVideo(req.params.id).then(function(video){
-        res.app.render('video', {video: video}, function(err, html){
-            res.send({html:html});
-        });
-    })
-});
-
 router.post('/galeria', function(req, res){
     
     var setEstatisticas = new Promise(function(resolve, reject){

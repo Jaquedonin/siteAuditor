@@ -28,4 +28,35 @@ router.post('/delete/videos', function(req, res, next) {
 
 });
 
+//exibir video
+
+router.get('/video/:id', function(req, res) {
+    var getVideo = function (id){
+        return new Promise(function(resolve, reject){
+            var videos = require("../models/videos");
+           
+            //busca video
+            videos.findById(id).then(function(results){   
+                if(!results)
+                    reject(false);
+
+                var video = results[0];
+                
+                // adiciona visualização
+                return videos.incrementViews(video.id).then(function(){
+                    //retorna video
+                    resolve(video);
+                });   
+            })
+        })
+    }   
+
+    getVideo(req.params.id).then(function(video){
+        console.log(video);
+        res.app.render('video', {video: video}, function(err, html){
+            console.log(err);
+            res.send({html:html});
+        });
+    })
+});
 module.exports = router;

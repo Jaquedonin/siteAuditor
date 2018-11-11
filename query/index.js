@@ -1,10 +1,12 @@
+var mysql = require("mysql");
+
 module.exports = {
     findOne : function(cols, table, id){
         return "SELECT "+cols+" FROM "+table+" WHERE id = " + id;
     },
 	insertOne : function(table, columns, values){ 
         var cols = columns.join(",");
-        var vals = values.join(",");
+        var vals = values.map(mysql.escape).join(",");        
         
 		return "INSERT INTO "+ table +" ("+ cols +") VALUES("+ vals +")";
 	},

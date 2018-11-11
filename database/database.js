@@ -27,4 +27,3 @@ doQuery = function (query) {
 module.exports.pool = pool;
 module.exports.doQuery = doQuery;
 module.exports.getQuery = query;
-module.exports.escape = mysql.escape;

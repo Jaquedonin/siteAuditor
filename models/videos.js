@@ -3,9 +3,9 @@ var emojiStrip = require('emoji-strip');
 
 var findByCategoria = function(categorias, params) {
     var queries = [];
-    console.log(params);
+
     categorias.forEach(function(categoria){
-        var query = "SELECT * FROM videos";
+        var query = "SELECT videos.* FROM videos";
 
         if(categoria.id > 0)
             query += " INNER JOIN categorias ON categorias.id = videos.categoria_id AND categorias.id = " + categoria.id; 
@@ -72,15 +72,17 @@ var insertOne = function(req){
         parseInt(req.body.escola_id),
         parseInt(req.body.cidade_id), 
         parseInt(req.body.categoria_id), 
-        emojiStrip(db.escape(req.body.autor)), 
-        db.escape(encodeURI(req.body.url)), 
-        emojiStrip(db.escape(req.body.titulo)),
-        db.escape(req.body.thumb),
-        emojiStrip(db.escape(req.body.descricao))
+        emojiStrip(req.body.autor), 
+        req.body.url, 
+        emojiStrip(req.body.titulo),
+        req.body.thumb,
+        emojiStrip(req.body.descricao)
     ];
 
     var query = db.getQuery.insertOne("videos", cols, vals);
-    return db.doQuery(query);
+    return db.doQuery(query).catch(function(err) { 
+        console.log(err);
+    });
 }
 
 var deleteOne = function(id){
