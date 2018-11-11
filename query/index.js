@@ -1,7 +1,10 @@
 module.exports = {
+    findOne : function(cols, table, id){
+        return "SELECT "+cols+" FROM "+table+" WHERE id = " + id;
+    },
 	insertOne : function(table, columns, values){ 
         var cols = columns.join(",");
-        var vals = "'" + values.join("','") + "'";
+        var vals = values.join(",");
         
 		return "INSERT INTO "+ table +" ("+ cols +") VALUES("+ vals +")";
 	},
@@ -9,13 +12,28 @@ module.exports = {
 		return "UPDATE "+ table +" SET "+set+" WHERE id = " + id
 	},
 	deleteOne : function(table, id){
+        if(!id)
+            return false;
+
 		return "DELETE FROM "+ table +" WHERE id = " + id
 	}, 
 	findAll : function(table){
 		return "SELECT * FROM "+ table;
 	},
-	findAllVideos : function(id){
-		return "SELECT id, url, thumb FROM videos WHERE professor_id = " + id
-	}
+    find : function(cols, table, where, order, limit){
+        cols = cols || "*";
+        
+        var query = "SELECT "+ cols +" FROM "+table;
+        
+        if(where)
+            query += " WHERE " + where
+        
+        if(order)
+            query += " ORDER BY " + order
+        
+        if(limit)
+            query += " LIMIT " + limit
+        
+        return query;
+    }
 }
-

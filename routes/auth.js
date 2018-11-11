@@ -1,31 +1,22 @@
 var express = require('express');
-var database = require('../database/database');
+var db = require('../database/database');
 var auth = express.Router();
 var cors = require('cors')
 var jwt = require('jsonwebtoken');
 
-var token;
+var model = require("../models/professores");
 
 auth.use(cors());
 
 process.env.SECRET_KEY = "devesh";
 
 auth.post('/register', function(req, res) {
-    var userData = {
-        email: req.body.email,
-        senha: req.body.senha
-    };
-
-    database.pool.getConnection(function(err, connection) {
-        var query = 'INSERT INTO professores SET ?';
-        connection.query(query, [userData], function(err, rows, fields) {
-            connection.release();
-        }).on('error', function(err) {
-            console.log(err);
-        }); 
+    
+    model.insertOne(req).then(function (result) {
+        // if(!result)   
+        return res.redirect("/auth");
     });
     
-    return res.redirect("/auth");
 });
 
 auth.get('/logout', function(req, res) {
@@ -37,61 +28,31 @@ auth.get('/logout', function(req, res) {
 
 auth.post('/login', function(req, res) {
 
-    var email = req.body.email;
-    var senha = req.body.senha;
-    
-    database.pool.getConnection(function(err, connection) {
+    model.find({where: {email: req.body.email}}).then(function(result){
 
-        var query = 'SELECT * FROM professores WHERE email = ? AND senha = ?';
-            
-        connection.query(query, [email, senha], function(err, rows, fields) {
-            
-            connection.release();
-            
-            if (err) {
-                res.status(400).json({
-                    error: 1,
-                    data: "Error occured!",
-                    err: err
-                });
-            } else {
-                
-                if (rows.length > 0) {
-                    
-                    if (rows[0].senha == senha) 
-                    {
-                        var professorId = rows[0].id;
-                        var payload = JSON.parse(JSON.stringify(rows[0]));
-                        var token = jwt.sign(payload, process.env.SECRET_KEY, {
-                            expiresIn: 1440
-                        });
-                        
-                        req.session.token = token;
-                        req.session.professorId = professorId;
-                        
-                        req.session.user = {
-                            "nome": req.body['fb-name'],
-                            "foto": req.body['fb-photo']
-                        };
+        if(!result)
+            res.status(204).json({
+                error: 1,
+                data: 'Email não existe!'
+            });
 
-                        res.redirect("/bem-vindo");
-                        
-                    } else {
-                        res.status(204).json({
-                            error: 1,
-                            data: 'Email and Password does not match'
-                        });
-                    }
+        if(result[0].senha != req.body.senha)
+            res.status(204).json({
+                error: 1,
+                data: 'Email e senha incorretos'
+            });
 
-                } else {;
-                    res.status(204).json({
-                        error: 1,
-                        data: 'Email does not exists!'
-                    });
-                }
-            }
-        });
-    })
+        var payload = JSON.parse(JSON.stringify(result[0]));
+            
+        req.session.token = jwt.sign(
+            payload, process.env.SECRET_KEY, { expiresIn: 1440 }
+        );
+        req.session.professorId = result[0].id;
+        req.session.user = true;
+
+        res.redirect("/bem-vindo");
+    });
+
 });
 
 module.exports = auth;

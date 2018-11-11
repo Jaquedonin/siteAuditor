@@ -360,11 +360,11 @@ li.nav-item {
 #galeria #categoria .video .info{
     border-bottom: 10px solid #354A5B;
 }
+
 #galeria #categoria .destaque .video .info .titulo,
 #galeria-mapa .destaque .video .info .titulo{
     margin: 10px 0;
 }
-
 
 #galeria #categoria .carousel-item > .row {
     padding: 5px;
