@@ -28,18 +28,20 @@ auth.get('/logout', function(req, res) {
 auth.post('/login', function(req, res) {
 
     model.find({where: {email: req.body.email}}).then(function(result){
-
-        if(!result)
-            res.status(204).json({
-                error: 1,
-                data: 'Email não existe!'
-            });
+   
+        if(!result.length)
+            return res.redirect('/');
+            // res.status(204).json({
+            //     error: 1,
+            //     data: 'Email não existe!'
+            // });
 
         if(result[0].senha != req.body.senha)
-            res.status(204).json({
-                error: 1,
-                data: 'Email e senha incorretos'
-            });
+            return res.redirect('/');
+            // res.status(204).json({
+            //     error: 1,
+            //     data: 'Email e senha incorretos'
+            // });
 
         var payload = JSON.parse(JSON.stringify(result[0]));
             
