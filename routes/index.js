@@ -28,6 +28,10 @@ router.post('/register', function(req, res, next){
  
 });
 
+router.get('/video', function(req,res){
+    res.render('aba-visualizar-video');
+})
+
 router.all('/galeria/:cidade/:escola?', function(req, res, next) {
 
     var setCidade = function (data){

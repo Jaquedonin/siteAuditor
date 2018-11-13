@@ -23,8 +23,5 @@ function post(url, send, onsuccess) {
 }
 
 function visualizarVideo(id){
-    get("/video/" + id, function (response) {
-        $("#visualizar-video").html(response.html);
-        $("#visualizar-video").modal("show");
-    })
+    localStorage.setItem("video", id);
 }
