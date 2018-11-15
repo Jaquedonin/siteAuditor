@@ -23,10 +23,6 @@ function post(url, send, onsuccess) {
 }
 
 function visualizarVideo(id){
-<<<<<<< HEAD
-    localStorage.setItem("video", id);
-}
-=======
     get("/video/" + id, function (response) {
         $("#visualizar-video").html(response.html);
 
@@ -42,4 +38,3 @@ function visualizarVideo(id){
         $("#visualizar-video").modal("show");
     })
 }
->>>>>>> abas
