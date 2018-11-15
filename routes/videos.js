@@ -84,4 +84,29 @@ router.get('/video-aba/:id', function(req, res) {
         });
     })
 });
+
+router.get('/video-dashboard/:id', function(req, res) {
+    var getVideo = function (id){
+        return new Promise(function(resolve, reject){
+            var videos = require("../models/videos");
+           
+            //busca video
+            videos.findById(id).then(function(results){   
+                if(!results)
+                    reject(false);
+
+                var video = results[0];
+                resolve(video);   
+            })
+        })
+    }   
+
+    getVideo(req.params.id).then(function(video){
+        console.log(video);
+        res.app.render('video-dashboard', {video: video}, function(err, html){
+            console.log(err);
+            res.send({html:html});
+        });
+    })
+});
 module.exports = router;
