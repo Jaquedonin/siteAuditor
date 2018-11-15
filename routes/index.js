@@ -144,18 +144,18 @@ router.post('/api/escolas', function(req, res, next){
 
     var escolas = require("../models/escolas");
     var params = {
-        cols: "id as 'value', nome as 'label'",
-        where: {
-            term: req.body.term,
-            cidade: req.body.cidade
-        }
+        term: req.body.term,
+        cidade: req.body.cidade,
+        insert: req.body.insert_escola
     }
 
     escolas.find(params)
         .then(function(result){
-            if (!result) 
-            res.json(false); 
-        
+            
+            if (!result.length && params.insert){
+                result = [{value: 0, label: '+ Cadastrar nova escola'}]; 
+            }
+
             res.json(result);
         });
 });
@@ -165,7 +165,7 @@ router.all('/dashboard', function(req, res, next) {
     if(!req.session.token){
         return res.redirect("/auth");
     }
-    console.log(req.body);
+
     var data = {
         busca: req.body.busca,
         cidade: {
@@ -254,4 +254,7 @@ router.post('/galeria', function(req, res){
     });
 }); 
 
+router.post("/escola", function(req, res){
+
+})
 module.exports = router;

@@ -239,22 +239,27 @@ footer p{ margin-bottom: 0;}
 
 .container-height{
     min-height: 70%;
-}    
-#yt input,
-#yt .input-group-append{
+}  
+
+#insert-video input,
+#insert-video .input-group-append{
     z-index: 2;
 }
 
-#yt .input-group-append .input-group-text {
+#insert-video .input-group-append .input-group-text {
     background: #354A5B;
     color: #fff;
 }
 
-#yt {
+#insert-video {
     margin-bottom: 0;
 }
 
-#yt .row input, #yt .row select {
+#insert-video .row input, 
+#insert-video .row select,
+#cadastrar-escola input, 
+#cadastrar-escola select, 
+#cadastrar-escola form button {
     border-radius: 12px;
     padding-left: 10px;
     margin-bottom: 4px;
@@ -262,7 +267,7 @@ footer p{ margin-bottom: 0;}
     border-color: #354A5B;
 }
 
-#yt-preview{
+#video-preview{
     overflow: hidden;
     transition: 1s;
     background: #fff;
@@ -274,7 +279,7 @@ footer p{ margin-bottom: 0;}
     padding-top: calc(1.8125rem + 10px);
 }
 
-div#yt-preview:after {
+#video-preview:after {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -287,16 +292,19 @@ div#yt-preview:after {
     text-align: center;
 }
 
-div#yt-preview.show:after{
-    display:none;
-} 
-
-#yt-preview .row .col-4{
-    align-items: center;
-    display: flex;
+#video-preview button{
+    width: auto;
+    float: right;
+    margin: 5px;
 }
 
-#yt-thumb {
+#cadastrar-escola form button{
+    color: #fff;
+    background-color: #354A5B;
+    line-height: 10px;
+}
+
+#insert-video-thumb {
     width: 100%;
     min-height: 131px;
     background-color: #000;
@@ -305,10 +313,13 @@ div#yt-preview.show:after{
     margin-top: -25px;
 }
 
-#yt-preview button{
-    width: auto;
-    float: right;
-    margin: 5px;
+#video-preview.show:after{
+    display:none;
+} 
+
+#video-preview .row .col-4{
+    align-items: center;
+    display: flex;
 }
 
 #dashboard{

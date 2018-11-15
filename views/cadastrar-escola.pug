@@ -1,0 +1,19 @@
+.modal-dialog.modal-lg(role='document')
+    .modal-content
+        .modal-header
+            h5.modal-title="Cadastrar escola"
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true') ×
+        .modal-body
+            form(action="/escola" method="POST")
+                .form-group
+                    label.form-control-label="Cidade"                
+                    input.form-control#escola-cidade-nome(type='text' disabled)
+                    input.form-control#escola-cidade-id(type='hidden' name="cidade_id")
+                .form-group
+                    label.form-control-label="Sigla"
+                    input.form-control#escola-sigla(type='text' name="sigla")
+                .form-group
+                    label.form-control-label="Nome"
+                    input.form-control#escola-nome(type='text' name="nome")
+                button.form-control.form-control-sm(type="submit")="Salvar"

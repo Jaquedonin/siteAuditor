@@ -8,15 +8,19 @@ var find = function(params) {
 
     var where = [];
 
-    if(params.where.term){
-        where.push("nome LIKE '%"+ params.where.term + "%'");
+    if(params.term){
+        where.push("(nome LIKE '%"+ params.term + "%' OR sigla LIKE '%"+ params.term + "%')");
     }
 
-    if(params.where.cidade){
-        where.push("cidade_id = " + params.where.cidade);
+    if(params.cidade){
+        where.push("cidade_id = " + params.cidade);
     }
 
-    var query = db.getQuery.find(params.cols, "escolas", where.join(" AND "))
+    var query = db.getQuery.find(
+        "id as 'value', CONCAT(sigla, ' - ', nome) as 'label'", 
+        "escolas", 
+        where.join(" AND ")
+    )
     return db.doQuery(query);
 }
 
