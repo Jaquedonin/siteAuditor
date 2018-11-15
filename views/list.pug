@@ -1,9 +1,23 @@
 h4="Meus vídeos"
-#user-videos.tab-pane.fade.show.active
-    div.row
+#user-videos
+    form#inputs-user-videos.row(method="POST" action="/dashboard")    
+        .col-3
+            input#busca-cidade(type='text' name='cidade' placeholder="Pesquisar cidade" value=cidade?cidade.nome:"").form-control.form-control-sm
+        .col-3
+            input#busca-escola(type='text' name='escola' placeholder="Pesquisar escolas" value=escola?escola.nome:"" readonly=!cidade).form-control.form-control-sm
+        .col-6
+            .row
+            .input-group
+                input.form-control.form-control-sm#pesquisar(name="busca" placeholder="Pesquisar" value=busca?busca:"")
+                .input-group-append
+                    i.input-group-text.fas.fa-search
+            input#busca-cidade-id(type='hidden' name='cidade_id' value=cidade?cidade.id:"")        
+            input#busca-escola-id(type='hidden' name='escola_id' value=escola?escola.id:"")
+            input(type="submit" style="display:none")                
+    .row
         if videos
             each video in videos
-                .col-3.m-2.p-0
+                .col-4
                     .video(style="background-image: url("+video.thumb+")" onclick="dashboardVisualizarVideo("+video.id+")")
                         .preview
                             form(method='POST' action='/delete/videos')

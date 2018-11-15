@@ -160,13 +160,24 @@ router.post('/api/escolas', function(req, res, next){
         });
 });
 
-router.get('/dashboard', function(req, res, next) {
+router.all('/dashboard', function(req, res, next) {
 
     if(!req.session.token){
         return res.redirect("/auth");
     }
-
-    var data = {user: true};
+    console.log(req.body);
+    var data = {
+        busca: req.body.busca,
+        cidade: {
+            id: req.body.cidade_id,
+            nome: req.body.cidade
+        },
+        escola:{
+            id: req.body.escola_id,
+            nome: req.body.escola
+        },
+        user: true
+    };
 
     if(req.session.delete){
         console.log(req.session.delete.status, req.session.delete.msg);
@@ -180,7 +191,8 @@ router.get('/dashboard', function(req, res, next) {
 
     var setVideos = new Promise(function(resolve, reject){
         var videos = require("../models/videos");
-        videos.findByProfessor(req.session.professorId)
+        console.log(req.body);
+        videos.findByProfessor(req.session.professorId, req.body)
             .then(function(result){
                 data.videos = result;
                 resolve(true);
@@ -197,7 +209,7 @@ router.get('/dashboard', function(req, res, next) {
     
     setVideos
         .then(function(){ return setCategorias; })
-        .then(function(){ res.render('dashboard', data); })
+        .then(function(){ console.log(data); res.render('dashboard', data); })
         .catch(function(err) { 
             console.log(err);
             res.redirect("/");

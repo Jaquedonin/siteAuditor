@@ -91,10 +91,6 @@ p+span, a+span{
     font-size: 16pt
 }
 
-#list .form-control{
-    margin-left: 10px;
-}
-
 .list-videos .col-3{
     height: auto;
     margin: 10px 0 0 0;
@@ -108,6 +104,15 @@ p+span, a+span{
     height: 110px !important;
     margin-bottom: 15px;
     font-size: 13pt;
+    background-size: cover;
+}
+
+#user-videos > .row {
+    margin-top: 10px;
+}
+
+#user-vdeios > .row > .col-3{
+    margin: 10px;
 }
 
 .video{

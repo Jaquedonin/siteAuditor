@@ -83,6 +83,65 @@ window.addEventListener("load", function(){
             return false;
         }
     });
+
+
+    $( "#busca-cidade" ).autocomplete({
+        source: function(request, response){
+            post("/api/cidades", {term: request.term}, response)
+        },
+        search: function(){
+            $("#busca-escola").val("");
+            $("#busca-escola-id").val("");
+            $("#busca-escola").attr("readonly", true)
+        },
+        select: function( event, ui ) {
+
+            $("#busca-escola").val("");
+            $("#busca-escola-id").val("");
+
+            if(ui.item.value){
+                $("#busca-escola").removeAttr("readonly")
+            }
+
+            $( "#busca-cidade" ).val( ui.item.label );
+            $( "#busca-cidade-id" ).val( ui.item.value );
+            return false;
+            
+        },
+        open: function() {
+          $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+        },
+        close: function() {
+          $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+        },
+        focus: function(event, ui) {
+            $( "#busca-cidade" ).val( ui.item.label );
+            $( "#busca-cidade-id" ).val( ui.item.value );
+            return false;
+        }
+    });
+
+    $( "#busca-escola" ).autocomplete({
+        source: function(request, response){
+            post("/api/escolas", {term: request.term, cidade: $("#busca-cidade-id").val()}, response);
+        },
+        select: function( event, ui ) {
+            $( "#busca-escola" ).val( ui.item.label );
+            $( "#busca-escola-id" ).val( ui.item.value );
+            return false;
+        },
+        open: function() {
+          $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+        },
+        close: function() {
+          $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+        },
+        focus: function(event, ui) {
+            $( "#busca-escola" ).val( ui.item.label );
+            $( "#busca-escola-id" ).val( ui.item.value );
+            return false;
+        }
+    });
 });
 
 function dashboardVisualizarVideo(id){

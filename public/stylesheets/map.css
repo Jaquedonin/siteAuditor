@@ -259,6 +259,16 @@ li.nav-item {
     margin-right: -15px;
 }
 
+#inputs-user-videos {
+    justify-content: flex-end;
+}
+
+#inputs-user-videos input {
+    color: #fff;
+    background: transparent;
+    border-radius: 10;
+    border-color: #fff;
+}
 
 #inputs-galeria {
     justify-content: flex-end;

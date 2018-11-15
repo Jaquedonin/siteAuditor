@@ -38,8 +38,26 @@ var findByCidade = function(cidade){
     return db.doQuery(query);
 }
 
-var findByProfessor = function(professor){
-    var query = "SELECT id, url, thumb FROM videos WHERE professor_id = " + professor;
+var findByProfessor = function(professor, params){
+
+    var where = ["professor_id = " + professor];
+
+    if(params){
+        if(params.cidade_id)
+            where.push("cidade_id = " + params.cidade_id)
+
+        if(params.escola_id)
+            where.push("escola_id = " + params.escola_id)
+
+        if(params.busca)
+            where.push(
+            "(titulo LIKE '%" + params.busca + "%'" +
+            " OR descricao LIKE '%" + params.busca + "%')"
+            );
+    }
+
+    var query = "SELECT id, url, thumb FROM videos WHERE " + where.join(" AND ");
+    
     return db.doQuery(query);
 }
 
