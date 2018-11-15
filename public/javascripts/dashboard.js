@@ -1,10 +1,9 @@
 window.addEventListener("load", function(){
-    $("#cadastrar-escola").modal("show");
-    var btn = document.getElementById('yt-btn');
+    var btn = document.getElementById('insert-video-btn');
         
     if(btn){
         btn.addEventListener("click", function(){
-            var url = document.getElementById('yt-link').value;
+            var url = document.getElementById('insert-video-link').value;
             gapi.client.setApiKey("AIzaSyA_l5mfOIWiR437wfKU3fU-8c2FS36uf48");
             gapi.client.load("youtube", "v3", function(){
                 getVideoInfo([url], function(info){
@@ -15,8 +14,8 @@ window.addEventListener("load", function(){
                 
         });
 
-        document.getElementById('yt-add').addEventListener("click", toggleVideoPreview);
-        document.getElementById('yt-cancel').addEventListener("click", function(event){
+        document.getElementById('insert-video-add').addEventListener("click", toggleVideoPreview);
+        document.getElementById('insert-video-cancel').addEventListener("click", function(event){
             event.preventDefault();
             toggleVideoPreview();
         });
@@ -225,12 +224,12 @@ function toggleVideoPreview(show){
 }
 
 function fillVideoForm(video){
-    document.getElementById("yt-url").value = video.url ? video.url : "";
-    document.getElementById("yt-thumb").src = video.thumb ? video.thumb : "";
-    document.getElementById("yt-img").value = video.thumb ? video.thumb : "";
-    document.getElementById("yt-name").value = video.name ? video.name : "";
-    document.getElementById("yt-title").value = video.title ? video.title : "";
-    document.getElementById("yt-desc").value = video.description ? video.description : "";
+    document.getElementById("insert-video-url").value = video.url ? video.url : "";
+    document.getElementById("insert-video-thumb").src = video.thumb ? video.thumb : "";
+    document.getElementById("insert-video-img").value = video.thumb ? video.thumb : "";
+    document.getElementById("insert-video-name").value = video.name ? video.name : "";
+    document.getElementById("insert-video-title").value = video.title ? video.title : "";
+    document.getElementById("insert-video-desc").value = video.description ? video.description : "";
 }
 
 function modalCadastrarEscola(escola){
