@@ -191,7 +191,7 @@ router.all('/dashboard', function(req, res, next) {
 
     var setVideos = new Promise(function(resolve, reject){
         var videos = require("../models/videos");
-        console.log(req.body);
+
         videos.findByProfessor(req.session.professorId, req.body)
             .then(function(result){
                 data.videos = result;
@@ -209,7 +209,7 @@ router.all('/dashboard', function(req, res, next) {
     
     setVideos
         .then(function(){ return setCategorias; })
-        .then(function(){ console.log(data); res.render('dashboard', data); })
+        .then(function(){ res.render('dashboard', data); })
         .catch(function(err) { 
             console.log(err);
             res.redirect("/");
@@ -255,6 +255,10 @@ router.post('/galeria', function(req, res){
 }); 
 
 router.post("/escola", function(req, res){
+    var escolas = require("../models/escolas");
+    escolas.insertOne(req).then(function(result){
+        return res.json(true);
+    });
+});
 
-})
 module.exports = router;

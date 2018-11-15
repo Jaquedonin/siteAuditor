@@ -25,5 +25,24 @@ var find = function(params) {
 }
 
 
-module.exports.findOne = findOne;
+var insertOne = function(req){
+    
+    var cols = ["cidade_id", "sigla", "nome"];
+    
+    var vals = [
+        parseInt(req.body.cidade_id), 
+        req.body.sigla,
+        req.body.nome
+    ];
+
+    var query = db.getQuery.insertOne("escolas", cols, vals);
+    
+    return db.doQuery(query).catch(function(err) { 
+        console.log(err);
+    });
+}
+
+
 module.exports.find = find;
+module.exports.findOne = findOne;
+module.exports.insertOne = insertOne;

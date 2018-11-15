@@ -29,6 +29,8 @@ window.addEventListener("load", function(){
         $("#cadastrar-escola form").trigger("reset");
     });
 
+    $("#cadastrar-escola form").on("submit", function(e){ return cadastrarEscola(e); })
+
     $( "#select-cidade" ).autocomplete({
         source: function(request, response){
             post("/api/cidades", {term: request.term}, response)
@@ -163,7 +165,6 @@ function dashboardVisualizarVideo(id){
     })
 }
 
-
 function getVideoInfo(urls, onsuccess) {
     
     var regExprYt = "http(?:s?):\/\/(?:www\.)?youtu(be\.com\/watch[\?&]v=|\.be\/)([\\w\\-\\_]*|.)(&(amp;)[\w\=]*)?";
@@ -237,4 +238,20 @@ function modalCadastrarEscola(escola){
     $("#cadastrar-escola form #escola-cidade-nome").val($( "#select-cidade" ).val());
     $("#cadastrar-escola form #escola-cidade-id") .val($( "#cidade-id" ).val());
     $("#cadastrar-escola").modal("show");
+}
+
+function cadastrarEscola(e){
+
+    post("/escola", 
+        { 
+            cidade_id: e.target.cidade_id.value,
+            sigla: e.target.sigla.value,
+            nome: e.target.nome.value,
+        },
+        function (response) {
+            $("#cadastrar-escola").modal("hide");
+        }
+    );
+
+    return false;
 }
