@@ -6,7 +6,6 @@ var insertOne = function(req){
         ["email", "senha"], 
         [req.body.email, req.body.senha]
     );
-
     return db.doQuery(query);
 }
 
@@ -17,7 +16,7 @@ var find = function(params) {
         if(params.where.email)
             where.push("email = '"+ params.where.email + "'");
     }
-
+    
     var query = db.getQuery.find("id, senha", "professores", where.join(" AND "))
     return db.doQuery(query);
 }
