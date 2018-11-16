@@ -296,6 +296,12 @@ footer p{ margin-bottom: 0;}
     width: auto;
     float: right;
     margin: 5px;
+    cursor: pointer;
+}
+
+#video-preview #insert-video-add{
+    color: #fff;
+    background-color: #354A5B;  
 }
 
 #cadastrar-escola form button{

@@ -15,7 +15,7 @@ block content
                         ul.navbar-nav.ml-auto
                             li.nav-item
                                 a.nav-link Como participar
-                            li.nav-item#login
+                            li.nav-item
                                 if user
                                     a.nav-link(href="/dashboard") 
                                         span Gerenciador
@@ -24,35 +24,28 @@ block content
                             li.nav-item
                                 a.nav-link Sobre
         nav.navbar.navbar-expand-lg#galeria-navbar 
-            a#voltar-galeria(href="/")
+            a#voltar-galeria.col(href="/")
                 i.fas.fa-arrow-left
-            #miniatura
+            #cidade.col
                 p=cidade.nome
-                script.
-                    $("##{cidade.codigo}").attr("class", "selected")
-            div.col
-                form(method="POST" action="/galeria/" + cidade.codigo + "/" + (escola.id ? escola.id : "todas")) 
-                    .row#inputs-galeria
-                        .col-3
-                            input#select-escola(type='text' name='escola' placeholder="Pesquisar escolas" value=escola.nome).form-control.form-control-sm
-                        .col-3
-                            .row
-                                .input-group
-                                    input.form-control.form-control-sm#pesquisar(name="termo" placeholder="Pesquisar" value=busca?busca:"")
-                                    input(type="hidden" name="cidade_id" value=cidade.codigo)
-                                    .input-group-append
-                                        i.input-group-text.fas.fa-search 
-                                input(type="submit" style="display:none")    
-                    .row
-                        .col
-                            if categorias            
-                                ul.navbar-nav#categorias
-                                    each categoria, index in categorias
-                                        li(data-slide-to=index data-target="#categoria" data-categoria=categoria.descricao class= categoria.selected ? "nav-item selected" : "nav-item")
-                                            a.nav-link=categoria.descricao
-                        .col#col-limpar-pesquisa
-                            if busca
-                                a#limpar-pesquisa.btn.btn-danger(href="") Limpar pesquisa
+            .col#categorias-wrapper
+                if categorias            
+                    ul.navbar-nav#categorias
+                        each categoria, index in categorias
+                            li(data-slide-to=index data-target="#categoria" data-categoria=categoria.descricao class= categoria.selected ? "nav-item selected" : "nav-item")
+                                a.nav-link=categoria.descricao
+            form.col#busca-galeria(method="POST" action="/galeria/" + cidade.codigo + "/" + (escola.id ? escola.id : "todas")) 
+                .row
+                    .col-6
+                        input#select-escola(type='text' name='escola' placeholder="Pesquisar escolas" value=escola.nome).form-control.form-control-sm
+                    .col-6
+                        .row
+                            .input-group
+                                input.form-control.form-control-sm#pesquisar(name="termo" placeholder="Pesquisar" value=busca?busca:"")
+                                input(type="hidden" name="cidade_id" value=cidade.codigo)
+                                .input-group-append
+                                    i.input-group-text.fas.fa-search 
+                            input(type="submit" style="display:none")   
         #categoria.carousel.slide(data-ride='carousel' data-interval="false")       
             .carousel-inner
                 each categoria, index in categorias
