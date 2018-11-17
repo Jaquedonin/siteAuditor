@@ -38,7 +38,10 @@ function initMapa(nomes){
             $( "#select-cidade" ).val( ui.item.label );
             return false;
         }
-      });
+    });
+
+    $(".mapa-info-btn").on("click", toggleMapaInfo)
+
 }
 
 function openGaleria(cidade){
@@ -81,3 +84,21 @@ function zoomIn(){
 function zoomOut(){
     document.getElementById("mapa").style.transform = "scale(1)"
 };
+
+var mapaInfoTimeOut = {};
+function toggleMapaInfo(){
+    
+    var id = this.parentNode.id;
+    var toggled = $("#" + id + " .mapa-info-text").hasClass("show");
+
+    if(toggled){
+        $("#" + id + " .mapa-info-text").removeClass("show");
+        clearTimeout(mapaInfoTimeOut[id]);
+    } else {
+        $("#" + id + " .mapa-info-text").addClass("show");
+
+        mapaInfoTimeOut[id] = setTimeout(function(){
+            $("#" + id + " .mapa-info-text").removeClass("show");
+        }, 2000);
+    }
+}

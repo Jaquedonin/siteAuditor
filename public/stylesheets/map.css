@@ -54,10 +54,12 @@ path {
 
 #mapa-wrapper{
     overflow: hidden;
+    padding-bottom: 100px;
 }
 
 #mapa-nav{
     justify-content: flex-end;
+    margin-bottom: -100px;
 }
 
 #mapa-nav #select-cidade{
@@ -101,6 +103,81 @@ path {
 
 #mapa{
     transition: transform .5s;
+}
+
+
+.mapa-info {
+    position: relative;
+    height: 24px;
+}
+
+#info-1{top: -325px;left: 0px;}
+#info-2{top: -146px;left: 170px;}
+#info-3{top: -304px;left: 385px;}
+#info-4{top: -200px;left: 660px;}
+#info-5{top: -240px;left: 825px;}
+#info-6{top: -345px;left: 955px;}
+
+.mapa-info-btn {
+    padding: 10px;
+    border-radius: 100%;
+    background: #fff;
+    border: 0px solid rgba(53, 74, 91, 1);
+    box-shadow: 0px 0px 0px 1px;
+    color: #fff;
+    animation: mapa-info-btn 2s infinite;
+    position: relative;
+}
+
+@-webkit-keyframes mapa-info-btn {
+    0% {border-width: 0; top: 5px; left: 5px;}
+    100% { border-width: 5px; top: 0; left:0;}
+}
+
+@keyframes  mapa-info-btn  {
+    0% {border-width: 0; top: 5px; left: 5px;}
+    100% { border-width: 5px; top: 0; left:0;}
+}
+
+.mapa-info-btn:before{
+    color: #611313;
+}
+
+.mapa-info-text.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mapa-info-text{
+    max-width: 143px;
+    padding: 35px 44px 15px 35px;
+    background-image: url("../images/info-mapa.png");
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    background-position: center;
+    transform: rotate(200deg) scaleX(-1);
+    opacity: 0;
+    visibility: hidden;
+    transition: all .5s;
+    position: absolute;
+    top: 50px;
+}
+
+@-webkit-keyframes mapa-info-text {
+    0%   { top: -5px; }
+    50%  { top:  5px; }
+    100% { top: -5px; }
+}
+
+@keyframes  mapa-info-text  {
+    0%   { top: -5px; }
+    50%  { top:  5px; }
+    100% { top: -5px; }
+}
+
+.mapa-info-text p{
+    color: #fff;
+    transform: rotate(200deg) scaleX(-1);
 }
 
 #galeria-mapa{
