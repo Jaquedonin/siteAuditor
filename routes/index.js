@@ -257,7 +257,7 @@ router.post('/galeria', function(req, res){
 router.post("/escola", function(req, res){
     var escolas = require("../models/escolas");
     escolas.insertOne(req).then(function(result){
-        return res.json(true);
+        return res.json({ id: result.insertId });
     });
 });
 

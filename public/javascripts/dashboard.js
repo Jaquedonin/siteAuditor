@@ -249,6 +249,15 @@ function cadastrarEscola(e){
             nome: e.target.nome.value,
         },
         function (response) {
+
+            console.log(response);
+            
+            var formVideo = $("#video-preview form");
+            var formEscola = $("#cadastrar-escola form");
+
+            formVideo[0].escola.value = formEscola[0].nome.value;
+            formVideo[0].escola_id.value = response.id;
+
             $("#cadastrar-escola").modal("hide");
         }
     );
