@@ -1,3 +1,12 @@
+body{
+    background-image: url("/images/bg.png");
+    background-size: 80%;
+}
+
+#mapa-wrapper, #login, #register, #send-list, #galeria{
+    background-color: rgb(53, 74, 91, 0.7);
+}
+
 #mapa-header {
     background: #0e0f11;
     color: #fff;
@@ -45,15 +54,18 @@ path {
 
 #mapa-wrapper{
     overflow: hidden;
+    padding-bottom: 100px;
 }
 
 #mapa-nav{
     justify-content: flex-end;
+    margin-bottom: -100px;
 }
 
 #mapa-nav #select-cidade{
+    padding: 20px 10px;
     color: #fff;
-    background: #2e3c49;
+    background: rgba(45, 59, 71, 0.9);
     border-radius: 0;
     border-color: #2e3c49;
     max-width: 175pt;
@@ -93,10 +105,86 @@ path {
     transition: transform .5s;
 }
 
+
+.mapa-info {
+    position: relative;
+    height: 24px;
+}
+
+#info-1{top: -325px;left: 0px;}
+#info-2{top: -146px;left: 170px;}
+#info-3{top: -304px;left: 385px;}
+#info-4{top: -200px;left: 660px;}
+#info-5{top: -240px;left: 825px;}
+#info-6{top: -345px;left: 955px;}
+
+.mapa-info-btn {
+    padding: 10px;
+    border-radius: 100%;
+    background: #fff;
+    border: 0px solid rgba(53, 74, 91, 1);
+    box-shadow: 0px 0px 0px 1px;
+    color: #fff;
+    animation: mapa-info-btn 2s infinite;
+    position: relative;
+}
+
+@-webkit-keyframes mapa-info-btn {
+    0% {border-width: 0; top: 5px; left: 5px;}
+    100% { border-width: 5px; top: 0; left:0;}
+}
+
+@keyframes  mapa-info-btn  {
+    0% {border-width: 0; top: 5px; left: 5px;}
+    100% { border-width: 5px; top: 0; left:0;}
+}
+
+.mapa-info-btn:before{
+    color: #611313;
+}
+
+.mapa-info-text.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mapa-info-text{
+    max-width: 143px;
+    padding: 35px 44px 15px 35px;
+    background-image: url("../images/info-mapa.png");
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    background-position: center;
+    transform: rotate(200deg) scaleX(-1);
+    opacity: 0;
+    visibility: hidden;
+    transition: all .5s;
+    position: absolute;
+    top: 50px;
+}
+
+@-webkit-keyframes mapa-info-text {
+    0%   { top: -5px; }
+    50%  { top:  5px; }
+    100% { top: -5px; }
+}
+
+@keyframes  mapa-info-text  {
+    0%   { top: -5px; }
+    50%  { top:  5px; }
+    100% { top: -5px; }
+}
+
+.mapa-info-text p{
+    color: #fff;
+    transform: rotate(200deg) scaleX(-1);
+}
+
 #galeria-mapa{
     width: 30%;
     height: 100%;
-    background: #26292b;
+    background: #3f3f3f;
+    box-shadow: 3px 0px 18px 0px;
     position: fixed;
     top: 0;
     left: -100%;
@@ -153,18 +241,99 @@ path {
     overflow: hidden;
 }
 
+#galeria-mapa .video .info{
+    border-right: 10px solid #3f3f3f;
+    border-bottom: 10px solid #3f3f3f;
+}
+
 #galeria-mapa .video .preview,
 #galeria .video .preview{
     min-height: 100px;
-    background-size: cover;
+    background-size: auto 135%;
     background-position: center;
 }
 
-#galeria .destaque .video .preview,
-#galeria .destaque .video .info{
+#galeria .destaque.video .preview,
+#galeria .destaque.video .info{
     height: 200px;
     overflow: hidden;
 }
+
+#galeria{
+    height: 100%;
+    padding: 0 0 10px 0;
+}
+
+#galeria #categoria{
+    width: 65%;
+    margin: 20px auto 0 auto;
+    padding: 15px;
+    flex: 1;
+    overflow: hidden;
+}
+
+#galeria #categoria .carousel-item {
+    height: 100%;
+    overflow-y: auto;
+}
+#galeria #categoria .carousel-inner{
+    height: 100%;
+}
+#galeria #categoria .carousel-inner > .row{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+#galeria #categoria .video .info,
+#galeria-mapa .video .info{
+    outline: 1px solid #FFF;
+    padding: 10px;
+    color: #fff;
+    overflow: hidden;   
+}
+
+#galeria #categoria .row .video:not(.destaque) .info
+{
+    height: 100px;
+}
+
+#galeria .video .info{
+    background: rgba(53, 74, 91, 0.8);
+    border-right: 10px solid rgba(53, 74, 91, 0.8);
+    border-bottom: 10px solid rgba(53, 74, 91, 0.8);
+}
+
+#galeria #categoria .destaque .video .info .titulo,
+#galeria-mapa .destaque .video .info .titulo{
+    margin: 10px 0;
+}
+
+#galeria #categoria .carousel-item > .row {
+    padding: 5px;
+    display: flex;
+    margin: 0;
+}
+
+#galeria #categoria .carousel-item .row > .video,
+#galeria -mapa .video{
+    padding: 5px 0;
+}
+
+#galeria #categoria .carousel-item .row > .video > .row,
+#galeria-mapa > .video > .row{
+    margin: 0;
+}
+
+#galeria #categoria .carousel-item .row > .video:nth-child(3n){
+    padding: 5px 10px;
+}
+
+#galeria #categoria .video .preview,
+#galeria-mapa .video .preview{
+    padding:0;
+}
+
 
 li.nav-item {
     line-height: 2rem;
@@ -222,34 +391,6 @@ li.nav-item {
     margin: 0 5px;
 }
 
-#voltar-galeria {
-    width: 100px;
-    height: 140px;
-    background: #611313;
-    font-size: 40px;
-    line-height: 150px;
-    color: #fff;
-    text-align: center;
-    left: -17px;
-    position: relative;
-    display: block;
-}
-
-#miniatura{
-    transform: scale(.5);
-    text-align: center;
-}
-
-#miniatura p{
-    font-size: 24pt;
-}
-
-#miniatura path,
-#miniatura path:hover {
-    cursor: auto;
-    stroke: #ccc;
-}
-
 #limpar-pesquisa{
     color: #fff;
     border-radius: 0;
@@ -270,19 +411,16 @@ li.nav-item {
     border-color: #fff;
 }
 
-#inputs-galeria {
-    justify-content: flex-end;
-}
-
 #col-limpar-pesquisa{
     text-align: right;
 }
 
-
 #galeria-navbar{
     justify-content: baseline;
+    align-items: stretch;
     background: #932121;
-    height: 140px;
+    padding-bottom: 0;
+    padding-top: 0; 
 }
 
 #galeria-navbar *{
@@ -293,8 +431,42 @@ li.nav-item {
     margin: 15px 0 15px 15px;
 }
 
+#voltar-galeria {
+    width: 100px;
+    background: #611313;
+    font-size: 40px;
+    text-align: center;
+    left: -17px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#voltar-galeria:hover{
+    text-decoration: none;
+}
+
+#cidade{
+    display: flex;
+    align-items: center;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+#cidade p{
+    margin: 0;
+    width: 100%;
+    text-align: center;
+}
+
+#galeria #categorias-wrapper{
+    flex: 4;
+}
+
 #galeria-navbar li.nav-item a{
     padding: 5px 10px;
+    cursor: pointer;
 }
 
 #galeria-navbar li.nav-item.selected {
@@ -304,6 +476,13 @@ li.nav-item {
 
 #galeria-navbar li.nav-item.selected a{
     color: #932121;
+}
+
+#galeria #busca-galeria{
+    flex: 4;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 
 #galeria-navbar select,
@@ -325,87 +504,6 @@ li.nav-item {
 
 #galeria-navbar .input-group-text:before{
     line-height: 24px;
-}
-
-#galeria{
-    height: 100%;
-    padding: 0 0 10px 0;
-}
-
-#galeria #categoria{
-    width: 65%;
-    margin: 20px auto 0 auto;
-    padding: 15px;
-    flex: 1;
-    overflow: hidden;
-}
-
-#galeria #categoria .carousel-item {
-    height: 100%;
-    overflow-y: auto;
-}
-#galeria #categoria .carousel-inner{
-    height: 100%;
-}
-#galeria #categoria .carousel-inner > .row{
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll;
-}
-
-#galeria #categoria .video .info,
-#galeria-mapa .video .info{
-    outline: 1px solid #FFF;
-    padding: 10px;
-    color: #fff;
-    overflow: hidden;   
-}
-
-#galeria #categoria .row > .video .info
-{
-    height: 100px;
-}
-
-#galeria-mapa .video .info{
-    border-bottom: 10px solid rgb(38, 41, 43);
-}
-
-#galeria #categoria .video .info{
-    border-bottom: 10px solid #354A5B;
-}
-
-#galeria #categoria .destaque .video .info .titulo,
-#galeria-mapa .destaque .video .info .titulo{
-    margin: 10px 0;
-}
-
-#galeria #categoria .carousel-item > .row {
-    padding: 5px;
-    display: flex;
-    margin: 0;
-}
-
-#galeria #categoria .carousel-item .row > .video .info{
-    height: 100px;
-}
-
-#galeria #categoria .carousel-item .row > .video,
-#galeria -mapa .video{
-    padding: 5px 0;
-}
-
-#galeria #categoria .carousel-item .row > .video > .row,
-#galeria-mapa > .video > .row{
-    margin: 0;
-}
-
-#galeria #categoria .carousel-item .row > .video:nth-child(3n){
-    padding: 5px 10px;
-}
-
-#galeria #categoria .video .preview,
-#galeria-mapa .video .preview{
-    padding:0;
 }
 
 #visualizar-video .modal-content {

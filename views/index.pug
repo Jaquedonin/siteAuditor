@@ -14,7 +14,7 @@ block content
                     ul.navbar-nav.ml-auto
                         li.nav-item
                             a.nav-link Como participar
-                        li.nav-item#login
+                        li.nav-item
                             if user
                                 a.nav-link(href="/dashboard") 
                                     span Gerenciador
@@ -31,7 +31,31 @@ block content
                     #zoom-in(onclick="zoomIn()") +
                     #zoom-out(onclick="zoomOut()") -
         include mapa.pug
-        div#galeria-mapa
+        #info-1.mapa-info
+            i.mapa-info-btn.fas.fa-comment
+            .mapa-info-text
+                p Mais de <b>700 mil</b> alunos matriculados
+        #info-2.mapa-info
+            i.mapa-info-btn.fas.fa-comment
+            .mapa-info-text
+                p Mais de <b>1 milhão</b> de carros
+        #info-3.mapa-info
+            i.mapa-info-btn.fas.fa-comment
+            .mapa-info-text
+                p O TCE PB foi fundado em <b>1970</b>
+        #info-4.mapa-info
+            i.mapa-info-btn.fas.fa-comment
+            .mapa-info-text
+                p População do estado <b>3.766,528</b>
+        #info-5.mapa-info
+            i.mapa-info-btn.fas.fa-comment
+            .mapa-info-text
+                p Onde o sol nasce <b>primeiro</b>
+        #info-6.mapa-info
+            i.mapa-info-btn.fas.fa-comment
+            .mapa-info-text
+                p Cerca de <b>56.468,435 km²</b> 
+        #galeria-mapa
     script(type='text/javascript', src='javascripts/mapa.js')
 
 block modal

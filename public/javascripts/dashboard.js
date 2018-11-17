@@ -182,7 +182,7 @@ function getVideoInfo(urls, onsuccess) {
                 var snippet = response.result.items[0].snippet;
                 return onsuccess({
                     url: 'https://youtube.com/embed/' + matchYt[2],
-                    thumb: snippet.thumbnails.default.url,
+                    thumb: snippet.thumbnails.high.url,
                     name: snippet.channelTitle,
                     title: snippet.title,
                     description: snippet.description
