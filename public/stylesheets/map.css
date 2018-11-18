@@ -267,7 +267,18 @@ path {
     margin: 20px auto 0 auto;
     padding: 15px;
     flex: 1;
-    overflow: hidden;
+}
+.carousel-control-prev {
+    left: -128px;
+}
+
+.carousel-control-next {
+    right: -128px;
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon{
+    width: 50px;
+    height: 50px;
 }
 
 #galeria #categoria .carousel-item {
