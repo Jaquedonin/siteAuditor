@@ -25,16 +25,6 @@ function post(url, send, onsuccess) {
 function visualizarVideo(id){
     get("/video/" + id, function (response) {
         $("#visualizar-video").html(response.html);
-
-        if(localStorage.getItem("aba")){
-            $("#play-video").on("click", function(e){
-                var videoId = $(e.target).attr("data-video");
-                localStorage.setItem("video", videoId);
-            });
-        } else {
-            $("#play-video").css("display","none")
-        }
-        
         $("#visualizar-video").modal("show");
     })
 }

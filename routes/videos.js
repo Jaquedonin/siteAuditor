@@ -29,7 +29,6 @@ router.post('/delete/videos', function(req, res, next) {
 });
 
 //exibir video
-
 router.get('/video/:id', function(req, res) {
     var getVideo = function (id){
         return new Promise(function(resolve, reject){
@@ -52,7 +51,6 @@ router.get('/video/:id', function(req, res) {
     }   
 
     getVideo(req.params.id).then(function(video){
-        console.log(video);
         res.app.render('video', {video: video}, function(err, html){
             console.log(err);
             res.send({html:html});
@@ -60,7 +58,7 @@ router.get('/video/:id', function(req, res) {
     })
 });
 
-router.get('/video-aba/:id', function(req, res) {
+router.get('/video-museu/:id', function(req, res) {
     var getVideo = function (id){
         return new Promise(function(resolve, reject){
             var videos = require("../models/videos");
@@ -77,8 +75,7 @@ router.get('/video-aba/:id', function(req, res) {
     }   
 
     getVideo(req.params.id).then(function(video){
-        console.log(video);
-        res.app.render('video-aba', {video: video}, function(err, html){
+        res.app.render('video-museu', {video: video}, function(err, html){
             console.log(err);
             res.send({html:html});
         });
@@ -102,11 +99,11 @@ router.get('/video-dashboard/:id', function(req, res) {
     }   
 
     getVideo(req.params.id).then(function(video){
-        console.log(video);
         res.app.render('video-dashboard', {video: video}, function(err, html){
             console.log(err);
             res.send({html:html});
         });
     })
 });
+
 module.exports = router;

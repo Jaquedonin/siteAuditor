@@ -7,6 +7,14 @@ router.get('/', function(req, res, next) {
     res.render('index', {user: req.session.user});
 });
 
+router.get('/museu', function(req, res, next) {
+    res.render('museu-index', {user: false});
+});
+
+router.get('/museu-play', function(req,res){
+    res.render('museu-play');
+})
+
 router.get('/bem-vindo', function(req, res, next) {
     
     if(!req.session.user){
@@ -27,10 +35,6 @@ router.post('/register', function(req, res, next){
     });
  
 });
-
-router.get('/video', function(req,res){
-    res.render('aba-visualizar-video');
-})
 
 router.all('/galeria/:cidade/:escola?', function(req, res, next) {
 

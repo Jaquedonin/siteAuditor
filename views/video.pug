@@ -6,7 +6,6 @@
                 span(aria-hidden='true') ×
         .modal-body
             iframe(type='text/html' width='100%' height='400px' src=encodeURI(video.url) controls='' frameborder='0')
-            #play-video(data-video=video.id)
             div.views="Visualizações: "
                 span=video.views
             p=video.descricao

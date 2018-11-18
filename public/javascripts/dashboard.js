@@ -158,13 +158,6 @@ window.addEventListener("load", function(){
     });
 });
 
-function dashboardVisualizarVideo(id){
-    get("/video-dashboard/" + id, function (response) {
-        $("#visualizar-video").html(response.html);        
-        $("#visualizar-video").modal("show");
-    })
-}
-
 function getVideoInfo(urls, onsuccess) {
     
     var regExprYt = "http(?:s?):\/\/(?:www\.)?youtu(be\.com\/watch[\?&]v=|\.be\/)([\\w\\-\\_]*|.)(&(amp;)[\w\=]*)?";
@@ -249,8 +242,6 @@ function cadastrarEscola(e){
             nome: e.target.nome.value,
         },
         function (response) {
-
-            console.log(response);
             
             var formVideo = $("#video-preview form");
             var formEscola = $("#cadastrar-escola form");
