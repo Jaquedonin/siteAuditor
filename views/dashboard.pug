@@ -14,7 +14,8 @@ block content
                     ul.navbar-nav.ml-auto
                         li.nav-item
                             a.nav-link(href="/") MAPA COLABORATIVO                     
-                        li.nav-item
+                        li#nome-professor.nav-item
+                            p=user.nome 
                             a.nav-link(href="auth/logout") SAIR
                                     
     main#dashboard.d-flex.flex-column.align-content-stretch                
