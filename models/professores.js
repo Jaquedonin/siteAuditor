@@ -1,7 +1,6 @@
 var db = require('../database/database');
 
 var insertOne = function(email, nome){
-    console.log("entrou no insert");
     var query = db.getQuery.insertOne(
         "professores", 
         ["email", "nome"], 
@@ -12,16 +11,14 @@ var insertOne = function(email, nome){
 }
 
 var find = function(email) {
-    console.log("entrou no find")
- 
     var query = db.getQuery.find("id", "professores", "email = '" + email + "'")
     return db.doQuery(query);
-  
-
 }
+
 var findTCE = function(email, senha){
     
     var request = require('request');
+    
     return new Promise(function(resolve, reject){
         request.post({
             "headers": { "content-type": "application/json" },
@@ -29,27 +26,16 @@ var findTCE = function(email, senha){
             "body": JSON.stringify({
                   emailOrCpf : email,
                   password : senha
-        })
+            })
         }, (error, response, body) => 
         {
-            //console.log(body);
-             console.log(error);
-              //console.log(response);
            var response = JSON.parse(body);
             
-            if (response.status) 
-            {
-               // var result = [false];
-                 console.log(body);
-                //var result = [false];
+            if (response.status) {
                 resolve(false);
-
-            }
-           
-           else{
-            
-            resolve({name: response.name, email: response.email});
-           } 
+            } else {
+                resolve({name: response.name, email: response.email});
+            } 
             
         });
     });
