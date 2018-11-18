@@ -1,4 +1,21 @@
 extends index.pug
+block header
+    header#mapa-header
+        nav.navbar.navbar-expand-lg.navbar-dark.navbar-fixed-top
+            .container
+                a.navbar-brand.col-4(href='#page-top') MAPA COLABORATIVO CIDADÃO
+                #logo.navbar-brand.col-4
+                    img(src="images/logo_tce.png")
+                    span Tribunal de Contas do <br/> Estado da Paraíba
+                button.navbar-toggler.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar', aria-label='Toggle navigation')
+                    span.sr-only Toggle navigation
+                    span.navbar-toggler-icon
+                #navbar.col-4.collapse.navbar-collapse
+                    ul.navbar-nav.ml-auto
+                        li.nav-item
+                            a.nav-link Como participar
+                        li.nav-item
+                            a.nav-link Sobre
 block modal
     #visualizar-video.modal(tabindex='-1', role='dialog')
     script(src='/javascripts/mapa-museu-interativo.js')

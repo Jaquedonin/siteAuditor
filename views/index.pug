@@ -1,5 +1,5 @@
 extends layout.pug
-block content
+block header
     header#mapa-header
         nav.navbar.navbar-expand-lg.navbar-dark.navbar-fixed-top
             .container
@@ -22,10 +22,12 @@ block content
                                 a.nav-link(href='/auth') Login
                         li.nav-item
                             a.nav-link Sobre
+block content
     section#mapa-wrapper
       .container
         .navbar#mapa-nav.row
-            input#select-cidade(type='text' name='codigo' placeholder="Pesquisar municípios").col-4.form-control.form-control-sm
+            if !museu
+                input#select-cidade(type='text' name='codigo' placeholder="Pesquisar municípios").col-4.form-control.form-control-sm
             #zoom.col-1
                 div 
                     #zoom-in(onclick="zoomIn()") +

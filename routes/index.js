@@ -2,13 +2,22 @@ var express = require('express');
 var router = express.Router();
 var https = require('https');
 
-/* GET home page. */
+//acesso web
 router.get('/', function(req, res, next) {
+    req.session.museu = false;
     res.render('index', {user: req.session.user});
 });
 
+//acesso museu interativo
 router.get('/museu', function(req, res, next) {
-    res.render('museu-index', {user: false});
+    /* 
+     * salva o status de museu para ser usado: 
+     * - na pagina de galeria:
+     * -- no link de voltar
+     * -- para ocultar os campos de busca 
+     */
+    req.session.museu = true;
+    res.render('museu-index', {user: false, museu: req.session.museu});
 });
 
 router.get('/museu-play', function(req,res){
@@ -91,7 +100,8 @@ router.all('/galeria/:cidade/:escola?', function(req, res, next) {
         user: !(!req.session.token),
         categorias: [
             { id: 0, descricao: "destaques" }
-        ]
+        ],
+        museu: req.session.museu
     }
 
     setCidade(data)
