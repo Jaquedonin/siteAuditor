@@ -54,12 +54,10 @@ path {
 
 #mapa-wrapper{
     overflow: hidden;
-    padding-bottom: 100px;
 }
 
 #mapa-nav{
     justify-content: flex-end;
-    margin-bottom: -100px;
 }
 
 #mapa-nav #select-cidade{
