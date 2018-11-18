@@ -1,25 +1,16 @@
 window.addEventListener("load", function(){
-    var btn = document.getElementById('insert-video-btn');
-        
-    if(btn){
-        btn.addEventListener("click", function(){
-            var url = document.getElementById('insert-video-link').value;
-            gapi.client.setApiKey("AIzaSyA_l5mfOIWiR437wfKU3fU-8c2FS36uf48");
-            gapi.client.load("youtube", "v3", function(){
-                getVideoInfo([url], function(info){
-                    fillVideoForm(info);
-                    toggleVideoPreview(true);
-                });
-            });
-                
-        });
-
-        document.getElementById('insert-video-add').addEventListener("click", toggleVideoPreview);
-        document.getElementById('insert-video-cancel').addEventListener("click", function(event){
-            event.preventDefault();
-            toggleVideoPreview();
-        });
-    }      
+      
+    gapi.client.setApiKey("AIzaSyA_l5mfOIWiR437wfKU3fU-8c2FS36uf48");
+    gapi.client.load("youtube", "v3", function(){
+        document.getElementById("insert-video-btn").addEventListener("click", previewVideo);
+        document.getElementById("insert-video-link").addEventListener("input", previewVideo);
+    });
+    
+    document.getElementById('insert-video-add').addEventListener("click", toggleVideoPreview);
+    document.getElementById('insert-video-cancel').addEventListener("click", function(event){
+        event.preventDefault();
+        toggleVideoPreview();
+    });
     
     $("#visualizar-video").on("hidden.bs.modal", function(){
         $("#visualizar-video").html("");
@@ -98,7 +89,6 @@ window.addEventListener("load", function(){
         }
     });
 
-
     $( "#busca-cidade" ).autocomplete({
         source: function(request, response){
             post("/api/cidades", {term: request.term}, response)
@@ -156,7 +146,16 @@ window.addEventListener("load", function(){
             return false;
         }
     });
+
 });
+
+function previewVideo(){
+    var url = document.getElementById('insert-video-link').value;
+    getVideoInfo([url], function(info){
+        fillVideoForm(info);
+        toggleVideoPreview(true);
+    });
+}
 
 function getVideoInfo(urls, onsuccess) {
     
@@ -164,11 +163,17 @@ function getVideoInfo(urls, onsuccess) {
     var regExprFb = "http(?:s?):\/\/(?:www\.)?facebook\.com\/(?:.*\/)(?:videos\/)(.*)(?:\/)";
     
     urls.forEach(function(url){
+        
         var matchYt = url.match(regExprYt);
         var matchFb = url.match(regExprFb);
         
+        if(!matchYt && !matchFb){
+            toggleVideoPreview(false);
+            return;
+        }
+
         if(matchYt){
-            gapi.client.youtube.videos.list({
+            return gapi.client.youtube.videos.list({
                 "part": "snippet",
                 "id": matchYt[2]
             }).then(function(response){
@@ -184,7 +189,6 @@ function getVideoInfo(urls, onsuccess) {
         }
 
         if(matchFb){
-            
             return post(
                 "api/fb/",
                 { id: matchFb[1], fields: ["picture,from,title,description"]},
@@ -202,7 +206,6 @@ function getVideoInfo(urls, onsuccess) {
             );
         }
     });
-
 }
 
 function toggleVideoPreview(show){
@@ -213,7 +216,9 @@ function toggleVideoPreview(show){
         ytPreview.setAttribute("class", "col-12");
         fillVideoForm({});
     } else {
-        ytPreview.setAttribute("class", "col-12 show");
+        if(show){
+            ytPreview.setAttribute("class", "col-12 show");
+        }
     }
 }
 
