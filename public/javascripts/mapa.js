@@ -79,10 +79,14 @@ function toggleGaleria(cidade, show){
 
 function zoomIn(){
     document.getElementById("mapa").style.transform = "scale(1.3)"
+    document.getElementById("mapa").style.zIndex = "2"
 };
 
 function zoomOut(){
     document.getElementById("mapa").style.transform = "scale(1)"
+    setTimeout(function(){
+        document.getElementById("mapa").style.zIndex = "0"
+    }, 500);
 };
 
 var mapaInfoTimeOut = {};
