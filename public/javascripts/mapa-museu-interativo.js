@@ -4,7 +4,9 @@ window.addEventListener("load", function(){
     modal = $("#modal-play-video");
     
     if(!modal.length)
-        return false;
+    return false;
+    
+    localStorage.clear();
     
     window.addEventListener('storage', function(e) {
         
