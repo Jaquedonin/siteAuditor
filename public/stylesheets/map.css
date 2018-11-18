@@ -107,6 +107,7 @@ path {
 .mapa-info {
     position: relative;
     height: 24px;
+    width: 45px;
 }
 
 #info-1{top: -325px;left: 0px;}
