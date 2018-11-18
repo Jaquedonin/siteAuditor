@@ -12,7 +12,9 @@ router.get('/', function(req, res, next) {
 router.get('/museu', function(req, res, next) {
     /* 
      * salva o status de museu para ser usado: 
-     * - na pagina de galeria:
+     * - na pagina principal (index.pug):
+     * -- para ocultar o campo de cidades
+     * - na pagina de galeria (galeria.pug):
      * -- no link de voltar
      * -- para ocultar os campos de busca 
      */
