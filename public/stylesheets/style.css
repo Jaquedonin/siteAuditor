@@ -332,6 +332,23 @@ footer p{ margin-bottom: 0;}
     height: 100%;
 }
 
+#nome-professor p, #nome-professor a.nav-link {
+    text-align: right;
+    line-height: 1em;
+}
+
+#nome-professor p {
+    margin: 1.05rem 0 .1rem 0;
+    padding-bottom: 0;
+    color: #ccc;
+    text-transform: uppercase;
+}
+
+#nome-professor a {
+    padding: 0;
+
+}
+
 #send-list{
     padding: 20px 15px 0 15px;
     flex: 1;

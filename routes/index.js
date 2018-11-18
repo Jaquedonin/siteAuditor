@@ -20,8 +20,8 @@ router.get('/bem-vindo', function(req, res, next) {
     if(!req.session.user){
         return res.redirect("/auth");
     } 
-    
-    res.render('bem-vindo', {user: req.session.user});
+
+    res.render('bem-vindo', {user: {nome: req.session.professorNome }});
 });
 
 router.post('/register', function(req, res, next){
@@ -180,7 +180,7 @@ router.all('/dashboard', function(req, res, next) {
             id: req.body.escola_id,
             nome: req.body.escola
         },
-        user: true
+        user: { nome: req.session.professorNome }
     };
 
     if(req.session.delete){
