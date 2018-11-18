@@ -89,6 +89,11 @@ window.addEventListener("load", function(){
         }
     });
 
+    $("#inputs-user-videos .input-group-append").on("click", function(e){
+        var form = e.target.parentNode.parentNode.parentNode.parentNode;
+        form.submit();
+    });
+
     $( "#busca-cidade" ).autocomplete({
         source: function(request, response){
             post("/api/cidades", {term: request.term}, response)

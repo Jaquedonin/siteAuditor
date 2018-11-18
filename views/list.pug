@@ -1,14 +1,20 @@
 h4="Meus vídeos"
 #user-videos
     form#inputs-user-videos.row(method="POST" action="/dashboard")    
-        .col-3
-            input#busca-cidade(type='text' name='cidade' placeholder="Pesquisar cidade" value=cidade?cidade.nome:"").form-control.form-control-sm
-        .col-3
-            input#busca-escola(type='text' name='escola' placeholder="Pesquisar escolas" value=escola?escola.nome:"" readonly=!cidade).form-control.form-control-sm
-        .col-6
+        .col-4
+            .input-group
+                input#busca-cidade(type='text' name='cidade' placeholder="Pesquisar cidade" value=cidade?cidade.nome:"").form-control.form-control-sm
+                .input-group-append
+                        i.input-group-text.fas.fa-search
+        .col-4
+            .input-group
+                input#busca-escola(type='text' name='escola' placeholder="Pesquisar escola" value=escola?escola.nome:"" readonly=!cidade).form-control.form-control-sm
+                .input-group-append
+                        i.input-group-text.fas.fa-search
+        .col-4
             .row
             .input-group
-                input.form-control.form-control-sm#pesquisar(name="busca" placeholder="Pesquisar" value=busca?busca:"")
+                input.form-control.form-control-sm#pesquisar(name="busca" placeholder="Pesquisar termos" value=busca?busca:"")
                 .input-group-append
                     i.input-group-text.fas.fa-search
             input#busca-cidade-id(type='hidden' name='cidade_id' value=cidade?cidade.id:"")        
