@@ -2,8 +2,9 @@ var express = require('express');
 var auth = express.Router();
 var cors = require('cors')
 var jwt = require('jsonwebtoken');
-
+var requisicao = require("../query/POST");
 var model = require("../models/professores");
+
 
 auth.use(cors());
 
@@ -26,34 +27,50 @@ auth.get('/logout', function(req, res) {
 });
 
 auth.post('/login', function(req, res) {
+    
+    var email = req.body.email;     
+    var senha = req.body.senha;          
+    model.findTCE(email, senha).then(function(tce)
+    {         
+        console.log("tce", tce);
+        // tce = {email: email, senha: senha, nome: name};          
+        if(tce)
+        {              
+            var email = tce.email;             
+            var nome = tce.name;
+            console.log(email);
+            console.log(nome); 
 
-    model.find({where: {email: req.body.email}}).then(function(result){
-   
-        if(!result.length)
-            return res.redirect('/');
-            // res.status(204).json({
-            //     error: 1,
-            //     data: 'Email não existe!'
-            // });
+            model.find(email).then(function(result)
+            {                 
+                // result = {id: 1, nome: "Maria"} || false                  
+                    if(!result.length)
+                    {                     
+                        var result = model.insertOne(email, nome).then(function (insert)
+                        {
+                            console.log("Insert ",insert);
+                            return [{id:insert.insertId}]; 
+                        });                 
+                    }
+                console.log("result ",result);                  
+                var payload = JSON.parse(JSON.stringify(result[0]));                 
+                req.session.token = jwt.sign(                     
+                payload, process.env.SECRET_KEY, { expiresIn: 1440 });                  
+                req.session.professorId = result[0].id;                 
+                req.session.professorNome = nome;                 
+                req.session.user = true;                 
+                res.redirect("/bem-vindo");             
+            });
 
-        if(result[0].senha != req.body.senha)
-            return res.redirect('/');
-            // res.status(204).json({
-            //     error: 1,
-            //     data: 'Email e senha incorretos'
-            // });
+        } 
+        else{
+            res.redirect("/auth"); 
+        } 
 
-        var payload = JSON.parse(JSON.stringify(result[0]));
             
-        req.session.token = jwt.sign(
-            payload, process.env.SECRET_KEY, { expiresIn: 1440 }
-        );
-        req.session.professorId = result[0].id;
-        req.session.user = true;
-
-        res.redirect("/bem-vindo");
-    });
-
+    }); 
+    
 });
+
 
 module.exports = auth;
