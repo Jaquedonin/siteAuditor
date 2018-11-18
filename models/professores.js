@@ -32,22 +32,25 @@ var findTCE = function(email, senha){
         })
         }, (error, response, body) => 
         {
-            console.log(body);
-             //console.log(error);
+            //console.log(body);
+             console.log(error);
               //console.log(response);
            var response = JSON.parse(body);
             
-            if (error) 
+            if (response.status) 
             {
                // var result = [false];
-                 //console.log(body);
+                 console.log(body);
                 //var result = [false];
                 resolve(false);
 
             }
-            
+           
+           else{
             
             resolve({name: response.name, email: response.email});
+           } 
+            
         });
     });
 }

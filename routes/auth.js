@@ -31,9 +31,10 @@ auth.post('/login', function(req, res) {
     var email = req.body.email;     
     var senha = req.body.senha;          
     model.findTCE(email, senha).then(function(tce)
-    {         console.log(tce);
+    {         
+        console.log("tce", tce);
         // tce = {email: email, senha: senha, nome: name};          
-        if(tce )
+        if(tce)
         {              
             var email = tce.email;             
             var nome = tce.name;
@@ -43,7 +44,7 @@ auth.post('/login', function(req, res) {
             model.find(email).then(function(result)
             {                 
                 // result = {id: 1, nome: "Maria"} || false                  
-                    if(!result)
+                    if(!result.length)
                     {                     
                         var result = model.insertOne(email, nome).then(function (insert)
                         {
@@ -64,7 +65,8 @@ auth.post('/login', function(req, res) {
         } 
         else{
             res.redirect("/auth"); 
-        }                 
+        } 
+
             
     }); 
     
