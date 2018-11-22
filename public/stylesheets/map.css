@@ -269,6 +269,17 @@ path {
     padding: 15px;
     flex: 1;
 }
+
+.carousel-control-prev-icon {
+    background-image: url(../images/seta.png);
+    background-size: contain;
+    transform: rotate(180deg);
+}
+
+.carousel-control-next-icon {
+    background-image: url(../images/seta.png);
+    background-size: contain
+}
 .carousel-control-prev {
     left: -128px;
 }
