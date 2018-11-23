@@ -3,12 +3,12 @@ h4="Meus vídeos"
     form#inputs-user-videos.row(method="POST" action="/dashboard")    
         .col-4
             .input-group
-                input#busca-cidade(type='text' name='cidade' placeholder="Pesquisar cidade" value=cidade?cidade.nome:"").form-control.form-control-sm
+                input#busca-cidade(type='text' name='cidade' placeholder="Digite a cidade" value=cidade?cidade.nome:"").form-control.form-control-sm
                 .input-group-append
                         i.input-group-text.fas.fa-search
         .col-4
             .input-group
-                input#busca-escola(type='text' name='escola' placeholder="Pesquisar escola" value=escola?escola.nome:"" readonly=!cidade).form-control.form-control-sm
+                input#busca-escola(type='text' name='escola' placeholder="Digite a escola" value=escola?escola.nome:"" readonly=!cidade).form-control.form-control-sm
                 .input-group-append
                         i.input-group-text.fas.fa-search
         .col-4

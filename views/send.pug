@@ -11,18 +11,36 @@ h4="Enviar vídeos"
                 img#insert-video-thumb
             .col-8
                 form(method='POST' action='/videos')
-                    input#insert-video-name.form-control.form-control-sm(type="text" name="autor" placeholder="Autor")
-                    input#insert-video-title.form-control.form-control-sm(type="text" name="titulo" placeholder="Título")
-                    input#insert-video-desc.form-control.form-control-sm(type="text" name="descricao" placeholder="Descrição")
-                    input#select-cidade(type='text' name='cidade' placeholder="Selecionar cidade").form-control.form-control-sm
-                    input#select-escola(type='text' name='escola' placeholder="Selecionar escola" readonly).form-control.form-control-sm
+                    .input-group
+                        input#insert-video-name.form-control.form-control-sm(type="text" name="autor" placeholder="Autor")
+                        .input-group-append
+                            i.input-group-text *
+                    .input-group
+                        input#insert-video-title.form-control.form-control-sm(type="text" name="titulo" placeholder="Título")
+                        .input-group-append
+                            i.input-group-text *
+                    .input-group
+                        input#insert-video-desc.form-control.form-control-sm(type="text" name="descricao" placeholder="Descrição")
+                        .input-group-append
+                            i.input-group-text *
+                    .input-group
+                        input#select-cidade(type='text' name='cidade' placeholder="Digite a cidade").form-control.form-control-sm
+                        .input-group-append
+                            i.input-group-text *
+                    .input-group
+                        input#select-escola(type='text' name='escola' placeholder="Digite a escola" readonly).form-control.form-control-sm
+                        .input-group-append
+                            i.input-group-text *
                     input#escola-id(type='hidden' name='escola_id')
                     input#cidade-id(type='hidden' name='cidade_id')
-                    select(type='text' name='categoria_id')#select-categoria.form-control.form-control.sm
-                        option="Categoria"
-                        if categorias
-                            each categoria in categorias 
-                                option(value=categoria.id) #{categoria.descricao}
+                    .input-group
+                        select(type='text' name='categoria_id')#select-categoria.form-control.form-control.sm
+                            option="Categoria"
+                            if categorias
+                                each categoria in categorias 
+                                    option(value=categoria.id) #{categoria.descricao}
+                        .input-group-append
+                            i.input-group-text *
                     input#insert-video-url(type="hidden", name='url')
                     input#insert-video-img(type="hidden", name='thumb')
                     button#insert-video-add.form-control.form-control-sm Adicionar

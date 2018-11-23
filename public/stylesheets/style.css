@@ -267,6 +267,30 @@ footer p{ margin-bottom: 0;}
     border-color: #354A5B;
 }
 
+
+#insert-video .row input, 
+#insert-video .row select{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    height: calc(1.8125rem + 2px);
+}
+
+#insert-video .input-group {
+    z-index: 0;
+}
+
+#insert-video  #video-preview .input-group-append .input-group-text{
+    background: #fff;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 0px 8px 0px 3px;
+    height: calc(1.8125rem + 2px);
+    color: #e53c37;
+    text-align: center;
+    border: 1px solid #354A5B;
+    border-left: 0;
+}
+
 #video-preview{
     overflow: hidden;
     transition: 1s;
