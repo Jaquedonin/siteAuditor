@@ -26,15 +26,6 @@ router.get('/museu-play', function(req,res){
     res.render('museu-play');
 })
 
-router.get('/bem-vindo', function(req, res, next) {
-    
-    if(!req.session.user){
-        return res.redirect("/auth");
-    } 
-
-    res.render('bem-vindo', {user: {nome: req.session.professorNome }});
-});
-
 router.post('/register', function(req, res, next){
 
     var professores = require("../models/professores");
@@ -181,7 +172,7 @@ router.all('/dashboard', function(req, res, next) {
     if(!req.session.token){
         return res.redirect("/auth");
     }
-
+    
     var data = {
         busca: req.body.busca,
         cidade: {
@@ -192,8 +183,13 @@ router.all('/dashboard', function(req, res, next) {
             id: req.body.escola_id,
             nome: req.body.escola
         },
-        user: { nome: req.session.professorNome }
+        user: { nome: req.session.professorNome },
+        afterLogin: req.session.afterLogin
     };
+
+    if(req.session.afterLogin){
+        req.session.afterLogin = false;
+    }
 
     if(req.session.delete){
         console.log(req.session.delete.status, req.session.delete.msg);

@@ -10,6 +10,7 @@ body{
 #mapa-header {
     background: #0e0f11;
     color: #fff;
+    display: flex;
 }
 
 #mapa-header .col-4:nth-child(2){

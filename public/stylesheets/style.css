@@ -3,11 +3,11 @@ html{
 }
 
 body {
-  padding:0;
-  margin: 0;
-  height: 100%;
-  font: 14px  'Roboto', sans-serif !important;
-  background-color: #354A5B
+padding:0 !important;
+margin: 0;
+height: 100%;
+font: 14px  'Roboto', sans-serif !important;
+background-color: #354A5B;
 }
 
 section {
@@ -16,7 +16,7 @@ section {
 }
 
 a {
-  color: #00B7FF;
+color: #00B7FF;
 }
 
 nav#header.navbar{
@@ -65,30 +65,37 @@ p+span, a+span{
     margin: 0 5px;
 }
 
-#bem-vindo{
-    display: flex;
+#boas-vindas{
     flex-direction: column;
-    width: 100%;
-    height: 100%;
-    padding: 100px 0;
+    justify-content: center;
+    margin: auto;
+    align-items: center;
 }
 
-#bem-vindo * {
+#boas-vindas * {
     color: #fff;
     text-align: center;
 }
 
-#bem-vindo > i{
+#boas-vindas .modal-body > i{
     font-size: 40pt;
     margin: 0 0 20px 0;
 }
 
-#bem-vindo p:nth-child(3){
+#boas-vindas .modal-body p:nth-child(2){
     font-size: 20pt
 }
 
-#bem-vindo p:nth-child(5){
+#boas-vindas .modal-body p:nth-child(3){
     font-size: 16pt
+}
+
+#boas-vindas .modal-body{
+    padding: 2rem;
+}
+
+#boas-vindas .modal-content{
+    background-color: #354a5b;
 }
 
 .list-videos .col-3{
@@ -352,7 +359,12 @@ footer p{ margin-bottom: 0;}
     display: flex;
 }
 
-#dashboard{
+.navbar {
+    width: 100%;
+}
+
+#dashboard,
+#dashboard main{
     height: 100%;
 }
 
