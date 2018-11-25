@@ -103,20 +103,20 @@ router.all('/galeria/:cidade/:escola?', function(req, res, next) {
         categorias: [
             { id: 0, descricao: "destaques" }
         ],
-        museu: req.session.museu
+        museu: !(!req.session.museu)
     }
 
     setCidade(data)
         .then(function(){ return setEscola(data); })
         .then(function(){ return setCategorias(data); })
         .then(function(){ return setVideos(data); })
-        .then(function(){ res.render('galeria', data) })
+        .then(function(){ console.log(data.museu); res.render('galeria', data) })
         .catch(function(err) { 
             console.log(err);
             res.redirect("/");
         });
         
-});
+}); 
 
 router.post('/api/fb', function(req, res, next){
 

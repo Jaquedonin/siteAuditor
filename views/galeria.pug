@@ -25,7 +25,7 @@ block header
 block content
     main#galeria.d-flex.flex-column.align-content-stretch
         nav.navbar.navbar-expand-lg#galeria-navbar
-            a#voltar-galeria.col(href="/" + museu ? "/museu" : "")
+            a#voltar-galeria.col(href="/" + (museu ? "museu" : ""))
                 i.fas.fa-arrow-left
             #cidade.col
                 p=cidade.nome
