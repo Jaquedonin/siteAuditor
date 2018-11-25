@@ -15,7 +15,7 @@ div.d-flex.flex-column.align-content-stretch
                         p#estatisticas-escolas=escolas
                 p.section Principais vídeos
                 #videos
-                    if videos
+                    if videos.length
                         each video in videos
                             - var thumb = video.thumb ? video.thumb : "https://image.shutterstock.com/z/stock-photo-beautiful-joyful-african-american-teenager-girl-holding-smart-phone-photo-camera-with-hands-taking-662752159.jpg"
                             - var title = video.titulo ? video.titulo.substring(0,30) + "..."  : "Título do vídeo"
@@ -31,6 +31,9 @@ div.d-flex.flex-column.align-content-stretch
                                         .titulo
                                             b=title
                                         .short=description
+                    else
+                        p.no-video="Nenhum vídeo encontrado para esta cidade" 
+
                 a#ver-galeria.btn.btn-danger(href="/galeria/" + cidade.codigo + "/todas/") 
                     i.fas.fa-play
                     span VER GALERIA

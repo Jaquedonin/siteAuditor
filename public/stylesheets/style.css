@@ -395,3 +395,14 @@ footer p{ margin-bottom: 0;}
 #inputs-user-videos .input-group-append{
     cursor: pointer;
 }
+
+.no-video{
+    color: #fff;
+    font-size: 12pt;
+    background: rgba(45, 59, 71, 0.9);
+    padding: 10px;
+}
+
+#galeria-mapa .no-video{
+    background: transparent
+}

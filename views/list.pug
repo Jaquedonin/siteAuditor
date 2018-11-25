@@ -21,7 +21,7 @@ h4="Meus vídeos"
             input#busca-escola-id(type='hidden' name='escola_id' value=escola?escola.id:"")
             input(type="submit" style="display:none")                
     .row
-        if videos
+        if videos.length
             each video in videos
                 .col-4
                     .video(style="background-image: url("+video.thumb+")" onclick="visualizarVideo("+video.id+")")
@@ -30,3 +30,6 @@ h4="Meus vídeos"
                                 input.d-none(name="id", value=video.id) 
                                 i.fa.fa-play
                                 i.fas.fa-trash(onclick="this.parentElement.submit()")
+        else
+            .container 
+                p.no-video="Nenhum vídeo encontrado"

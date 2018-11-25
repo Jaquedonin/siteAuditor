@@ -56,22 +56,27 @@ block content
                     .carousel-item
                         .row
                             - var destaque = true
-                            if videos 
-                                each video in videos[index]
-                                    - var classe = destaque ? "video destaque col-12" : "video col-4";
-                                    - var title = destaque ? video.titulo : video.titulo.substring(0,30);
-                                    - var description =  destaque ? video.descricao : video.descricao.substring(0,80)
-                                    div(class=classe)
-                                        .row(onclick="visualizarVideo("+video.id+")")
-                                            .preview.col-6(style="background-image: url("+video.thumb+")")
-                                                i.fa.fa-play
-                                            .info.col-6
-                                                .autor=video.author
-                                                .titulo
-                                                    b=title
-                                                .descr=description
-                                    - destaque = false 
-                                .clearfix
+                            if videos
+                                if videos[index].length 
+                                    each video in videos[index]
+                                        - var classe = destaque ? "video destaque col-12" : "video col-4";
+                                        - var title = destaque ? video.titulo : video.titulo.substring(0,30);
+                                        - var description =  destaque ? video.descricao : video.descricao.substring(0,80)
+                                        div(class=classe)
+                                            .row(onclick="visualizarVideo("+video.id+")")
+                                                .preview.col-6(style="background-image: url("+video.thumb+")")
+                                                    i.fa.fa-play
+                                                .info.col-6
+                                                    .autor=video.author
+                                                    .titulo
+                                                        b=title
+                                                    .descr=description
+                                        - destaque = false 
+                                    .clearfix
+                                else
+                                    .container
+                                        p.no-video="Nenhum vídeo encontrado para esta categoria" 
+
             <a class="carousel-control-prev" href="#categoria" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Anterior</span>
