@@ -309,6 +309,17 @@ path {
     background-image: url(../images/seta.png);
     background-size: contain
 }
+
+.carousel-control-prev,
+.carousel-control-next{
+    cursor: default;    
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon{
+    cursor: pointer;
+}
+
 .carousel-control-prev {
     left: -128px;
 }
