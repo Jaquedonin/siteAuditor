@@ -5,19 +5,9 @@ var jwt = require('jsonwebtoken');
 
 var model = require("../models/professores");
 
-
 auth.use(cors());
 
 process.env.SECRET_KEY = "devesh";
-
-auth.post('/register', function(req, res) {
-    
-    model.insertOne(req).then(function (result) {
-        // if(!result)   
-        return res.redirect("/auth");
-    });
-    
-});
 
 auth.get('/logout', function(req, res) {
     req.session.token = false;
@@ -66,8 +56,9 @@ function login(res, req, result, nome){
     );                  
     req.session.professorId = result[0].id;                 
     req.session.professorNome = nome;                 
-    req.session.user = true;                 
-    res.redirect("/bem-vindo"); 
+    req.session.user = true;
+    req.session.afterLogin = true;
+    res.redirect("/dashboard"); 
 }
 
 module.exports = auth;
