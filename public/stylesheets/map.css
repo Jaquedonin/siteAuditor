@@ -282,10 +282,11 @@ path {
 
 #galeria #categoria .video .info{
     outline: none;
-    background: rgba(53, 74, 91, 0.8);
-    border-right: 10px solid rgba(53, 74, 91, 0.8);
-    border-bottom: 10px solid rgba(53, 74, 91, 0.8);
+    background: rgba(35, 39, 43, 0.8);
+    border-right: 10px solid rgba(35, 39, 43, 0.8);
+    border-bottom: 10px solid rgba(35, 39, 43, 0.8);
 }
+
 #galeria #categoria .carousel-item .row > .video:nth-child(3n){
     padding: 5px 10px;
 }
@@ -319,11 +320,12 @@ path {
     height: 50px;
 }
 
-#galeria .video .preview
+#galeria .video .preview,
 #galeria-mapa .video .preview{
     min-height: 100px;
     background-size: auto 135%;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 
