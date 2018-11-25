@@ -390,3 +390,8 @@ footer p{ margin-bottom: 0;}
 #send, #list{
     margin-bottom: 75px;
 }
+
+#busca-galeria .input-group-append,
+#inputs-user-videos .input-group-append{
+    cursor: pointer;
+}

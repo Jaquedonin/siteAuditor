@@ -26,6 +26,11 @@ window.addEventListener("load", function(){
             return false;
         }
     });
+
+    $("#busca-galeria .input-group-append").on("click", function(e){
+        var form = e.target.parentNode.parentNode.parentNode.parentNode.parentNode;
+        form.submit();
+    });
     
     $($('#categorias').children()[0]).addClass("selected");
     $($('#categoria .carousel-inner').children()[0]).addClass("active");

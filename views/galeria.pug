@@ -39,14 +39,16 @@ block content
                 form.col#busca-galeria(method="POST" action="/galeria/" + cidade.codigo + "/" + (escola.id ? escola.id : "todas")) 
                     .row
                         .col-6
-                            input#select-escola(type='text' name='escola' placeholder="Pesquisar escolas" value=escola.nome).form-control.form-control-sm
+                            .input-group
+                                input#select-escola(type='text' name='escola' placeholder="Pesquisar escolas" value=escola.nome).form-control.form-control-sm
+                                .input-group-append
+                                    i.input-group-text.fas.fa-search
                         .col-6
-                            .row
-                                .input-group
-                                    input.form-control.form-control-sm#pesquisar(name="termo" placeholder="Pesquisar" value=busca?busca:"")
-                                    input(type="hidden" name="cidade_id" value=cidade.codigo)
-                                    .input-group-append
-                                        i.input-group-text.fas.fa-search 
+                            .input-group
+                                input.form-control.form-control-sm#pesquisar(name="termo" placeholder="Pesquisar" value=busca?busca:"")
+                                .input-group-append
+                                    i.input-group-text.fas.fa-search 
+                                input(type="hidden" name="cidade_id" value=cidade.codigo)
                                 input(type="submit" style="display:none")   
         #categoria.carousel.slide(data-ride='carousel' data-interval="false")       
             .carousel-inner
