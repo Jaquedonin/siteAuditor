@@ -219,18 +219,19 @@ router.post('/galeria', function(req, res){
     var setVideos = new Promise(function(resolve, reject){
         var videos = require("../models/videos");
         videos.findByCidade(req.body.cidade).then(function(result){
-            data.videos = result;
-            resolve(true);
+            resolve(result);
         });
     });
     
     var data = {};
     //buscar cidade e suas estatisticas
-    setEstatisticas.then(function(){ 
+    setEstatisticas.then(function(){
         //buscar videos
-        setVideos.then(function(){    
+        setVideos.then(function(videos){
+            data.videos = videos;
             //ao final, envia a view galeria-mapa como resposta
             res.app.render('galeria-mapa', data, function(err, html){
+                console.log(!(!html));
                 res.send({ html:html });
             });  
         })
