@@ -12,6 +12,8 @@ var videoRouter = require('./routes/videos');
 
 var app = express();
 
+app.disable('x-powered-by')
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -22,11 +24,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 //session é uma propriedade que pode ser acessada em todas as requisições
-//guarda os valores da sessão "token" e "professorId"
+//guarda os valores da sessão "token", "professorId" e "professorName"
 app.use(session({
-    secret: 'max',
+    name: 'session',
+    secret: '',
     saveUninitialized: false,
-    resave: false
+    resave: false,
+    httpOnly: true
 }));
   
 app.use(express.static(path.join(__dirname, 'public')));
