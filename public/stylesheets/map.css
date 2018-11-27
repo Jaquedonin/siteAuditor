@@ -3,8 +3,20 @@ body{
     background-size: 20%;
 }
 
-#mapa-wrapper, #login, #register, #send-list, #galeria{
+#mapa-wrapper, #login, #send-list, #galeria, #not-found{
     background-color: rgb(53, 74, 91, 0.7);
+}
+
+#not-found{
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    justify-content: center;
+    text-align: center;
+}
+
+#not-found h1{
+    padding: 40px;
 }
 
 #mapa-header {
@@ -400,22 +412,6 @@ li.nav-item {
     height: auto;
     flex: 1;
     overflow-y: scroll;
-}
-
-#fb-user-videos .wrapper{
-    float:left;
-    margin: 10px 0;
-}
-
-#fb-user-videos .wrapper input{
-    position: relative;
-    top: 68px;
-    float: left;
-    margin: 0 10px;
-}
-
-#fb-user-videos .wrapper iframe{
-    float:left;
 }
 
 #ver-galeria{

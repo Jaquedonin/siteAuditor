@@ -180,7 +180,7 @@ footer p{ margin-bottom: 0;}
 
 #auth .title, #auth .subtitle {
     text-align: center;
-    margin: 20px 0;
+    padding: 20px 0;
 }
 
 #auth .title { font-size: 18pt; }
@@ -191,13 +191,10 @@ footer p{ margin-bottom: 0;}
     color: #fff;
 }
 
-#auth #register {
-    background:  #fff;
-}
-
 #auth.container {
     max-width: unset;
     height: 100%;
+    background: #fff;
 }
 
 #auth.container .row {
@@ -208,7 +205,7 @@ footer p{ margin-bottom: 0;}
     margin-bottom: 15px;
 }
 
-#auth input.form-control{
+#auth .form-group{
     max-width: 70%;
     margin-left: 15%;
 }
@@ -219,38 +216,30 @@ footer p{ margin-bottom: 0;}
 }
 
 #auth #login input.form-control{
-    border-color: #ffffff;
     background: transparent;
-    color: #fff;
 }
 
 #auth #login a{
     color: #fff;
 }
 
-#auth #login button,
-#auth #register > *{
+#auth #login {
     color: #354A5B;
-}
-
-#auth #register input.form-control{
-    border-color: #354A5B;
-    background: transparent;
-    color: #354A5B;
-}
-
-#auth #register button{
-    background-color: #354A5B;
-    color: #fff;
 }
 
 .container-height{
     min-height: 70%;
 }  
 
+#insert-video .form-group{
+    width: 100%;
+}
+
 #insert-video input,
+#insert-video .form-group,
 #insert-video .input-group-append{
     z-index: 2;
+    position: relative;
 }
 
 #insert-video .input-group-append .input-group-text {
@@ -259,8 +248,16 @@ footer p{ margin-bottom: 0;}
 }
 
 #insert-video {
+    margin-top: 2em;
     margin-bottom: 0;
 }
+
+#insert-video .invalid-feedback{
+    top: -2em;
+    position: absolute;
+}
+
+#insert-video form .invalid-feedback{top: 2.6em;}
 
 #insert-video .row input, 
 #insert-video .row select,
@@ -274,6 +271,13 @@ footer p{ margin-bottom: 0;}
     border-color: #354A5B;
 }
 
+#insert-video .row input.is-invalid, 
+#insert-video .row select.is-invalid,
+#cadastrar-escola input.is-invalid, 
+#cadastrar-escola select.is-invalid {
+    border-color: #dc3545
+}
+
 
 #insert-video .row input, 
 #insert-video .row select{
@@ -282,11 +286,11 @@ footer p{ margin-bottom: 0;}
     height: calc(1.8125rem + 2px);
 }
 
-#insert-video .input-group {
+#insert-video-form .form-group {
     z-index: 0;
 }
 
-#insert-video  #video-preview .input-group-append .input-group-text{
+#insert-video #video-preview .input-group-append .input-group-text{
     background: #fff;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
@@ -344,7 +348,6 @@ footer p{ margin-bottom: 0;}
 #insert-video-thumb {
     width: 100%;
     min-height: 131px;
-    background-color: #000;
     display: block;
     border-radius: 10px;
     margin-top: -25px;
@@ -352,7 +355,11 @@ footer p{ margin-bottom: 0;}
 
 #video-preview.show:after{
     display:none;
-} 
+}
+
+#video-preview .row{
+    margin: 0;
+}
 
 #video-preview .row .col-4{
     align-items: center;

@@ -1,8 +1,17 @@
 extends layout.pug
 block content
     main#auth.container
-        .row
-            .col-md-4#login
-                include login.pug
-            .col-md-8#register
-                include register.pug 
+        form(action="/auth/login" method="POST")
+            
+            p.title="Login"
+
+            div(class="form-group")
+                input(class="form-control" + (error.email || error.form ? " is-invalid" : "") type="text" name="email" placeholder="E-mail")
+                .invalid-feedback=error.email || error.form
+
+            div(class="form-group")
+                input(class="form-control" + (error.senha || error.form ? " is-invalid" : "") type="password" name="senha" placeholder="Senha")
+                .invalid-feedback=error.senha || error.form
+            
+            button.form-control
+                b="Entrar"

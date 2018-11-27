@@ -229,7 +229,7 @@ router.all('/dashboard', function(req, res, next) {
 });
 
 router.get('/auth', function(req, res, next) {
-    res.render('auth');
+    res.render('auth', {error: false});
 });
 
 router.post('/galeria', function(req, res){

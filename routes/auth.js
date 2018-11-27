@@ -19,10 +19,29 @@ auth.get('/logout', function(req, res) {
 auth.post('/login', function(req, res) {
     
     var email = req.body.email;     
-    var senha = req.body.senha;          
+    var senha = req.body.senha;        
+    
+    var error = { email: "", senha: "" }
+    
+    if(!email || !senha){
+        if(!email){
+            error.email = "Campo obrigatório"
+        }
+
+        if(!senha){
+            error.senha = "Campo obrigatório"
+        }
+
+        return res.render("auth", {error: error});
+    }
+    
+    if(!emailIsValid(email)){
+        error.email = "Email inválido";
+        return res.render("auth", {error: error});
+    }
+    
     model.findTCE(email, senha).then(function(tce)
-    {         
-        // tce = {email: email, senha: senha, nome: name};          
+    {                 
         if(tce)
         {              
             var email = tce.email;             
@@ -37,14 +56,14 @@ auth.post('/login', function(req, res) {
                         result = [{id:insert.insertId}]; 
                         login(res, req, result, nome);
                     });   
-                                  
+                    error.senha || error.form                               
                 } else {
                     login(res, req, result, nome);
                 }           
             });
-        } 
-        else{
-            res.redirect("/auth"); 
+        } else {
+            error.form = "Email e/ou senha inválidos";
+            res.render("auth", {error: error}); 
         }             
     }); 
 });
@@ -59,6 +78,11 @@ function login(res, req, result, nome){
     req.session.user = true;
     req.session.afterLogin = true;
     res.redirect("/dashboard"); 
+}
+
+function emailIsValid(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
 }
 
 module.exports = auth;

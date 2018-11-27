@@ -6,7 +6,8 @@ window.addEventListener("load", function(){
         document.getElementById("insert-video-link").addEventListener("input", previewVideo);
     });
     
-    document.getElementById('insert-video-add').addEventListener("click", toggleVideoPreview);
+    document.getElementById('insert-video-form').addEventListener("submit", validateVideo);
+
     document.getElementById('insert-video-cancel').addEventListener("click", function(event){
         event.preventDefault();
         toggleVideoPreview();
@@ -154,6 +155,26 @@ window.addEventListener("load", function(){
 
 });
 
+function validateVideo(e){
+    var form = e.target;
+    var valid = true;
+    
+    var values = [form.autor, form.titulo, form.descricao, form.cidade, form.escola, form.categoria_id];
+    
+    values.forEach(function(item){
+        if(!item.value || item.value == 0){
+            valid = false;
+            $(item).addClass("is-invalid");
+        } else {
+            $(item).removeClass("is-invalid");
+        }
+    })
+    
+    if(!valid){
+        e.preventDefault();
+    }
+}
+
 function previewVideo(){
     var url = document.getElementById('insert-video-link').value;
     getVideoInfo([url], function(info){
@@ -168,14 +189,21 @@ function getVideoInfo(urls, onsuccess) {
     var regExprFb = "http(?:s?):\/\/(?:www\.)?facebook\.com\/(?:.*\/)(?:videos\/)(.*)(?:\/)";
     
     urls.forEach(function(url){
-        
+
         var matchYt = url.match(regExprYt);
         var matchFb = url.match(regExprFb);
-        
+
         if(!matchYt && !matchFb){
+            
+            if(url.length){
+                $("#insert-video-link").addClass("is-invalid");
+            }
+
             toggleVideoPreview(false);
             return;
         }
+
+        $("#insert-video-link").removeClass("is-invalid");
 
         if(matchYt){
             return gapi.client.youtube.videos.list({
