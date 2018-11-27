@@ -62,11 +62,13 @@ var findByProfessor = function(professor, params){
 }
 
 var findById = function(id){
+    id = parseInt(id);
     var query = db.getQuery.findOne("*", "videos", id);
     return db.doQuery(query);
 }
 
 var incrementViews = function(id){
+    id = parseInt(id);
     var query = db.getQuery.updateOne("videos", id, "views = views + 1");
     return db.doQuery(query);
 } 
@@ -90,11 +92,11 @@ var insertOne = function(req){
         parseInt(req.body.escola_id),
         parseInt(req.body.cidade_id), 
         parseInt(req.body.categoria_id), 
-        emojiStrip(req.body.autor), 
-        req.body.url, 
-        emojiStrip(req.body.titulo),
-        req.body.thumb,
-        emojiStrip(req.body.descricao)
+        db.mysql.escape(emojiStrip(req.body.autor)), 
+        db.mysql.escape(req.body.url), 
+        db.mysql.escape(emojiStrip(req.body.titulo)),
+        db.mysql.escape(req.body.thumb),
+        db.mysql.escape(emojiStrip(req.body.descricao))
     ];
 
     var query = db.getQuery.insertOne("videos", cols, vals);
@@ -106,7 +108,8 @@ var insertOne = function(req){
 var deleteOne = function(id){
     if(!id)
         return false;
-    
+
+    id = parseInt(id);
     var query = db.getQuery.deleteOne("videos", id);
     return db.doQuery(query);
 }

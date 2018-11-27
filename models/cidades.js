@@ -1,10 +1,17 @@
 var db = require('../database/database');
 var findOne = function(codigo) {
+    codigo = db.mysql.escape(codigo);
     var query = db.getQuery.find("nome", "cidades", "codigo = " + codigo, false, 1)
     return db.doQuery(query);
 }
 
-var find = function(params) {
+var find = function(term) {
+
+    var params = {
+        cols: "codigo as 'value', nome as 'label'",
+        where: { term: db.mysql.escape(term) }
+    }
+
     var where = [];
 
     if(params.where){
@@ -17,6 +24,9 @@ var find = function(params) {
 }
 
 var getEstatisticas = function(codigo){
+    
+    codigo = db.mysql.escape(codigo);
+
     return new Promise(function(resolve,reject){
         var query = "SELECT group_concat(distinct cidades.nome) as nome, count(distinct escolas.id) as escolas, count(distinct videos.professor_id) as colaboradores FROM cidades" +
         " LEFT JOIN escolas ON escolas.cidade_id = cidades.codigo" +

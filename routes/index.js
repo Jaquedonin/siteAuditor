@@ -26,18 +26,6 @@ router.get('/museu-play', function(req,res){
     res.render('museu-play');
 })
 
-router.post('/register', function(req, res, next){
-
-    var professores = require("../models/professores");
-
-    professores(req).then(function (result) {
-        if (!result) res.status(400).json({ error: 1, data: "Error Occured!"});
-        
-        res.status(201).json({ error: 0, data: "User registered successfully!"});
-    });
- 
-});
-
 router.all('/galeria/:cidade/:escola?', function(req, res, next) {
 
     var setCidade = function (data){
@@ -131,40 +119,26 @@ router.post('/api/fb', function(req, res, next){
 router.post('/api/cidades', function(req, res, next){
     
     var cidades = require("../models/cidades");
-    var params = {
-        cols: "codigo as 'value', nome as 'label'",
-        where: {
-            term: req.body.term
-        }
-    };
-
-    cidades.find(params)
-        .then(function(result){
-            if (!result) 
-                res.json(false); 
-            
-            res.json(result);
-        });
+    
+    cidades.find(req.body.term).then(function(result){
+        if (!result) 
+            res.json(false); 
+        
+        res.json(result);
+    });
 });
 
 router.post('/api/escolas', function(req, res, next){
 
     var escolas = require("../models/escolas");
-    var params = {
-        term: req.body.term,
-        cidade: req.body.cidade,
-        insert: req.body.insert_escola
-    }
-
-    escolas.find(params)
-        .then(function(result){
+    escolas.find(req.body).then(function(result){
             
-            if (!result.length && params.insert){
-                result = [{value: 0, label: '+ Cadastrar nova escola'}]; 
-            }
+        if (!result.length && params.insert){
+            result = [{value: 0, label: '+ Cadastrar nova escola'}]; 
+        }
 
-            res.json(result);
-        });
+        res.json(result);
+    });
 });
 
 router.all('/dashboard', function(req, res, next) {

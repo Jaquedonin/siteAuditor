@@ -1,10 +1,19 @@
 var db = require('../database/database');
+
 var findOne = function(id) {
+    id = parseInt(id);
+
     var query = db.getQuery.find("nome", "escolas", "id = " + id, false, 1);
     return db.doQuery(query);
 }    
 
-var find = function(params) {
+var find = function(body) {
+    
+    var params = {
+        term: db.mysql.escape(body.term),
+        cidade: db.mysql.escape(body.cidade),
+        insert: db.mysql.escape(body.insert_escola)
+    }
 
     var where = [];
 
@@ -24,15 +33,14 @@ var find = function(params) {
     return db.doQuery(query);
 }
 
-
 var insertOne = function(req){
     
     var cols = ["cidade_id", "sigla", "nome"];
     
     var vals = [
         parseInt(req.body.cidade_id), 
-        req.body.sigla,
-        req.body.nome
+        db.mysql.escape(req.body.sigla),
+        db.mysql.escape(req.body.nome)
     ];
 
     var query = db.getQuery.insertOne("escolas", cols, vals);
@@ -41,7 +49,6 @@ var insertOne = function(req){
         console.log(err);
     });
 }
-
 
 module.exports.find = find;
 module.exports.findOne = findOne;
