@@ -1,5 +1,6 @@
 var db = require('../database/database');
 var emojiStrip = require('emoji-strip');
+var querystring = require('querystring');
 
 var findByCategoria = function(categorias, params) {
     var queries = [];
@@ -35,12 +36,12 @@ var findByCategoria = function(categorias, params) {
     });
 
     var query = queries.join(";");
-    return db.doQuery(query);
+    return find(query);
 }  
 
 var findByCidade = function(cidade){
     var query = db.getQuery.find(false, "videos", "cidade_id = " + cidade, "videos.views DESC");
-    return db.doQuery(query);
+    return find(query);
 }
 
 var findByProfessor = function(professor, params){
@@ -63,14 +64,48 @@ var findByProfessor = function(professor, params){
     }
 
     var query = "SELECT id, url, thumb FROM videos WHERE " + where.join(" AND ");
-    
-    return db.doQuery(query);
+    return find(query);
 }
 
 var findById = function(id){
     id = parseInt(id);
     var query = db.getQuery.findOne("*", "videos", id);
-    return db.doQuery(query);
+    return find(query);
+}
+
+var find = function(query){
+    return new Promise( async function(resolve, reject){
+        var results = await db.doQuery(query);
+        results.map(function(item){
+            
+            /*
+             * na galeria, os resultados vem divididos em arrays,
+             * uma array para cada cartegoria. é preciso entrar na 
+             * array da categoria antes de tratar os videos
+             */
+            if(Array.isArray(item)){
+                item.map(unescapeVideo);
+                return item
+            } 
+
+            //fora da galeria é possivel tratar o video diretamente
+            unescapeVideo(item);
+            return item;
+
+        });
+
+        resolve(results);
+    })
+}
+
+var unescapeVideo = function(video){
+    video.autor     = querystring.unescape(video.autor);
+    video.url       = querystring.unescape(video.url);
+    video.titulo    = querystring.unescape(video.titulo);
+    video.thumb     = querystring.unescape(video.thumb);
+    video.descricao = querystring.unescape(video.descricao);
+            
+    return video;
 }
 
 var incrementViews = function(id){
@@ -98,11 +133,11 @@ var insertOne = function(req){
         parseInt(req.body.escola_id),
         parseInt(req.body.cidade_id), 
         parseInt(req.body.categoria_id), 
-        db.mysql.escape(emojiStrip(req.body.autor)), 
-        db.mysql.escape(req.body.url), 
-        db.mysql.escape(emojiStrip(req.body.titulo)),
-        db.mysql.escape(req.body.thumb),
-        db.mysql.escape(emojiStrip(req.body.descricao))
+        querystring.escape(emojiStrip(req.body.autor)), 
+        querystring.escape(req.body.url), 
+        querystring.escape(emojiStrip(req.body.titulo)),
+        querystring.escape(req.body.thumb),
+        querystring.escape(emojiStrip(req.body.descricao))
     ];
 
     var query = db.getQuery.insertOne("videos", cols, vals);

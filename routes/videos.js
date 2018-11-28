@@ -28,82 +28,64 @@ router.post('/delete/videos', function(req, res, next) {
 
 });
 
-//exibir video
-router.get('/video/:id', function(req, res) {
-    var getVideo = function (id){
-        return new Promise(function(resolve, reject){
-            var videos = require("../models/videos");
-           
-            //busca video
-            videos.findById(id).then(function(results){   
-                if(!results)
-                    reject(false);
+var getVideo = function (id){
+    return new Promise(function(resolve, reject){
+        
+        //busca video
+        model.findById(id).then(function(results){   
+            if(!results)
+                reject(false);
 
-                var video = results[0];
-                
-                // adiciona visualização
-                return videos.incrementViews(video.id).then(function(){
-                    //retorna video
-                    resolve(video);
-                });   
-            })
+            var video = results[0];
+            resolve(video);
         })
-    }   
+    })
+}
 
+//exibir video e incrementar visualizacao
+router.get('/video/:id', function(req, res) {
     getVideo(req.params.id).then(function(video){
-        res.app.render('video', {video: video}, function(err, html){
-            console.log(err);
-            res.send({html:html});
-        });
+        model.incrementViews(video.id).then(function(){
+            res.app.render('video', {video: video}, function(err, html){
+                if(err)
+                console.log(err);
+            
+                res.send({html:html});
+            });
+        });   
     })
 });
 
-router.get('/video-museu/:id', function(req, res) {
-    var getVideo = function (id){
-        return new Promise(function(resolve, reject){
-            var videos = require("../models/videos");
-           
-            //busca video
-            videos.findById(id).then(function(results){   
-                if(!results)
-                    reject(false);
-
-                var video = results[0];
-                resolve(video);   
-            })
-        })
-    }   
+//exibir video em aba externa no museu
+router.get('/video-museu/:id', function(req, res){
 
     getVideo(req.params.id).then(function(video){
         res.app.render('video-museu', {video: video}, function(err, html){
-            console.log(err);
+        
+            if(err)
+                console.log(err);
+            
             res.send({html:html});
-        });
+
+        })
     })
+
 });
 
-router.get('/video-dashboard/:id', function(req, res) {
-    var getVideo = function (id){
-        return new Promise(function(resolve, reject){
-            var videos = require("../models/videos");
-           
-            //busca video
-            videos.findById(id).then(function(results){   
-                if(!results)
-                    reject(false);
-
-                var video = results[0];
-                resolve(video);   
-            })
-        })
-    }   
+//exibir video no dashboard
+router.get('/video-dashboard/:id', function(req, res){
 
     getVideo(req.params.id).then(function(video){
         res.app.render('video-dashboard', {video: video}, function(err, html){
-            console.log(err);
+        
+            if(err)
+                console.log(err);
+            
             res.send({html:html});
-        });
+
+        })
     })
+
 });
 
 module.exports = router;
