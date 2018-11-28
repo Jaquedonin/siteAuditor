@@ -1,18 +1,18 @@
 get("javascripts/cidades.json", initMapa);
 
-function initMapa(nomes){
+function initMapa(cidades){
     var mapa = document.getElementById("municipios");
     if(mapa){ 
-        var cidades = mapa.children;
+        var cidadesMapa = mapa.children;
 
-        for (var posicao in cidades){
-            var cidade = cidades[posicao];
+        for (var posicao in cidadesMapa){
+            var cidade = cidadesMapa[posicao];
             if(typeof(cidade) == "object"){
                 
-                cidade.setAttribute("data-original-title", nomes[cidade.id]);
+                cidade.setAttribute("data-original-title", cidades[cidade.id]);
                 
                 cidade.addEventListener("click", function(event){
-                    openGaleria(event.target.id);
+                    toggleGaleria(event.target.id);
                 });
             }
         }
@@ -25,7 +25,7 @@ function initMapa(nomes){
         },
         select: function( event, ui ) {
             $( "#select-cidade" ).val( ui.item.label );
-            openGaleria(ui.item.value);
+            toggleGaleria(ui.item.value);
             return false;
         },
         open: function() {
@@ -44,36 +44,34 @@ function initMapa(nomes){
 
 }
 
-function openGaleria(cidade){
-    toggleGaleria(cidade, false);  
+function toggleGaleria(cidade){
     
-    post("galeria", {"cidade": cidade}, function(response){
-        setTimeout(function(){
-            document.getElementById("galeria-mapa").innerHTML = response.html;
-            toggleGaleria(cidade, true); 
-        }, 1000)
-    }, false);
-}
-
-function toggleGaleria(cidade, show){
     var galeria = document.getElementById("galeria-mapa");
-    var toggled = galeria.getAttribute("class") == "show";
     
-    var cidadeToShow = document.getElementById(cidade);
     var cidadeToHideId = galeria.getAttribute("data-cidade");
-
-    if(toggled && !show){
-        galeria.setAttribute("class", "");
-        galeria.removeAttribute("data-cidade");
-
         if(cidadeToHideId){
             var cidadeToHide = document.getElementById(cidadeToHideId);
             cidadeToHide.setAttribute("class", "btn");
         }
+    
+    var toggled = galeria.getAttribute("class") == "show";   
+
+    //se clique for no botão de fechar ou na cidade selecionada, esconde galeria
+    if(!cidade || (toggled && cidadeToHideId == cidade)){
+        galeria.setAttribute("class", "");
+        galeria.removeAttribute("data-cidade");
     } else {
+        post("galeria", {"cidade": cidade}, function(response){
+            
         galeria.setAttribute("class", "show");
         galeria.setAttribute("data-cidade", cidade);
+
+            var cidadeToShow = document.getElementById(cidade);
         cidadeToShow.setAttribute("class", "btn selected");
+            
+            document.getElementById("galeria-mapa").innerHTML = response.html;
+            
+        }, false);
     }
 }
 

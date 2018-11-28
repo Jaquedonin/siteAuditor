@@ -67,6 +67,15 @@ path {
 
 #mapa-wrapper{
     overflow: hidden;
+    flex: 1;
+}
+
+#mapa-wrapper > .container{
+    height: 100%;
+}
+
+#mapa{
+    transition: transform .5s;
 }
 
 #mapa-nav{
@@ -81,6 +90,8 @@ path {
     border-radius: 0;
     border-color: #2e3c49;
     max-width: 175pt;
+    position: relative;
+    z-index: 98;
 }
 
 #zoom{
@@ -112,11 +123,6 @@ path {
 #zoom-out{
     margin-bottom: -.9em;
 }
-
-#mapa{
-    transition: transform .5s;
-}
-
 
 .mapa-info {
     position: relative;
@@ -202,6 +208,7 @@ path {
     top: 0;
     left: -100%;
     transition: all 1s;
+    z-index: 100;
 }
 
 #galeria-mapa.show{
