@@ -24,6 +24,7 @@ doQuery = function (query) {
     });
 }
 
+module.exports.mysql = mysql;
 module.exports.pool = pool;
 module.exports.doQuery = doQuery;
 module.exports.getQuery = query;
