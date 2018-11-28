@@ -260,39 +260,40 @@ path {
 }
 
 #galeria{
-    height: 100%;
     padding: 0 0 10px 0;
+    flex:1;
+    overflow: hidden;
 }
 
 #galeria #categoria{
-    width: 65%;
+    width: 78%;
     margin: 20px auto 0 auto;
-    padding: 15px;
+    padding: 15px 100px;   
     flex: 1;
+    overflow: hidden;
 }
 
-#galeria #categoria .carousel-item {
+#galeria #categoria .carousel-inner {
+    height: 100%;
+}
+
+#galeria #categoria .carousel-inner > .row{
+    width: 100%;
+}
+
+#galeria #categoria .carousel-item{
     height: 100%;
     overflow-y: auto;
 }
-#galeria #categoria .carousel-inner{
-    height: 100%;
-}
-#galeria #categoria .carousel-inner > .row{
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll;
+
+#galeria #categoria .carousel-item > .row {
+    padding: 5px;
+    margin: 0;
 }
 
 #galeria #categoria .video:not(.destaque) .info{
     height: 100px;
     font-size: 11pt;
-}
-
-#galeria #categoria .carousel-item > .row {
-    padding: 5px;
-    display: flex;
-    margin: 0;
 }
 
 #galeria #categoria .video .info{
@@ -304,6 +305,10 @@ path {
 
 #galeria #categoria .carousel-item .row > .video:nth-child(3n){
     padding: 5px 10px;
+}
+
+#galeria .destaque.video .preview{
+    background-size: cover;
 }
 
 #galeria .destaque.video .preview,
@@ -323,27 +328,21 @@ path {
     background-size: contain
 }
 
+.carousel-control-prev-icon,
+.carousel-control-next-icon{
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
 .carousel-control-prev,
 .carousel-control-next{
     cursor: default;    
 }
 
-.carousel-control-prev-icon,
-.carousel-control-next-icon{
-    cursor: pointer;
-}
-
-.carousel-control-prev {
-    left: -128px;
-}
-
+.carousel-control-prev,
 .carousel-control-next {
-    right: -128px;
-}
-
-.carousel-control-next-icon, .carousel-control-prev-icon{
-    width: 50px;
-    height: 50px;
+    width: 60px;
 }
 
 #galeria .video .preview,
@@ -353,7 +352,6 @@ path {
     background-position: center;
     background-repeat: no-repeat;
 }
-
 
 #galeria .video .info,
 #galeria-mapa .video .info{
@@ -392,10 +390,6 @@ li.nav-item {
     padding:2px
 }
 
-.fb-login img {
-    margin-left: 10px;
-    border-radius: 100%;
-}
 #modal-videos form .modal-body > *{
     clear:both;
     display: block;
