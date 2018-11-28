@@ -40,7 +40,12 @@ router.get('/video/:id', function(req, res) {
                     reject(false);
 
                 var video = results[0];
-                
+                console.log(JSON.parse(video));
+                for(var v in video){
+                    video[v] = decodeURI(video[v])
+                }
+
+                console.log(video);
                 // adiciona visualização
                 return videos.incrementViews(video.id).then(function(){
                     //retorna video

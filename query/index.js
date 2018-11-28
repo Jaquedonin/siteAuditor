@@ -13,7 +13,6 @@ module.exports = {
 		return "INSERT INTO "+ table +" ("+ cols +") VALUES("+ vals +")";
 	},
 	updateOne : function(table, id, set){
-        set = mysql.escape(set);
 		return "UPDATE "+ table +" SET "+set+" WHERE id = " + id
 	},
 	deleteOne : function(table, id){

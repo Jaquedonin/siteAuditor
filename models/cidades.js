@@ -1,6 +1,6 @@
 var db = require('../database/database');
 var findOne = function(codigo) {
-    codigo = db.mysql.escape(codigo);
+    codigo = parseInt(codigo);
     var query = db.getQuery.find("nome", "cidades", "codigo = " + codigo, false, 1)
     return db.doQuery(query);
 }
@@ -9,14 +9,14 @@ var find = function(term) {
 
     var params = {
         cols: "codigo as 'value', nome as 'label'",
-        where: { term: db.mysql.escape(term) }
+        where: { term: db.mysql.escape('%'+ term + '%') }
     }
 
     var where = [];
 
     if(params.where){
         if(params.where.term)
-            where.push("nome LIKE '%"+ params.where.term + "%'");
+            where.push("nome LIKE " + params.where.term);
     }
 
     var query = db.getQuery.find(params.cols, "cidades", where.join(" AND "))
@@ -25,7 +25,7 @@ var find = function(term) {
 
 var getEstatisticas = function(codigo){
     
-    codigo = db.mysql.escape(codigo);
+    codigo = parseInt(codigo);
 
     return new Promise(function(resolve,reject){
         var query = "SELECT group_concat(distinct cidades.nome) as nome, count(distinct escolas.id) as escolas, count(distinct videos.professor_id) as colaboradores FROM cidades" +

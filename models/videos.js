@@ -7,13 +7,17 @@ var findByCategoria = function(categorias, params) {
     categorias.forEach(function(categoria){
         var query = "SELECT videos.* FROM videos";
 
-        if(categoria.id > 0)
+        if(categoria.id > 0){
+            categoria.id = parseInt(categoria.id);
             query += " INNER JOIN categorias ON categorias.id = videos.categoria_id AND categorias.id = " + categoria.id; 
-           
-        if(params.cidade)
+        }
+
+        if(params.cidade){
+            params.cidade = parseInt(params.cidade);
             query += " INNER JOIN cidades ON cidades.codigo = videos.cidade_id AND cidades.codigo = " + params.cidade;
-        
+        }
         if(params.escola) {
+            params.escola = parseInt(params.escola);
             query += " INNER JOIN escolas ON videos.escola_id = escolas.id AND escolas.id = " + params.escola;
             
             if(params.cidade){
@@ -21,9 +25,10 @@ var findByCategoria = function(categorias, params) {
             }
         }
         
-        if(params.busca)
-            query += " WHERE videos.titulo LIKE '%" + params.busca + "%' OR videos.descricao LIKE '%" + params.busca + "%'";
-
+        if(params.busca){
+            var busca = db.mysql.escape('%' + params.busca + '%')
+            query += " WHERE videos.titulo LIKE "+ busca +" OR videos.descricao LIKE "+ busca;
+        }
         query += " ORDER BY videos.views DESC";
         
         queries.push(query);
@@ -49,11 +54,12 @@ var findByProfessor = function(professor, params){
         if(params.escola_id)
             where.push("escola_id = " + params.escola_id)
 
-        if(params.busca)
+        if(params.busca){
+            var busca = db.mysql.escape('%' + params.busca + '%');
             where.push(
-            "(titulo LIKE '%" + params.busca + "%'" +
-            " OR descricao LIKE '%" + params.busca + "%')"
+            "(titulo LIKE "+busca+" OR descricao LIKE "+busca+")"
             );
+        }
     }
 
     var query = "SELECT id, url, thumb FROM videos WHERE " + where.join(" AND ");

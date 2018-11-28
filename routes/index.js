@@ -41,10 +41,14 @@ router.all('/galeria/:cidade/:escola?', function(req, res, next) {
     var setEscola = function (data){
         return new Promise(function(resolve, reject){
             var escolas = require("../models/escolas");
-            escolas.findOne(data.escola.id).then(function(result){
-                data.escola.nome = result.length > 0 ? result[0].nome : "";
-                resolve(true);
-            })
+            if(data.escola.id){
+                escolas.findOne(data.escola.id).then(function(result){
+                    data.escola.nome = result.length > 0 ? result[0].nome : "";
+                    resolve(true);
+                })
+            } else {
+                resolve(true)
+            }
         });
     }
 
@@ -231,7 +235,6 @@ router.post('/galeria', function(req, res){
             data.videos = videos;
             //ao final, envia a view galeria-mapa como resposta
             res.app.render('galeria-mapa', data, function(err, html){
-                console.log(!(!html));
                 res.send({ html:html });
             });  
         })

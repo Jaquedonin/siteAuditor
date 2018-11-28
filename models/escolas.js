@@ -10,7 +10,7 @@ var findOne = function(id) {
 var find = function(body) {
     
     var params = {
-        term: db.mysql.escape(body.term),
+        term: db.mysql.escape('%' + body.term + '%'),
         cidade: db.mysql.escape(body.cidade),
         insert: db.mysql.escape(body.insert_escola)
     }
@@ -18,7 +18,7 @@ var find = function(body) {
     var where = [];
 
     if(params.term){
-        where.push("(nome LIKE '%"+ params.term + "%' OR sigla LIKE '%"+ params.term + "%')");
+        where.push("(nome LIKE "+ params.term +" OR sigla LIKE "+ params.term +")");
     }
 
     if(params.cidade){
