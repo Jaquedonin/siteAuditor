@@ -573,3 +573,9 @@ li.nav-item {
 #visualizar-video .modal-body {
     padding: 5px 45px;
 }   
+
+.modal-dialog2 {
+    position: relative;
+    width: auto;
+    margin: -15px;
+}
