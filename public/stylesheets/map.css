@@ -347,7 +347,6 @@ path {
 
 #galeria .video .preview,
 #galeria-mapa .video .preview{
-    min-height: 100px;
     background-size: auto 135%;
     background-position: center;
     background-repeat: no-repeat;
