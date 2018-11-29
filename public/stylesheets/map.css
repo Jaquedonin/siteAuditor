@@ -538,10 +538,15 @@ li.nav-item {
 #galeria-navbar .input-group-text:before{
     line-height: 24px;
 }
+#visualizar-video .modal-dialog{
+    max-width: 800px;
+}
 
 #visualizar-video .modal-content {
     background: #272727;
     border-radius: 0;
+    display: inline-table;
+    width: 800px;   
 }
 
 #visualizar-video *{
@@ -574,8 +579,14 @@ li.nav-item {
     padding: 5px 45px;
 }   
 
+.modal-lg {
+    max-width: 1800px;
+}
+
 .modal-dialog2 {
     position: relative;
     width: auto;
     margin: -15px;
+    margin-top: 4px;
+    -webkit-margin-end: -10px;
 }
