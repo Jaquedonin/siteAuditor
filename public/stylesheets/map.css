@@ -29,12 +29,12 @@ body{
 }
 
 #mapa-header .col-4:nth-child(2),
-#mapa-header-menu .col-4:nth-child(2){
+#mapa-header-museu .col-4:nth-child(2){
     text-align: center;
 }
 
 #mapa-header a,
-#mapa-header-menu a{
+#mapa-header-museu a,{
     color: #fff;
 }
 
@@ -579,4 +579,10 @@ li.nav-item {
     position: relative;
     width: auto;
     margin: -15px;
+}
+
+footer{
+    background: #000;
+    color: #fff;
+    text-align: center;
 }
