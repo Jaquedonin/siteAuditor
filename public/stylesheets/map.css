@@ -19,17 +19,22 @@ body{
     padding: 40px;
 }
 
-#mapa-header {
+#mapa-header, #mapa-header-museu {
     background: #0e0f11;
     color: #fff;
     display: flex;
 }
+#mapa-header-museu{
+    background: rgba(14, 15, 17, 0.3);
+}
 
-#mapa-header .col-4:nth-child(2){
+#mapa-header .col-4:nth-child(2),
+#mapa-header-menu .col-4:nth-child(2){
     text-align: center;
 }
 
-#mapa-header a{
+#mapa-header a,
+#mapa-header-menu a{
     color: #fff;
 }
 
