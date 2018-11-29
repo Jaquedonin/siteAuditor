@@ -65,19 +65,20 @@ p+span, a+span{
     margin: 0 5px;
 }
 
-#boas-vindas{
+#boas-vindas, #mensagem-banco{
     flex-direction: column;
     justify-content: center;
     margin: auto;
     align-items: center;
 }
 
-#boas-vindas * {
+#boas-vindas *, #mensagem-banco *{
     color: #fff;
     text-align: center;
 }
 
-#boas-vindas .modal-body > i{
+#boas-vindas .modal-body > i,
+#mensagem-banco .modal-body > i{
     font-size: 40pt;
     margin: 0 0 20px 0;
 }
@@ -90,11 +91,13 @@ p+span, a+span{
     font-size: 16pt
 }
 
-#boas-vindas .modal-body{
+#boas-vindas .modal-body,
+#mensagem-banco .modal-body{
     padding: 2rem;
 }
 
-#boas-vindas .modal-content{
+#boas-vindas .modal-content,
+#mensagem-banco .modal-content{
     background-color: #354a5b;
 }
 
@@ -278,6 +281,9 @@ footer p{ margin-bottom: 0;}
     border-color: #dc3545
 }
 
+#insert-video input.is-valid{
+    border-color: #28a745;
+}
 
 #insert-video .row input, 
 #insert-video .row select{
@@ -395,7 +401,6 @@ footer p{ margin-bottom: 0;}
 #send-list{
     padding: 20px 15px 0 15px;
     flex: 1;
-    height: 0;
 }
 
 #send-list > .row{
