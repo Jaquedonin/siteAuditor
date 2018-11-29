@@ -40,7 +40,7 @@ var findByCategoria = function(categorias, params) {
 }  
 
 var findByCidade = function(cidade){
-    var query = db.getQuery.find(false, "videos", "cidade_id = " + cidade, "videos.views DESC");
+    var query = db.getQuery.find(false, "videos", "cidade_id = " + cidade, "videos.views DESC", 3);
     return find(query);
 }
 
