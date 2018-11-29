@@ -24,17 +24,18 @@ body{
     color: #fff;
     display: flex;
 }
+
 #mapa-header-museu{
     background: rgba(14, 15, 17, 0.7);
 }
 
 #mapa-header .col-4:nth-child(2),
-#mapa-header-menu .col-4:nth-child(2){
+#mapa-header-museu .col-4:nth-child(2){
     text-align: center;
 }
 
 #mapa-header a,
-#mapa-header-menu a{
+#mapa-header-museu a{
     color: #fff;
 }
 
