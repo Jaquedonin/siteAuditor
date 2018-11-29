@@ -1,9 +1,13 @@
 get("javascripts/cidades.json", initMapa);
 
-function initMapa(cidades){
+async function initMapa(cidades){
+
+    //aguardar adicionar meso região às respectivas cidades de acordo com o json
+    var mesoregioes = await get("javascripts/mesoregioes.json", defineMesoregioes);
+
     var mapa = document.getElementById("municipios");
     if(mapa){ 
-        var cidadesMapa = mapa.children;
+        var cidadesMapa = mapa.children
 
         for (var posicao in cidadesMapa){
             var cidade = cidadesMapa[posicao];
@@ -44,6 +48,16 @@ function initMapa(cidades){
 
 }
 
+function defineMesoregioes(mesoregioes){
+    for(var meso in mesoregioes){
+        mesoregioes[meso].forEach(function(item){
+            document.getElementById(item).dataset.meso = meso;
+        })
+    }
+
+    return true;
+}
+
 function toggleGaleria(cidade){
     
     var galeria = document.getElementById("galeria-mapa");
@@ -56,6 +70,12 @@ function toggleGaleria(cidade){
     if(!cidade || (toggled && cidade == cidadeAnterior)){
         galeria.setAttribute("class", "");
         
+        //esconder meso região anterior
+        if(galeria.dataset.meso){
+            document.getElementById(galeria.dataset.meso).style.visibility = "hidden";
+        }
+
+        //esconder cidade anterior
         if(galeria.dataset.cidade){
             document.getElementById(galeria.dataset.cidade).setAttribute("class", "btn");
         }
@@ -68,14 +88,32 @@ function toggleGaleria(cidade){
             if(!toggled)
                 galeria.setAttribute("class", "show");
         
+            //esconder meso região anterior
+            if(galeria.dataset.meso){
+                document.getElementById(galeria.dataset.meso).style.visibility = "hidden";
+            }
+
+            //esconder cidade anterior
             if(galeria.dataset.cidade){
                 document.getElementById(galeria.dataset.cidade).setAttribute("class", "btn");
             }
-            galeria.dataset.cidade = cidade;
-    
+
+            //identificar cidade selecionada
             var cidadeToShow = document.getElementById(cidade);
+            
+            //identificar meso região selecionada
+            var meso = cidadeToShow.dataset.meso;
+            var mesoToShow = document.getElementById(meso);
+
+            //salvar na galeria cidade e meso região selecionadas
+            galeria.dataset.cidade = cidade;
+            galeria.dataset.meso = meso;
+    
+            //exibir cidade e meso região selecionadas
+            mesoToShow.style.visibility = "visible";
             cidadeToShow.setAttribute("class", "btn selected");
             
+            //inserir conteúdo da galeria
             document.getElementById("galeria-mapa").innerHTML = response.html;
             
         }, false);

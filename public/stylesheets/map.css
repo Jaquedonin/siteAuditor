@@ -51,16 +51,26 @@ body{
     margin: 5pt 0 0 5pt;
 }
 
+#micro-svg path{
+    stroke: #ccc;
+}
 
 path {
-	fill: #ccc;
+    fill: #ccc;
 	stroke: #354a5b;
 	stroke-width: 15em;
 }
 
-#mapa-wrapper path:hover, path.selected {
+#municipios path{
+    fill: rgba(204, 204, 204, 0.5);
+}
+
+#meso-svg path{
+    fill: #918f8f;
+}
+
+#municipios path:hover, #municipios path.selected {
     fill: #932121;
-    opacity: 0.9;
     stroke: black;
     stroke-width: 25em;
 }
