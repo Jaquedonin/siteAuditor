@@ -286,10 +286,15 @@ function cadastrarEscola(e){
 
             formVideo[0].escola.value = formEscola[0].nome.value;
             formVideo[0].escola_id.value = response.id;
-
+            $(formVideo[0].escola).addClass("is-valid");
             $("#cadastrar-escola").modal("hide");
         }
     );
 
     return false;
+}
+
+function deleteVideo(e){
+    e.preventDefault()
+    e.target.parentElement.submit();
 }

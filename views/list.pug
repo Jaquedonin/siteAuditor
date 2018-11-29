@@ -29,7 +29,7 @@ h4="Meus vídeos"
                             form(method='POST' action='/delete/videos')
                                 input.d-none(name="id", value=video.id) 
                                 i.fa.fa-play
-                                i.fas.fa-trash(onclick="this.parentElement.submit()")
+                                i.fas.fa-trash(onclick="deleteVideo(event)")
         else
             .container 
                 p.no-video="Nenhum vídeo encontrado"

@@ -136,8 +136,7 @@ router.post('/api/escolas', function(req, res, next){
 
     var escolas = require("../models/escolas");
     escolas.find(req.body).then(function(result){
-            
-        if (!result.length && params.insert){
+        if (!result.length && req.body.insert_escola){
             result = [{value: 0, label: '+ Cadastrar nova escola'}]; 
         }
 
@@ -165,20 +164,23 @@ router.all('/dashboard', function(req, res, next) {
         afterLogin: req.session.afterLogin
     };
 
+    //Mensagem de boas vindas
     if(req.session.afterLogin){
         req.session.afterLogin = false;
     }
 
+    //Mensagem de vídeo excluido
     if(req.session.delete){
-        console.log(req.session.delete.status, req.session.delete.msg);
+        data.mensagemBanco = req.session.delete.msg;
         req.session.delete = false;
     }
 
+    //Mensagem de vídeo inserido
     if(req.session.insert){
-        console.log(req.session.insert.status, req.session.insert.msg);
+        data.mensagemBanco = req.session.insert.msg;
         req.session.insert = false;
     }
-
+    
     var setVideos = new Promise(function(resolve, reject){
         var videos = require("../models/videos");
 
