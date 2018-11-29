@@ -47,27 +47,27 @@ function initMapa(cidades){
 function toggleGaleria(cidade){
     
     var galeria = document.getElementById("galeria-mapa");
-    
-    var cidadeToHideId = galeria.getAttribute("data-cidade");
-        if(cidadeToHideId){
-            var cidadeToHide = document.getElementById(cidadeToHideId);
-            cidadeToHide.setAttribute("class", "btn");
-        }
-    
+       
+    cidadeAnterior = galeria.dataset.cidade;
+   
     var toggled = galeria.getAttribute("class") == "show";   
 
     //se clique for no botão de fechar ou na cidade selecionada, esconde galeria
-    if(!cidade || (toggled && cidadeToHideId == cidade)){
+    if(!cidade || (toggled && cidade == cidadeAnterior)){
         galeria.setAttribute("class", "");
-        galeria.removeAttribute("data-cidade");
+        galeria.setAttribute("data-cidade", "");
     } else {
+        
         post("galeria", {"cidade": cidade}, function(response){
             
-        galeria.setAttribute("class", "show");
-        galeria.setAttribute("data-cidade", cidade);
-
+            if(!toggled)
+                galeria.setAttribute("class", "show");
+        
+            document.getElementById(galeria.dataset.cidade).setAttribute("class", "btn");
+            galeria.dataset.cidade = cidade;
+    
             var cidadeToShow = document.getElementById(cidade);
-        cidadeToShow.setAttribute("class", "btn selected");
+            cidadeToShow.setAttribute("class", "btn selected");
             
             document.getElementById("galeria-mapa").innerHTML = response.html;
             
