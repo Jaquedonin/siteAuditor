@@ -63,7 +63,9 @@ function toggleGaleria(cidade){
             if(!toggled)
                 galeria.setAttribute("class", "show");
         
-            document.getElementById(galeria.dataset.cidade).setAttribute("class", "btn");
+            if(galeria.dataset.cidade){
+                document.getElementById(galeria.dataset.cidade).setAttribute("class", "btn");
+            }
             galeria.dataset.cidade = cidade;
     
             var cidadeToShow = document.getElementById(cidade);
