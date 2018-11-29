@@ -55,6 +55,11 @@ function toggleGaleria(cidade){
     //se clique for no botão de fechar ou na cidade selecionada, esconde galeria
     if(!cidade || (toggled && cidade == cidadeAnterior)){
         galeria.setAttribute("class", "");
+        
+        if(galeria.dataset.cidade){
+            document.getElementById(galeria.dataset.cidade).setAttribute("class", "btn");
+        }
+        
         galeria.setAttribute("data-cidade", "");
     } else {
         
