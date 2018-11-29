@@ -673,4 +673,9 @@ li.nav-item {
 
 div#modal-play-video {
     overflow-y: inherit;
+
+footer{
+    background: #000;
+    color: #fff;
+    text-align: center;
 }
