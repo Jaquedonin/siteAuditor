@@ -1,20 +1,20 @@
+var querystring = require('querystring');
 var db = require('../database/database');
 
 var findOne = function(id) {
     id = parseInt(id);
 
     var query = db.getQuery.find("nome", "escolas", "id = " + id, false, 1);
-    return db.doQuery(query);
+    return unescape(query);
 }    
 
 var find = function(body) {
-    
-    var params = {
-        term: db.mysql.escape('%' + body.term + '%'),
-        cidade: db.mysql.escape(body.cidade),
-        insert: db.mysql.escape(body.insert_escola)
-    }
 
+    var params = {
+        term: "'%" + querystring.escape(body.term) + "%'",
+        cidade: querystring.escape(body.cidade),
+        insert: querystring.escape(body.insert_escola)
+    }
     var where = [];
 
     if(params.term){
@@ -30,7 +30,23 @@ var find = function(body) {
         "escolas", 
         where.join(" AND ")
     )
-    return db.doQuery(query);
+
+    return unescape(query);
+}
+
+function unescape(query){
+    return new Promise( async function(resolve, reject){
+        var results = await db.doQuery(query);
+        results.map(function(escola){
+            
+            for (var field in escola){
+                escola[field]  = querystring.unescape(escola[field]);
+            }
+            return escola;
+        });
+
+        resolve(results);
+    })
 }
 
 var insertOne = function(req){
@@ -39,8 +55,8 @@ var insertOne = function(req){
     
     var vals = [
         parseInt(req.body.cidade_id), 
-        db.mysql.escape(req.body.sigla),
-        db.mysql.escape(req.body.nome)
+        querystring.escape(req.body.sigla),
+        querystring.escape(req.body.nome)
     ];
 
     var query = db.getQuery.insertOne("escolas", cols, vals);
