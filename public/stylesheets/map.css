@@ -657,3 +657,8 @@ li.nav-item {
     margin-top: 4px;
     -webkit-margin-end: -10px;
 }
+
+#visualizar-video .modal-lg {
+    max-width: 1800px;
+}
+
