@@ -590,10 +590,6 @@ li.nav-item {
     padding: 5px 45px;
 }   
 
-.modal-lg {
-    max-width: 1800px;
-}
-
 .modal-dialog2 {
     position: relative;
     width: auto;

@@ -430,3 +430,7 @@ footer p{ margin-bottom: 0;}
 #galeria-mapa .no-video{
     background: transparent
 }
+
+.card{
+    margin-bottom: 15px;
+}
