@@ -71,14 +71,14 @@ block content
                       .card-body
                         | A População do estado é de 3.766,528 segundo último censo do IBGE.
                   .card.bg-secondary
-                    #headingFour.card-header.d-flex.justify-content-around
-                      i.fas.fa-map
+                    #headingNine.card-header.d-flex.justify-content-around
+                      i.fas.fa-tree
                       h5.mb-0
-                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseFour', aria-expanded='false', aria-controls='collapseFour')
-                          | Território
-                    #collapseFour.collapse(aria-labelledby='headingFour', data-parent='#accordionExample')
+                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseNine', aria-expanded='false', aria-controls='collapseNine')
+                          | Natureza
+                    #collapseNine.collapse(aria-labelledby='headingNine', data-parent='#accordionExample')
                       .card-body
-                        | A extensão territorial do estado é de 56.468,435 km².
+                        | João Pessoa tem mais de 78,4% de arborização nas vias públicas. 
                   .card.bg-secondary
                     #headingFive.card-header.d-flex.justify-content-around
                       i.fas.fa-landmark
@@ -116,14 +116,24 @@ block content
                       .card-body
                         | Sousa possui mais de 300 evidências de dinossauros entre pegadas e fósseis espalhados por cerca de 700km². 
                   .card.bg-secondary
-                    #headingNine.card-header.d-flex.justify-content-around
-                      i.fas.fa-tree
+                    #headingTen.card-header.d-flex.justify-content-around
+                      i.fas.fa-dollar-sign
                       h5.mb-0
-                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseNine', aria-expanded='false', aria-controls='collapseNine')
-                          | Natureza
-                    #collapseNine.collapse(aria-labelledby='headingNine', data-parent='#accordionExample')
+                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseTen', aria-expanded='false', aria-controls='collapseTen')
+                          | Economia
+                    #collapseTen.collapse(aria-labelledby='headingTen', data-parent='#accordionExample')
                       .card-body
-                        | João Pessoa tem mais de 78,4% de arborização nas vias públicas.    
+                        | O porto de Cabedelo, a 18 km de João Pessoa, é o mais oriental do Brasil. Tem 700 metros de extensão e 300 metros de largura.
+                  .card.bg-secondary
+                    #headingFour.card-header.d-flex.justify-content-around
+                      i.fas.fa-map
+                      h5.mb-0
+                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseFour', aria-expanded='false', aria-controls='collapseFour')
+                          | Território
+                    #collapseFour.collapse(aria-labelledby='headingFour', data-parent='#accordionExample')
+                      .card-body
+                        | A extensão territorial do estado é de 56.468,435 km².
+                     
 block modal
     #visualizar-video.modal.fade(tabindex='-1', role='dialog')
     

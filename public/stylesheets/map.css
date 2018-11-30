@@ -120,6 +120,7 @@ path {
     max-width: 175pt;
     position: relative;
     z-index: 98;
+    margin-top: -40px; 
 }
 
 #mesorregiao {
@@ -180,6 +181,9 @@ path {
     font-size: 1.1em;
     text-align: center;
     display: inline-block;
+    margin-right: -30px; 
+    margin-top: -15px; 
+    margin-bottom: 20px; 
 }
 
 #zoom-in, #zoom-out{  
