@@ -72,6 +72,8 @@ function toggleGaleria(cidade){
         
         //esconder meso região anterior
         if(galeria.dataset.meso){
+            document.getElementById("mesorregiao-nome").innerHTML = "";
+            document.getElementById("mesorregiao-svg").src = "";
             document.getElementById(galeria.dataset.meso).style.visibility = "hidden";
         }
 
@@ -90,6 +92,8 @@ function toggleGaleria(cidade){
         
             //esconder meso região anterior
             if(galeria.dataset.meso){
+                document.getElementById("mesorregiao-nome").innerHTML = "";
+                document.getElementById("mesorregiao-svg").src = "";
                 document.getElementById(galeria.dataset.meso).style.visibility = "hidden";
             }
 
@@ -111,6 +115,9 @@ function toggleGaleria(cidade){
     
             //exibir cidade e meso região selecionadas
             mesoToShow.style.visibility = "visible";
+            console.log(mesoToShow.dataset.title);
+            document.getElementById("mesorregiao-nome").innerHTML = mesoToShow.dataset.title;
+            document.getElementById("mesorregiao-svg").src = "/images/" + mesoToShow.dataset.title + ".svg";
             cidadeToShow.setAttribute("class", "btn selected");
             
             //inserir conteúdo da galeria
