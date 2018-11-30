@@ -6,13 +6,13 @@ div.d-flex.flex-column.align-content-stretch
                 .row.text-white.text-center
                     .col-4 
                         p="Colaboradores"
-                        p#estatisticas-colaboradores=colaboradores
+                        p#estatisticas-colaboradores=n.colaboradores
                     .col-4 
                         p="Vídeos"
-                        p#estatisticas-videos=videos.length   
+                        p#estatisticas-videos=n.videos   
                     .col-4 
                         p="Escolas"
-                        p#estatisticas-escolas=escolas
+                        p#estatisticas-escolas=n.escolas
                 p.section Principais vídeos
                 #videos
                     if videos.length
