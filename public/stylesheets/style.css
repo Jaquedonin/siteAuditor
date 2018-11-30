@@ -431,6 +431,35 @@ footer p{ margin-bottom: 0;}
     background: transparent
 }
 
-.card{
+
+#accordionExample .card{
     margin-bottom: 15px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+}
+div#accordionExample {
+    position: absolute;
+    width: 150px;
+}
+#accordionExample .card-body,
+#accordionExample .btn-link,
+#accordionExample .btn-link:hover {
+    color: #f2f6fb;
+    text-decoration: none;
+}
+
+#accordionExample .accordion .card {
+    border-bottom: 0;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+#accordionExample .card-header {
+    padding: 0;
+    margin-bottom: 0;
+    background-color: rgba(239, 226, 226, 0.08);
+    border-bottom: 1px solid rgba(0,0,0,.125);
 }

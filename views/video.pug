@@ -1,6 +1,8 @@
 script.
-    var modal = $("#visualizar-video"); 
-    $('.close').click(function() { modal.remove(); });
+    var modal_dialog = $("#visualizar-video .modal-dialog");
+    var modal_video =  $("#visualizar-video");
+    $('.close').click(function() { modal_dialog.remove(); modal_video.modal('hide'); });
+    
 .modal-dialog.modal-lg(role='document')
     .modal-content
         .modal-header

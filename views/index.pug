@@ -26,7 +26,7 @@ block content
     section#mapa-wrapper
       .container
         .row
-            .col-md-9
+            .col-md-10
                 .navbar#mapa-nav.row
                     if !museu
                         input#select-cidade(type='text' name='codigo' placeholder="Digite o município").col-4.form-control.form-control-sm
@@ -38,17 +38,17 @@ block content
                 include mapa.pug
                 #galeria-mapa
                 script(type='text/javascript', src='javascripts/mapa.js')
-            .col-md-3
+            .col-md-2
                 #accordionExample.accordion
-                  .card
+                  .card.bg-secondary
                     #headingOne.card-header
-                      h5.mb-0
-                        button.btn.btn-link(type='button', data-toggle='collapse', data-target='#collapseOne', aria-expanded='true', aria-controls='collapseOne')
+                      h.mb-0
+                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseOne', aria-expanded='true', aria-controls='collapseOne')
                           | Educação
                     #collapseOne.collapse.show(aria-labelledby='headingOne', data-parent='#accordionExample')
                       .card-body
                         | Eiiitaaa Mainhaaa!! Esse Lorem ipsum é só na sacanageeem!! E que abundância meu irmão viuu!!  Vem minha odalisca, agora faz essa cobra coral subir!!! Pau que nasce torto, Nunca se endireita. 
-                  .card
+                  .card.bg-secondary
                     #headingTwo.card-header
                       h5.mb-0
                         button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseTwo', aria-expanded='false', aria-controls='collapseTwo')
@@ -56,7 +56,7 @@ block content
                     #collapseTwo.collapse(aria-labelledby='headingTwo', data-parent='#accordionExample')
                       .card-body
                         | Assim você vai matar o papai. Só digo uma coisa, Domingo ela não vai! Danadaa!!
-                  .card
+                  .card.bg-secondary
                     #headingThree.card-header
                       h5.mb-0
                         button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseThree', aria-expanded='false', aria-controls='collapseThree')
@@ -64,7 +64,7 @@ block content
                     #collapseThree.collapse(aria-labelledby='headingThree', data-parent='#accordionExample')
                       .card-body
                         | Tchannn!! Tchannn!! Tu du du pááá! Eu gostchu muitchu, heinn! danadinha! Mainhaa! Agora use meu lorem ipsum ordinária!!! Olha o quibeee! rema, rema, ordinária!.
-                  .card
+                  .card.bg-secondary
                     #headingFour.card-header
                       h5.mb-0
                         button.btn.btn-link(type='button', data-toggle='collapse', data-target='#collapseFour', aria-expanded='true', aria-controls='collapseFour')
@@ -72,7 +72,7 @@ block content
                     #collapseFour.collapse.show(aria-labelledby='headingFour', data-parent='#accordionExample')
                       .card-body
                         | Eiiitaaa Mainhaaa!! Esse Lorem ipsum é só na sacanageeem!! E que abundância meu irmão viuu!!  Vem minha odalisca, agora faz essa cobra coral subir!!! Pau que nasce torto, Nunca se endireita. 
-                  .card
+                  .card.bg-secondary
                     #headingFive.card-header
                       h5.mb-0
                         button.btn.btn-link(type='button', data-toggle='collapse', data-target='#collapseFive', aria-expanded='true', aria-controls='collapseFive')
@@ -80,7 +80,31 @@ block content
                     #collapseFive.collapse.show(aria-labelledby='headingFive', data-parent='#accordionExample')
                       .card-body
                         | Eiiitaaa Mainhaaa!! Esse Lorem ipsum é só na sacanageeem!! E que abundância meu irmão viuu!!  Vem minha odalisca, agora faz essa cobra coral subir!!! Pau que nasce torto, Nunca se endireita. 
-                  .card
+                  .card.bg-secondary
+                    #headingSix.card-header
+                      h5.mb-0
+                        button.btn.btn-link(type='button', data-toggle='collapse', data-target='#collapseSix', aria-expanded='true', aria-controls='collapseSix')
+                          | Algo3
+                    #collapseSix.collapse.show(aria-labelledby='headingSix', data-parent='#accordionExample')
+                      .card-body
+                        | Eiiitaaa Mainhaaa!! Esse Lorem ipsum é só na sacanageeem!! E que abundância meu irmão viuu!!  Vem minha odalisca, agora faz essa cobra coral subir!!! Pau que nasce torto, Nunca se endireita.
+                  .card.bg-secondary
+                    #headingSix.card-header
+                      h5.mb-0
+                        button.btn.btn-link(type='button', data-toggle='collapse', data-target='#collapseSix', aria-expanded='true', aria-controls='collapseSix')
+                          | Algo3
+                    #collapseSix.collapse.show(aria-labelledby='headingSix', data-parent='#accordionExample')
+                      .card-body
+                        | Eiiitaaa Mainhaaa!! Esse Lorem ipsum é só na sacanageeem!! E que abundância meu irmão viuu!!  Vem minha odalisca, agora faz essa cobra coral subir!!! Pau que nasce torto, Nunca se endireita.
+                  .card.bg-secondary
+                    #headingSix.card-header
+                      h5.mb-0
+                        button.btn.btn-link(type='button', data-toggle='collapse', data-target='#collapseSix', aria-expanded='true', aria-controls='collapseSix')
+                          | Algo3
+                    #collapseSix.collapse.show(aria-labelledby='headingSix', data-parent='#accordionExample')
+                      .card-body
+                        | Eiiitaaa Mainhaaa!! Esse Lorem ipsum é só na sacanageeem!! E que abundância meu irmão viuu!!  Vem minha odalisca, agora faz essa cobra coral subir!!! Pau que nasce torto, Nunca se endireita.  
+                  .card.bg-secondary
                     #headingSix.card-header
                       h5.mb-0
                         button.btn.btn-link(type='button', data-toggle='collapse', data-target='#collapseSix', aria-expanded='true', aria-controls='collapseSix')
