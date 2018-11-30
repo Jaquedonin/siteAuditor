@@ -28,7 +28,7 @@ var getEstatisticas = function(codigo){
     codigo = parseInt(codigo);
 
     return new Promise(function(resolve,reject){
-        var query = "SELECT group_concat(distinct cidades.nome) as nome, count(distinct escolas.id) as escolas, count(distinct videos.professor_id) as colaboradores FROM cidades" +
+        var query = "SELECT group_concat(distinct cidades.nome) as nome, count(distinct escolas.id) as escolas, count(distinct videos.professor_id) as colaboradores, count(distinct videos.id) as videos FROM cidades" +
         " LEFT JOIN escolas ON escolas.cidade_id = cidades.codigo" +
         " LEFT JOIN videos ON videos.cidade_id = cidades.codigo" +
         " WHERE cidades.codigo = " + codigo;
@@ -39,8 +39,11 @@ var getEstatisticas = function(codigo){
                     codigo: codigo,
                     nome: results[0].nome,
                 },
-                colaboradores: results[0].colaboradores,
-                escolas: results[0].escolas
+                n: {
+                    colaboradores: results[0].colaboradores,
+                    escolas: results[0].escolas,
+                    videos: results[0].videos
+                }
             }
             resolve(estatisticas);
         })
