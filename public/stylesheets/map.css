@@ -44,6 +44,18 @@ body{
     top: -.25em;
 }
 
+#logo-gif{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#logo-gif img{
+    width: 40%;
+    display:block;
+}
+
 #logo span{
     font-size: 10pt;
     display: inline-block;
