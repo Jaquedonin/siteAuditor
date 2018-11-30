@@ -12,7 +12,7 @@ var insertOne = function(email, nome){
 
 var find = function(email) {
     email = db.mysql.escape(email);
-    var query = db.getQuery.find("id", "professores", "email = '" + email + "'")
+    var query = db.getQuery.find("id", "professores", "email =" + email);
     return db.doQuery(query);
 }
 
