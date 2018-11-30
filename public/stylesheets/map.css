@@ -44,6 +44,18 @@ body{
     top: -.25em;
 }
 
+#logo-gif{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#logo-gif img{
+    width: 40%;
+    display:block;
+}
+
 #logo span{
     font-size: 10pt;
     display: inline-block;
@@ -98,7 +110,8 @@ path {
     margin-bottom: -90px;
 }
 
-#mapa-nav #select-cidade{
+#mapa-nav #select-cidade,
+#mesorregiao{
     padding: 20px 10px;
     color: #fff;
     background: rgba(45, 59, 71, 0.9);
@@ -108,6 +121,53 @@ path {
     position: relative;
     z-index: 98;
 }
+
+#mesorregiao {
+    width: 135px;
+    height: 80px;
+    position: absolute;
+    bottom: 70px;
+    right: 70px;
+    padding: 15px 0;
+    text-align: center;
+}
+
+#mesorregiao:before,
+#mesorregiao:after{
+    width: 55px;
+    height: 100%;
+    top:0;
+    color: transparent;
+    position:absolute;
+    content: "oi";
+    border-color: rgba(45, 59, 71, 0.9);
+    border-style: solid;
+}
+
+#mesorregiao:before{
+    border-top-left-radius: 100%;
+    border-bottom-left-radius: 100%;
+    
+    border-width: 0 0 0 27px;
+    left: -27px;   
+}
+
+#mesorregiao:after{
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    border-width: 0 27px 0 0;
+    right: -27px;
+}
+
+#mesorregiao img{
+    height: 50px;
+}
+
+#mesorregiao span{
+    padding: 0 10px;
+    font-size: 10pt;
+}
+
 
 #zoom{
     top: 1.5em;
