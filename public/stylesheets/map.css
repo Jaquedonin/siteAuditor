@@ -174,9 +174,9 @@ path {
     top: 1.5em;
     position: relative;
     z-index: 99;
-    margin-right: -30px; 
-    margin-top: -15px; 
-    margin-bottom: 20px; 
+    margin-right: -56px;
+    margin-top: -15px;
+    margin-bottom: 20px;
 }
 #zoom > div{
     background-color: #73818e;

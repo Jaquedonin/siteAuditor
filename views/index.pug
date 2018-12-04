@@ -43,6 +43,7 @@ block content
                 script(type='text/javascript', src='javascripts/mapa.js')
             .col-md-2
                 #accordionExample.accordion
+                  p Curiosidades do estado
                   .card.bg-secondary
                     #headingOne.card-header.d-flex.justify-content-around
                       i.fas.fa-book-open
@@ -52,15 +53,6 @@ block content
                     #collapseOne.collapse(aria-labelledby='headingOne', data-parent='#accordionExample')
                       .card-body
                         | Mais de 700 mil alunos matriculados nas escolas de todo o estado.
-                  .card.bg-secondary
-                    #headingTwo.card-header.d-flex.justify-content-around
-                      i.fas.fa-car
-                      h5.mb-0
-                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseTwo', aria-expanded='false', aria-controls='collapseTwo')
-                          | Transporte
-                    #collapseTwo.collapse(aria-labelledby='headingTwo', data-parent='#accordionExample')
-                      .card-body
-                        | Mais de 1 milhão de carros registrados em todo estado.
                   .card.bg-secondary
                     #headingThree.card-header.d-flex.justify-content-around
                       i.fas.fa-users
@@ -133,6 +125,15 @@ block content
                     #collapseFour.collapse(aria-labelledby='headingFour', data-parent='#accordionExample')
                       .card-body
                         | A extensão territorial do estado é de 56.468,435 km².
+                  .card.bg-secondary
+                    #headingTwo.card-header.d-flex.justify-content-around
+                      i.fas.fa-car
+                      h5.mb-0
+                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseTwo', aria-expanded='false', aria-controls='collapseTwo')
+                          | Transporte
+                    #collapseTwo.collapse(aria-labelledby='headingTwo', data-parent='#accordionExample')
+                      .card-body
+                        | Mais de 1 milhão de carros registrados em todo estado.
                      
 block modal
     #visualizar-video.modal.fade(tabindex='-1', role='dialog')

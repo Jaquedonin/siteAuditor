@@ -443,6 +443,8 @@ footer p{ margin-bottom: 0;}
 div#accordionExample {
     position: absolute;
     width: 180px;
+    margin-left: 40px;
+    margin-top: 10px;
 }
 #accordionExample .card-body,
 #accordionExample .btn-link,
@@ -479,5 +481,13 @@ div#accordionExample {
     margin-top: 8px;
     color: #fff;
     margin-left: -2px;
+}
+
+#accordionExample p {
+    margin-top: 0px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: rgb(208, 197, 197);
 }
 
