@@ -658,9 +658,11 @@ li.nav-item {
 .modal-dialog2 {
     position: relative;
     width: auto;
-    margin: -15px;
-    margin-top: 4px;
+    margin-top: 6px;
     -webkit-margin-end: -10px;
+    margin-top: 8px;
+    margin-left: -20px;
+    margin-right: -10px;
 }
 
 #visualizar-video .modal-lg {
