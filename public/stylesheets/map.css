@@ -475,7 +475,7 @@ li.nav-item {
 #modal-videos form .modal-body > *{
     clear:both;
     display: block;
-    margin: 10px;
+    left: -15px;
 }
 
 #modal-videos form .modal-body > select,
@@ -655,15 +655,16 @@ li.nav-item {
     padding: 5px 45px;
 }   
 
-.modal-dialog2 {
+#visualizar-video .modal-dialog2 {
     position: relative;
     width: auto;
-    margin-top: 6px;
     -webkit-margin-end: -10px;
-    margin-top: 8px;
+    margin-top: 1px;
     margin-left: -20px;
     margin-right: -10px;
+    margin-bottom: 20px;
 }
+
 
 #visualizar-video .modal-lg {
     max-width: 1800px;

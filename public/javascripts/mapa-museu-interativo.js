@@ -28,7 +28,7 @@ function visualizarVideo(id){
 
         $("#trigger-play-video").on("click", function(e){
             var videoUrl = $(e.target).attr("data-video");
-            localStorage.setItem("video", videoUrl + "?autoplay=1&rel=0");
+            localStorage.setItem("video", videoUrl + "?rel=0&autoplay=1");
         });
         
         $("#visualizar-video").modal("show");
