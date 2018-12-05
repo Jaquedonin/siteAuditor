@@ -431,7 +431,6 @@ footer p{ margin-bottom: 0;}
     background: transparent
 }
 
-
 #accordionExample .card{
     margin-bottom: 5px;
     border-bottom-right-radius: 20px;
@@ -440,12 +439,13 @@ footer p{ margin-bottom: 0;}
     border-top-right-radius: 20px;
 
 }
+
 div#accordionExample {
     position: absolute;
     width: 180px;
-    margin-left: 40px;
-    margin-top: 10px;
+    right: 0;
 }
+
 #accordionExample .card-body,
 #accordionExample .btn-link,
 #accordionExample .btn-link:hover {
@@ -454,18 +454,24 @@ div#accordionExample {
     font-size: 15px;
 }
 
+#accordionExample .btn-link{
+    padding: 3px 0;
+}
+
 #accordionExample .accordion .card {
     border-bottom: 0;
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 10px;
 }
+
 #accordionExample .card-header {
     padding: 0;
     margin-bottom: 0;
     background-color: rgba(239, 226, 226, 0.08);
     border-bottom: 1px solid rgba(0,0,0,.125);
 }
+
 #accordionExample i.fas.fa-car,
 #accordionExample i.fas.fa-tree,
 #accordionExample i.fas.fa-map,
@@ -478,7 +484,7 @@ div#accordionExample {
 #accordionExample i.fas.fa-book-open {
     font-size: 20px;
     margin-right: -50px;
-    margin-top: 8px;
+    margin-top: 5px;
     color: #fff;
     margin-left: -2px;
 }
@@ -490,4 +496,3 @@ div#accordionExample {
     font-size: 15px;
     color: rgb(208, 197, 197);
 }
-
