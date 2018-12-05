@@ -294,6 +294,7 @@ footer p{ margin-bottom: 0;}
 
 #insert-video-form .form-group {
     z-index: 0;
+    margin-bottom: 2px;
 }
 
 #insert-video #video-preview .input-group-append .input-group-text{
@@ -400,11 +401,9 @@ footer p{ margin-bottom: 0;}
 
 #send-list{
     padding: 20px 15px 0 15px;
-    flex: 1;
 }
 
 #send-list > .row{
-    height: 100%;
 }
 
 .container-height{
@@ -412,7 +411,7 @@ footer p{ margin-bottom: 0;}
 }    
 
 #send, #list{
-    margin-bottom: 75px;
+    /* margin-bottom: 75px; */
 }
 
 #busca-galeria .input-group-append,

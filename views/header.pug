@@ -1,0 +1,17 @@
+nav.navbar.navbar-expand-lg.navbar-dark.navbar-fixed-top
+    .container
+        #logo.navbar-brand.col-9
+            a.navbar-brand(href="/" + (museu?"museu":"")) MAPA COLABORATIVO CIDADÃO
+            img(src="/images/logo_tce.png")
+            span Tribunal de Contas do <br/> Estado da Paraíba
+        button.navbar-toggler.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar', aria-label='Toggle navigation')
+            span.sr-only Toggle navigation
+            span.navbar-toggler-icon
+        #navbar.col-3.collapse.navbar-collapse
+            ul.navbar-nav.ml-auto
+                li.nav-item
+                    a.nav-link Como participar
+                    if dashboard                  
+                        li#nome-professor.nav-item
+                            p=user.nome 
+                            a.nav-link(href="auth/logout") SAIR                           

@@ -2,25 +2,8 @@ extends layout.pug
 block content
     #dashboard.d-flex.flex-column.align-content-stretch
         header#mapa-header
-            nav.navbar.navbar-expand-lg.navbar-dark.navbar-fixed-top
-                .container
-                    a.navbar-brand.col-4(href='#page-top') PAINEL DE GERENCIAMENTO
-                    #logo.navbar-brand.col-4
-                        img(src="/images/logo_tce.png")
-                        span Tribunal de Contas do <br/> Estado da Paraíba
-                    button.navbar-toggler.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar', aria-label='Toggle navigation')
-                        span.sr-only Toggle navigation
-                        span.navbar-toggler-icon
-                    #navbar.col-4.collapse.navbar-collapse
-                        ul.navbar-nav.ml-auto
-                            li.nav-item
-                                a.nav-link(href="/") MAPA COLABORATIVO                     
-                            li#nome-professor.nav-item
-                                p=user.nome 
-                                a.nav-link(href="auth/logout") SAIR
-                                        
-        main.d-flex.flex-column.align-content-stretch                
-            div#send-list
+            include header
+        main#send-list.d-flex.flex-column.align-content-stretch   
                 .row.d-flex.flex-row.justify-content-around
                     #send.col-md-4.d-flex.flex-column.align-content-stretch
                         block send
