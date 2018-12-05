@@ -1,18 +1,30 @@
-p.title="Cadastro"
-
-form(action="auth/register" method="POST")
-
-    p#fb-register.fb-login.text-center
-        fb:login-button#fb-register-btn(scope='public_profile,email,user_photos,user_videos,user_link,user_posts,user_likes', onlogin='setFbUser()')
-
-    input#fb-register-user(type="hidden" name="fb-register-user")
-    input.form-control(type="text" name="nome" placeholder="Nome")
-    input.form-control(type="text" name="email" placeholder="E-mail")
-    input.form-control(type="text" name="municipio" placeholder="Município")
-    input.form-control(type="text" name="escola" placeholder="Escola")
-    input.form-control(type="text" name="codigo_professor" placeholder="Código de professor no SAGRES")
-    input.form-control(type="text" name="senha" placeholder="Senha")
-    input.form-control(type="text" name="resenha" placeholder="Repetir senha")
-
-    button.form-control
-        b="Cadastrar"
+.container
+    p#register-header
+        i.far.fa-list-alt
+        span.title Como participar 
+            br 
+            br 
+        span.subtitle Passos para realizar cadastro no sistema e ter acesso 
+            br 
+            | ao envio de vídeos da sua escola
+        
+    #passo-a-passo
+        .passo
+            span.number 1
+            i.fas.fa-caret-down
+            p.descricao
+                span Envie um email para o Espaço Cidadania Digital no TCe com os dados para a realização do cadastro.
+                span 
+                    b Dados:
+                span Nome completo - Cidade - CPF - Email - CIAP - Telefone - Escola para cadastrar (nome e endereço)
+                span 
+                    b E-mail:
+                span Espaço Cidadania Digital 
+                    b espacocidadaniadigital@tce.gov.br
+        .passo    
+            span.number 2
+            i.fas.fa-caret-down
+            p.descricao Aguarde os encaminhamentos com os dados do login para acessar o painel de gerenciamento
+        .passo    
+            span.number 3
+            p.descricao Faço o login ao lado usando os dados enviados pelo TCE para seu email.
