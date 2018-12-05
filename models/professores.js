@@ -34,7 +34,7 @@ var findTCE = function(email, senha){
             var response = JSON.parse(body);
             
             if (response.status) {
-                console.log("Erro no login:", response.status, response.error, response.message);
+                console.log("Erro no login:", email, response.status, response.error, response.message);
                 resolve(false);
             } else {
                 resolve({name: response.name, email: response.email});
