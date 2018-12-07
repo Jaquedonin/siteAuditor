@@ -106,6 +106,7 @@ path {
 
 #mapa-wrapper > .container{
     height: 100%;
+    max-width: unset;
 }
 
 #mapa{
@@ -134,7 +135,7 @@ path {
     width: 135px;
     height: 80px;
     position: absolute;
-    bottom: 130px;
+    bottom: 5%;
     right: 70px;
     padding: 15px 0;
     text-align: center;
