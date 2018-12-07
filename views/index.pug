@@ -6,24 +6,8 @@ block content
     section#mapa-wrapper
       .container
         .row
-            .col-md-10
-                .navbar#mapa-nav.row
-                    if !museu
-                        input#select-cidade(type='text' name='codigo' placeholder="Digite o município").col-4.form-control.form-control-sm
-                    #zoom.col-1
-                        div 
-                            #zoom-in(onclick="zoomIn()") +
-                            #zoom-out(onclick="zoomOut()") -
-
-                include mapa.pug
-                #mesorregiao
-                    img#mesorregiao-svg
-                    span#mesorregiao-nome=""
-                #galeria-mapa
-                script(type='text/javascript', src='javascripts/mapa.js')
             .col-md-2
                 #accordionExample.accordion
-                  p Curiosidades do estado
                   .card.bg-secondary
                     #headingOne.card-header.d-flex.justify-content-around
                       i.fas.fa-book-open
@@ -114,7 +98,21 @@ block content
                     #collapseTwo.collapse(aria-labelledby='headingTwo', data-parent='#accordionExample')
                       .card-body
                         | Mais de 1 milhão de carros registrados em todo estado.
-                     
+            .col-md-10
+                .navbar#mapa-nav.row
+                    if !museu
+                        input#select-cidade(type='text' name='codigo' placeholder="Digite o município").col-4.form-control.form-control-sm
+                    #zoom.col-1
+                        div 
+                            #zoom-in(onclick="zoomIn()") +
+                            #zoom-out(onclick="zoomOut()") -
+
+                include mapa.pug
+                #mesorregiao
+                    img#mesorregiao-svg
+                    span#mesorregiao-nome=""
+                #galeria-mapa
+                script(type='text/javascript', src='javascripts/mapa.js')
 block modal
     #visualizar-video.modal.fade(tabindex='-1', role='dialog')
     
