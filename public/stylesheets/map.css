@@ -99,9 +99,16 @@ path {
 	color: #fff;
 }
 
+#curiosidades{
+    position: relative;
+    z-index: 2;
+    left: 5%;
+}
+
 #mapa-wrapper{
     overflow: hidden;
     flex: 1;
+    position: relative;
 }
 
 #mapa-wrapper > .container{
@@ -109,7 +116,18 @@ path {
     max-width: unset;
 }
 
+#mapa-wrapper > .container > .row{
+    height: 100%;
+}
+
 #mapa{
+    position:relative; 
+    shape-rendering:geometricPrecision; 
+    text-rendering:geometricPrecision; 
+    image-rendering:optimizeQuality; 
+    fill-rule:evenodd; 
+    padding: 0px; 
+    padding-top: 0px;
     transition: transform .5s;
 }
 
@@ -292,7 +310,7 @@ path {
     height: 100%;
     background: #3f3f3f;
     box-shadow: 3px 0px 18px 0px;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: -100%;
     transition: all 1s;
@@ -310,13 +328,18 @@ path {
 
 #galeria-mapa #nome-municipio{
     color: #fff;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 #galeria-mapa #close-cidade{
     font-size: 18pt;
     color: #fff;
     text-align: right;
+    cursor: pointer;
+}
+
+#galeria-mapa p.section:first-of-type{
+    margin-top: -18pt;
 }
 
 #galeria-mapa p.section{
@@ -676,10 +699,4 @@ li.nav-item {
 
 div#modal-play-video {
     overflow-y: inherit;
-}
-
-footer{
-    background: #000;
-    color: #fff;
-    text-align: center;
 }

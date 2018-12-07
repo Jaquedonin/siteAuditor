@@ -30,7 +30,6 @@ var findTCE = function(email, senha){
             })
         }, (error, response, body) => 
         {
-            
             var response = JSON.parse(body);
             
             if (response.status) {

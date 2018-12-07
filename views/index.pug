@@ -4,115 +4,24 @@ block header
         include header
 block content
     section#mapa-wrapper
-      .container
-        .row
-            .col-md-2
-                #accordionExample.accordion
-                  .card.bg-secondary
-                    #headingOne.card-header.d-flex.justify-content-around
-                      i.fas.fa-book-open
-                      h5.mb-0
-                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseOne', aria-expanded='false', aria-controls='collapseOne')
-                          | Educação
-                    #collapseOne.collapse(aria-labelledby='headingOne', data-parent='#accordionExample')
-                      .card-body
-                        | Mais de 700 mil alunos matriculados nas escolas de todo o estado.
-                  .card.bg-secondary
-                    #headingThree.card-header.d-flex.justify-content-around
-                      i.fas.fa-users
-                      h5.mb-0
-                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseThree', aria-expanded='false', aria-controls='collapseThree')
-                          | População
-                    #collapseThree.collapse(aria-labelledby='headingThree', data-parent='#accordionExample')
-                      .card-body
-                        | A população do estado é de 3.766,528 segundo último censo do IBGE.
-                  .card.bg-secondary
-                    #headingNine.card-header.d-flex.justify-content-around
-                      i.fas.fa-tree
-                      h5.mb-0
-                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseNine', aria-expanded='false', aria-controls='collapseNine')
-                          | Natureza
-                    #collapseNine.collapse(aria-labelledby='headingNine', data-parent='#accordionExample')
-                      .card-body
-                        | João Pessoa tem mais de 78,4% de arborização nas vias públicas. 
-                  .card.bg-secondary
-                    #headingFive.card-header.d-flex.justify-content-around
-                      i.fas.fa-landmark
-                      h5.mb-0
-                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseFive', aria-expanded='false', aria-controls='collapseFive')
-                          | História
-                    #collapseFive.collapse(aria-labelledby='headingFive', data-parent='#accordionExample')
-                      .card-body
-                        | A palavra NEGO da bandeira da Paraíba é uma referência à decisão de João Pessoa contra à candidatura de Júlio Prestes. 
-                  .card.bg-secondary
-                    #headingSix.card-header.d-flex.justify-content-around
-                      i.fas.fa-building
-                      h5.mb-0
-                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseSix', aria-expanded='false', aria-controls='collapseSix')
-                          | TCE-PB
-                    #collapseSix.collapse(aria-labelledby='headingSix', data-parent='#accordionExample')
-                      .card-body
-                        | O TCE PB possui 400 painéis solares que formam uma mini usina elétrica para uso nas instalações.
-                  .card.bg-secondary
-                    #headingSeven.card-header.d-flex.justify-content-around
-                      i.fas.fa-globe-americas
-                      h5.mb-0
-                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseSeven', aria-expanded='false', aria-controls='collapseSeven')
-                          | Geografia
-                    #collapseSeven.collapse(aria-labelledby='headingSeven', data-parent='#accordionExample')
-                      .card-body
-                        | O Pico do Jabre é o ponto mais alto do estado medindo 1.197 metros acima do nível do mar. 
-                  .card.bg-secondary
-                    #headingEight.card-header.d-flex.justify-content-around
-                      i.fas.fa-anchor
-                      h5.mb-0
-                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseEight', aria-expanded='false', aria-controls='collapseEight')
-                          | Turismo
-                    #collapseEight.collapse(aria-labelledby='headingEight', data-parent='#accordionExample')
-                      .card-body
-                        | Sousa possui mais de 300 evidências de dinossauros entre pegadas e fósseis espalhados por cerca de 700km². 
-                  .card.bg-secondary
-                    #headingTen.card-header.d-flex.justify-content-around
-                      i.fas.fa-dollar-sign
-                      h5.mb-0
-                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseTen', aria-expanded='false', aria-controls='collapseTen')
-                          | Economia
-                    #collapseTen.collapse(aria-labelledby='headingTen', data-parent='#accordionExample')
-                      .card-body
-                        | O porto de Cabedelo, a 18 km de João Pessoa, é o mais oriental do Brasil. Tem 700 metros de extensão e 300 metros de largura.
-                  .card.bg-secondary
-                    #headingFour.card-header.d-flex.justify-content-around
-                      i.fas.fa-map
-                      h5.mb-0
-                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseFour', aria-expanded='false', aria-controls='collapseFour')
-                          | Território
-                    #collapseFour.collapse(aria-labelledby='headingFour', data-parent='#accordionExample')
-                      .card-body
-                        | A extensão territorial do estado é de 56.468,435 km².
-                  .card.bg-secondary
-                    #headingTwo.card-header.d-flex.justify-content-around
-                      i.fas.fa-car
-                      h5.mb-0
-                        button.btn.btn-link.collapsed(type='button', data-toggle='collapse', data-target='#collapseTwo', aria-expanded='false', aria-controls='collapseTwo')
-                          | Transporte
-                    #collapseTwo.collapse(aria-labelledby='headingTwo', data-parent='#accordionExample')
-                      .card-body
-                        | Mais de 1 milhão de carros registrados em todo estado.
-            .col-md-10
-                .navbar#mapa-nav.row
+        #galeria-mapa
+        .container
+            .row
+                #curiosidades.col-md-2
+                    include curiosidades
+                .col-md-10
                     if !museu
-                        input#select-cidade(type='text' name='codigo' placeholder="Digite o município").col-4.form-control.form-control-sm
-                    #zoom.col-1
-                        div 
-                            #zoom-in(onclick="zoomIn()") +
-                            #zoom-out(onclick="zoomOut()") -
-
-                include mapa.pug
-                #mesorregiao
-                    img#mesorregiao-svg
-                    span#mesorregiao-nome=""
-                #galeria-mapa
-                script(type='text/javascript', src='javascripts/mapa.js')
+                        .navbar#mapa-nav.row
+                            input#select-cidade(type='text' name='codigo' placeholder="Digite o município").col-4.form-control.form-control-sm
+                            #zoom.col-1
+                                div 
+                                    #zoom-in(onclick="zoomIn()") +
+                                    #zoom-out(onclick="zoomOut()") -
+                    include mapa.pug
+                    #mesorregiao
+                        img#mesorregiao-svg
+                        span#mesorregiao-nome=""
+                    script(type='text/javascript', src='javascripts/mapa.js')
 block modal
     #visualizar-video.modal.fade(tabindex='-1', role='dialog')
     
