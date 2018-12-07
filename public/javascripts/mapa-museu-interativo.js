@@ -11,46 +11,19 @@ window.addEventListener("load", function(){
     
     window.addEventListener('storage', function(e) {
         
-        modal.modal("hide");
+        //modal.modal("hide");
         
         if(e.key == "video"){
-            
+            console.log("play video", e.newValue);
             $("#iframe-play-video").attr("src", e.newValue);
-            
-            var regExprYt = /https:\/\/youtube\.com\/embed\/(.*)(\?.*)/;
-            var regExprFb = "http(?:s?):\/\/(?:www\.)?facebook\.com\/(?:.*\/)(?:videos\/)(.*)(?:\/)";
-    
-            var matchYt = e.newValue.match(regExprYt);
-            var matchFb = e.newValue.match(regExprFb);
-
-            console.log(matchYt);
-
-            if(matchYt){
-                player = new YT.Player('iframe-play-video', {
-                    height: '390',
-                    width: '640',
-                    videoId: matchYt[2],
-                    events: {
-                        'onStateChange': ytStateChange
-                    }
-                });
-            }
-
             modal.modal("show");
         }
         
     });
 })
 
-function ytStateChange(event) {
-    console.log(event);
-    if (event.data == YT.PlayerState.PLAYING) {
-        setTimeout(stopVideo, 6000);
-    }
-}
-
-function stopVideo(){
-    // modal.modal("hide");
+function onStopVideo(){
+    modal.modal("hide");
 }
 
 function visualizarVideo(id){
@@ -59,9 +32,28 @@ function visualizarVideo(id){
         
         $("#visualizar-video").html(response.html);
 
+
         $("#trigger-play-video").on("click", function(e){
             var videoUrl = $(e.target).attr("data-video");
-            localStorage.setItem("video", videoUrl + "?enablejsapi=1");
+
+
+            var regExprYt = /https:\/\/youtube\.com\/embed\/(.*)/;
+            var regExprFb = /https:\/\/www\.facebook\.com\/video\/embed\?video_id=([0-9]*)/;
+            
+            var matchYt = videoUrl.match(regExprYt);
+            var matchFb = videoUrl.match(regExprFb);
+
+            if(matchFb){
+                localStorage.setItem("video", videoUrl );
+                localStorage.setItem("type", "fb");
+            }
+
+            if(matchYt){
+                console.log("Video youtube");
+                localStorage.setItem("video", videoUrl + "?rel=0&autoply=1");
+                localStorage.setItem("video-id", matchYt[1]);
+                localStorage.setItem("type", "yt");
+            }
         });
         
         $("#visualizar-video").modal("show");
