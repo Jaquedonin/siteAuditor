@@ -24,7 +24,7 @@ h4="Meus vídeos"
         if videos.length
             each video in videos
                 .col-4
-                    .video(style="background-image: url("+video.thumb+")" onclick="visualizarVideo("+video.id+")")
+                    .video(style="background-image: url("+video.thumb+")" onclick="visualizarVideoDashboard("+video.id+")")
                         .preview
                             form(method='POST' action='/delete/videos')
                                 input.d-none(name="id", value=video.id) 

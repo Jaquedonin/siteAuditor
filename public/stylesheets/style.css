@@ -291,6 +291,7 @@ footer p{
 
 #auth #login input.form-control{
     background: transparent;
+    color: #fff;
 }
 
 #auth #login button b{

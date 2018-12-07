@@ -21,8 +21,7 @@ div.d-flex.flex-column.align-content-stretch
                             - var title = video.titulo ? video.titulo.substring(0,30) + "..."  : "Título do vídeo"
                             - var description = video.descricao ? video.descricao.substring(0,100) + " ..." : "Descrição do vídeo"
                             - var author = video.autor ? video.autor : "Autor do vídeo"
-
-                            .video(onclick="visualizarVideo("+video.id+")")
+                            .video(onclick="visualizarVideo"+(museu ? "Museu" : "")+"("+video.id+")")
                                 .row
                                     .preview.col-6(style="background-image: url("+thumb+")")
                                         i.fa.fa-play

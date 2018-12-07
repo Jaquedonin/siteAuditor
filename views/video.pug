@@ -1,17 +1,13 @@
-script.
-    var modal_dialog = $("#visualizar-video .modal-dialog");
-    var modal_video =  $("#visualizar-video");
-    $('.close').click(function() { modal_dialog.remove(); modal_video.modal('hide'); });
-    
-.modal-lg(role='document')
-    .modal-dialog
-        .modal-content
-            .modal-header
-                h5.modal-title=video.titulo
-                button.close(type='button',data-dismiss='modal', aria-label='Close')
-                    span(aria-hidden='true') ×
-            .modal-body
-                iframe(type='text/html' width='700px' height='500px' src=encodeURI(video.url) controls='' frameborder='0')
-                div.views="Visualizações: "
-                    span=video.views
-                p=video.descricao
+.modal-dialog.modal-lg
+    .modal-content
+        .modal-header
+            h5.modal-title=video.titulo
+            button.close(type='button',data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true') ×
+        .modal-body
+            iframe(type='text/html' width='100%' src=encodeURI(video.url) controls='' frameborder='0')
+            if museu
+                #trigger-play-video(data-video=video.url)
+            div.views="Visualizações: "
+                span=video.views
+            p=video.descricao

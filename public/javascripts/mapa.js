@@ -46,6 +46,9 @@ async function initMapa(cidades){
 
     $(".mapa-info-btn").on("click", toggleMapaInfo)
 
+    $("#visualizar-video").on("hidden.bs.modal", function(){
+        $("#visualizar-video").html("");
+    });
 }
 
 function defineMesoregioes(mesoregioes){
@@ -115,7 +118,6 @@ function toggleGaleria(cidade){
     
             //exibir cidade e meso região selecionadas
             mesoToShow.style.visibility = "visible";
-            console.log(mesoToShow.dataset.title);
             document.getElementById("mesorregiao-nome").innerHTML = mesoToShow.dataset.title;
             document.getElementById("mesorregiao-svg").src = "/images/" + mesoToShow.dataset.title + ".svg";
             cidadeToShow.setAttribute("class", "btn selected");

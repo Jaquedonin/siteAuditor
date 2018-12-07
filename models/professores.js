@@ -4,7 +4,7 @@ var insertOne = function(email, nome){
     var query = db.getQuery.insertOne(
         "professores", 
         ["email", "nome"], 
-        [db.mysql.escape(email), db.mysql.escape(nome)]
+        [email, nome]
     );
 
     return db.doQuery(query);

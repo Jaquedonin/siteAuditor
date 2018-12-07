@@ -1,4 +1,4 @@
-var mysql = require("mysql");
+var querystring = require('querystring');
 
 module.exports = {
     findOne : function(cols, table, id){
@@ -8,9 +8,9 @@ module.exports = {
 	insertOne : function(table, columns, values){ 
 
         var cols = columns.join(",");
-        var vals = values.map(mysql.escape).join(",");        
+        var vals = values.map(querystring.escape).join(",");        
         
-		return "INSERT INTO "+ table +" ("+ cols +") VALUES("+ vals +")";
+		return "INSERT INTO "+ table +" ("+ cols +") VALUES ("+ vals +")";
 	},
 	updateOne : function(table, id, set){
 		return "UPDATE "+ table +" SET "+set+" WHERE id = " + id

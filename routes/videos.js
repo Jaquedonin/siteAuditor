@@ -50,7 +50,7 @@ router.get('/video/:id', function(req, res) {
                 if(err)
                 console.log(err);
             
-                res.send({html:html});
+                res.send({html:html, museu: !(!req.session.museu)});
             });
         });   
     })
@@ -60,14 +60,15 @@ router.get('/video/:id', function(req, res) {
 router.get('/video-museu/:id', function(req, res){
 
     getVideo(req.params.id).then(function(video){
-        res.app.render('video-museu', {video: video}, function(err, html){
-        
-            if(err)
+        model.incrementViews(video.id).then(function(){
+            res.app.render('video-museu', {video: video}, function(err, html){
+                
+                if(err)
                 console.log(err);
             
-            res.send({html:html});
-
-        })
+                res.send({html:html});
+            });
+        });   
     })
 
 });
@@ -76,7 +77,7 @@ router.get('/video-museu/:id', function(req, res){
 router.get('/video-dashboard/:id', function(req, res){
 
     getVideo(req.params.id).then(function(video){
-        res.app.render('video-dashboard', {video: video}, function(err, html){
+        res.app.render('video', {video: video}, function(err, html){
         
             if(err)
                 console.log(err);

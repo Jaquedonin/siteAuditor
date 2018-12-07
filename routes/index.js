@@ -235,6 +235,7 @@ router.post('/galeria', function(req, res){
         //buscar videos
         setVideos.then(function(videos){
             data.videos = videos;
+            data.museu = req.session.museu;
             //ao final, envia a view galeria-mapa como resposta
             res.app.render('galeria-mapa', data, function(err, html){
                 res.send({ html:html });

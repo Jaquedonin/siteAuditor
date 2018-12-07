@@ -40,4 +40,8 @@ window.addEventListener("load", function(){
             $($("#categorias").children()[e.to]).addClass("selected")
     })
 
+    $("#visualizar-video").on("hidden.bs.modal", function(){    
+        $("#visualizar-video").html("");
+    });
+
 })

@@ -13,13 +13,9 @@ window.addEventListener("load", function(){
         toggleVideoPreview();
     });
     
-    
-
     $("#visualizar-video").on("hidden.bs.modal", function(){
         $("#visualizar-video").html("");
-        
     });
-
 
     $("#cadastrar-escola").on("hidden.bs.modal", function(){
         $("#cadastrar-escola form").trigger("reset");

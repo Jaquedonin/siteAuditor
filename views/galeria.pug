@@ -43,7 +43,7 @@ block content
                                         - var title = destaque ? video.titulo : video.titulo.substring(0,30);
                                         - var description =  destaque ? video.descricao : video.descricao.substring(0,80)
                                         div(class=classe)
-                                            .row(onclick="visualizarVideo("+video.id+")")
+                                            .row(onclick="visualizarVideo"+(museu ? "Museu" : "")+"("+video.id+")")
                                                 .preview.col-6(style="background-image: url("+video.thumb+")")
                                                     i.fa.fa-play
                                                 .info.col-6
