@@ -295,6 +295,6 @@ function cadastrarEscola(e){
 }
 
 function deleteVideo(e){
-    e.preventDefault()
+    e.stopPropagation();
     e.target.parentElement.submit();
 }

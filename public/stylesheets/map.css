@@ -429,6 +429,25 @@ path {
     overflow: hidden;
 }
 
+.carousel-control-next:focus .carousel-control-next-icon, 
+.carousel-control-next:hover .carousel-control-next-icon, 
+.carousel-control-prev:focus .carousel-control-prev-icon, 
+.carousel-control-prev:hover .carousel-control-prev-icon {
+    text-decoration: none;
+    outline: 0;
+    opacity: .5;
+}
+
+.carousel-control-next .carousel-control-next-icon:focus, 
+.carousel-control-next .carousel-control-next-icon:hover, 
+.carousel-control-prev .carousel-control-prev-icon:focus, 
+.carousel-control-prev .carousel-control-prev-icon:hover {
+    text-decoration: none;
+    outline: 0;
+    opacity: 1;
+    color: #fff;
+}
+
 .carousel-control-prev-icon {
     background-image: url(../images/seta.png);
     background-size: contain;
@@ -449,12 +468,8 @@ path {
 
 .carousel-control-prev,
 .carousel-control-next{
-    cursor: default;    
-}
-
-.carousel-control-prev,
-.carousel-control-next {
     width: 60px;
+    cursor: default;    
 }
 
 #galeria .video .preview,
@@ -607,6 +622,7 @@ li.nav-item {
 #galeria-navbar li.nav-item a{
     padding: 5px 10px;
     cursor: pointer;
+    text-transform: capitalize;
 }
 
 #galeria-navbar li.nav-item.selected {
