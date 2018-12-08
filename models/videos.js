@@ -133,16 +133,28 @@ var insertOne = function(req){
         parseInt(req.body.escola_id),
         parseInt(req.body.cidade_id), 
         parseInt(req.body.categoria_id), 
-        querystring.escape(emojiStrip(req.body.autor)), 
-        querystring.escape(req.body.url), 
-        querystring.escape(emojiStrip(req.body.titulo)),
-        querystring.escape(req.body.thumb),
-        querystring.escape(emojiStrip(req.body.descricao))
+        emojiStrip(req.body.autor), 
+        req.body.url, 
+        emojiStrip(req.body.titulo),
+        req.body.thumb,
+        emojiStrip(req.body.descricao)
     ];
 
     var query = db.getQuery.insertOne("videos", cols, vals);
-    return db.doQuery(query).catch(function(err) { 
+    return db.doQuery(query.query, query.values)
+    .then(function(result){
+        console.log(result);
+
+        return { status: 200, msg: "Vídeo inserido com sucesso" }
+    })
+    .catch(function(err) { 
         console.log(err);
+
+        if(err.errno == 1062){
+            return { status: 400, msg: "Vídeo já existe no sistema" }
+        }
+
+        return { status: 400, msg: "Erro" };
     });
 }
 
@@ -152,7 +164,16 @@ var deleteOne = function(id){
 
     id = parseInt(id);
     var query = db.getQuery.deleteOne("videos", id);
-    return db.doQuery(query);
+    return db.doQuery(query).then(function(result){
+        console.log(result);
+
+        return { status: 200, msg: "Vídeo excluído com sucesso" }
+    })
+    .catch(function(err) { 
+        console.log(err);
+
+        return { status: 400, msg: "Erro ao excluir vídeo" };
+    });
 }
 
 module.exports.findByCategoria = findByCategoria;

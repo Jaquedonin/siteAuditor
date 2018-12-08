@@ -6,10 +6,7 @@ var model = require("../models/videos");
 router.post('/videos', function(req, res, next) {
 
     model.insertOne(req).then(function(result){
-        req.session.insert = {
-            status: result ? 200 : 400,
-            msg: result ? "Vídeo inserido com sucesso!" : "Erro"
-        }
+        req.session.insert = result;
         return res.redirect('/dashboard');
     });
     
@@ -19,10 +16,7 @@ router.post('/videos', function(req, res, next) {
 router.post('/delete/videos', function(req, res, next) {
     
     model.deleteOne(req.body.id).then(function(result){
-        req.session.delete = {
-            status: result ? 200 : 400,
-            msg: result ? "Vídeo excluído com sucesso!" : "Erro"
-        }
+        req.session.delete = result;
         return res.redirect('/dashboard');
     });
 

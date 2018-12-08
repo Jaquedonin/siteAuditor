@@ -6,11 +6,11 @@ module.exports = {
         return "SELECT "+cols+" FROM "+table+" WHERE id = " + id;
     },
 	insertOne : function(table, columns, values){ 
-
-        var cols = columns.join(",");
-        var vals = values.map(querystring.escape).join(",");        
-        
-		return "INSERT INTO "+ table +" ("+ cols +") VALUES ("+ vals +")";
+        var cols = columns.join(",");     
+		return {
+            query: "INSERT INTO "+ table +" ("+ cols +") VALUES (?)",
+            values: [values]
+        }
 	},
 	updateOne : function(table, id, set){
 		return "UPDATE "+ table +" SET "+set+" WHERE id = " + id

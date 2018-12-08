@@ -1,8 +1,9 @@
 .modal-dialog.modal-lg(role='document').d-flex
     .modal-content
         .modal-body
-                i.far.fa-check-circle.text-success
-                p=mensagemBanco
+                - var classe = mensagemBanco.success ? "check-circle text-success" :  "times-circle text-danger"
+                i(class="fas fa-" + classe)
+                p=mensagemBanco.msg
         script.
             $('#mensagem-banco').modal('show');
             setTimeout(function(){

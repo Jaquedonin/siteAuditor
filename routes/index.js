@@ -172,13 +172,19 @@ router.all('/dashboard', function(req, res, next) {
 
     //Mensagem de vídeo excluido
     if(req.session.delete){
-        data.mensagemBanco = req.session.delete.msg;
+        data.mensagemBanco = {
+            success: req.session.delete.status == 200,
+            msg: req.session.delete.msg
+        }
         req.session.delete = false;
     }
 
     //Mensagem de vídeo inserido
     if(req.session.insert){
-        data.mensagemBanco = req.session.insert.msg;
+        data.mensagemBanco = {
+            success: req.session.insert.status == 200,
+            msg: req.session.insert.msg
+        }
         req.session.insert = false;
     }
     
