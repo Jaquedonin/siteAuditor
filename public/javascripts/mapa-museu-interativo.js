@@ -1,23 +1,25 @@
-var modal;
+var iframe;
 var player;
 
 window.addEventListener("load", function(){
-    iframe = $("#modal-play-video");
+    var iframe = $("#iframe-play-video");
     
     if(!iframe.length)
-    return false;
+        return false;
     
     localStorage.clear();
     
     window.addEventListener('storage', function(e) {
         
         if(e.key == "video"){
-            $("#iframe-play-video").attr("src", e.newValue);
+            iframe.attr("src", e.newValue);
+            iframe.css("opacity", 1);
         }
         
     });
 })
 
 function onStopVideo(){
-    modal.modal("hide");
+    iframe.attr("src", "");
+    iframe.css("opacity", 0);
 }
