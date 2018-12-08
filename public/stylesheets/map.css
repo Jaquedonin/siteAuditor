@@ -673,12 +673,18 @@ li.nav-item {
     max-width: 1800px;
 }
 
-div#modal-play-video {
-    overflow-y: inherit;
-}
-
 footer{
     background: #000;
     color: #fff;
     text-align: center;
+}
+
+#yt-player, #fb-player{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s;
 }

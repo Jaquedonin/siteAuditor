@@ -1,29 +1,54 @@
-var modal;
-var player;
-
+var ytPlayer, fbPlayer;
 window.addEventListener("load", function(){
-    modal = $("#modal-play-video");
+    var players = $("#yt-player, #fb-player");
     
-    if(!modal.length)
-    return false;
+    if(!players.length)
+        return false;
     
     localStorage.clear();
     
     window.addEventListener('storage', function(e) {
         
-        //modal.modal("hide");
-        
         if(e.key == "video"){
-            console.log("play video", e.newValue);
-            $("#iframe-play-video").attr("src", e.newValue);
-            modal.modal("show");
+            
+            var isYt = localStorage.getItem("type") == "yt";
+            var isFb = localStorage.getItem("type") == "fb";
+            
+            if(isYt){
+                ytPlayer = new YT.Player('yt-player', {  
+                    width: "100%",
+                    height: "100%",
+                    videoId: localStorage.getItem("video-id"),
+                    events: {
+                        'onReady': onReadyYtVideo,
+                        'onStateChange': onStopYtVideo
+                    }
+                });
+            }
+            
+            if(isFb){
+                
+            }
+            
         }
         
     });
 })
 
-function onStopVideo(){
-    modal.modal("hide");
+function onReadyYtVideo(event){
+    $("#yt-player").css("opacity", 1);
+    event.target.playVideo();
+}
+
+function onStopYtVideo(event){
+    if (event.data == YT.PlayerState.ENDED){
+        $("#yt-player").css("opacity", 0);
+
+        setTimeout(function(){
+            ytPlayer.destroy();
+            ytPlayer = null;
+        }, 1000);
+    }
 }
 
 function visualizarVideo(id){
