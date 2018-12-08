@@ -128,6 +128,15 @@ window.addEventListener("load", function(){
             $( "#busca-cidade" ).val( ui.item.label );
             $( "#busca-cidade-id" ).val( ui.item.value );
             return false;
+        },
+        change: function(event, ui){
+
+            if(!ui.item){
+                $("#busca-cidade").val("");
+                $("#busca-cidade-id").val("");  
+                $("#busca-escola").val("");
+                $("#busca-escola-id").val(""); 
+            }
         }
     });
 
@@ -150,6 +159,14 @@ window.addEventListener("load", function(){
             $( "#busca-escola" ).val( ui.item.label );
             $( "#busca-escola-id" ).val( ui.item.value );
             return false;
+        },
+        change: function(event, ui){
+
+            if(!ui.item){  
+                $("#busca-escola").val("");
+                $("#busca-escola-id").val(""); 
+            }
+
         }
     });
 

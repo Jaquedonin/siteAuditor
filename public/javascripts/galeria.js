@@ -24,6 +24,16 @@ window.addEventListener("load", function(){
         focus: function(event, ui) {
             $( "#select-escola" ).val( ui.item.label );
             return false;
+        },
+        change: function(event, ui){
+           
+            if(!ui.item){ 
+                var path = window.location.pathname.split("/");
+                path[3] = "todas";
+
+                window.location = window.location.origin + path.join("/");
+                return false;
+            }
         }
     });
 
