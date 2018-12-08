@@ -161,7 +161,8 @@ router.all('/dashboard', function(req, res, next) {
             nome: req.body.escola
         },
         user: { nome: req.session.professorNome },
-        afterLogin: req.session.afterLogin
+        afterLogin: req.session.afterLogin,
+        dashboard: true
     };
 
     //Mensagem de boas vindas
@@ -209,6 +210,10 @@ router.all('/dashboard', function(req, res, next) {
 });
 
 router.get('/auth', function(req, res, next) {
+    if(req.session.token){
+        return res.redirect("/dashboard");
+    }
+    
     res.render('auth', {error: false});
 });
 
