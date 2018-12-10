@@ -2,7 +2,16 @@ window.fbAsyncInit = function() {
     FB.init({
     	appId      : '460691281030259',
       	xfbml      : true,
-      	version    : 'v3.0'
+        version    : 'v3.0',
+        status     : true
+    });
+
+    //escutar o player de video do facebook 
+    FB.Event.subscribe('xfbml.ready', function(msg) {
+        if (msg.type === 'video') {
+            fbPlayer = msg.instance;
+            onReadyFbVideo();
+        }   
     });
 };
 

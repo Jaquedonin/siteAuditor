@@ -52,9 +52,9 @@ function visualizarVideoMuseu(id){
 
             if(matchFb){
                 var video = {
-                    url: videoUrl + "&allowfullscreen=true&autoplay=true",
+                    url: videoUrl + "&allowfullscreen=true&autoplay=true&mute=0",
                     type: "fb",
-                    id: ""
+                    id: matchFb[1]
                 };
                 
             }
