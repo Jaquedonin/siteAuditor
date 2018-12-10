@@ -215,6 +215,10 @@ router.all('/dashboard', function(req, res, next) {
         });
 });
 
+router.get('/como-participar', function(req, res, next) {
+    res.render('como-participar');
+});
+
 router.get('/auth', function(req, res, next) {
     if(req.session.token){
         return res.redirect("/dashboard");

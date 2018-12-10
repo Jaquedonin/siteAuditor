@@ -29,16 +29,19 @@ body{
     background: rgba(14, 15, 17, 0.7);
 }
 
+#como-participar-navbar .container > div,
 #mapa-header .container > div,
 #mapa-header-museu .container > div{
     text-align: center;
 }
 
+#como-participar-navbar a,
 #mapa-header a,
 #mapa-header-museu a{
     color: #fff;
 }
 
+#como-participar-navbar #logo a,
 #mapa-header #logo a,
 #mapa-header-museu #logo a{
     position: relative;
