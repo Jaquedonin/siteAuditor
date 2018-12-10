@@ -245,7 +245,7 @@ function getVideoInfo(urls, onsuccess) {
                 function (response) {
                     if (response) {
                         return onsuccess({
-                            url: "https://www.facebook.com/video/embed?video_id="+matchFb[1]+"&width=500&show_text=false&height=280&appId",
+                            url: "https://www.facebook.com/video/embed?video_id="+matchFb[1],
                             thumb: response.picture,
                             name: response.from.name,
                             title: response.title,

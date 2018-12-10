@@ -8,12 +8,17 @@ var pool = mysql.createPool({
 doQuery = function (query) {
     var db = this;
     
+    if(query.query){
+        var values = query.values;
+        var query = query.query;
+    }
+    
     return new Promise(function(resolve, reject){
         db.pool.getConnection(function(err, connection) {
             
             if (err) reject(err);
         
-            connection.query(query, function (err, result) {
+            connection.query(query, values, function (err, result) {
                 connection.release();
             
                 if (err) reject(err)

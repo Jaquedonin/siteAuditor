@@ -29,16 +29,19 @@ body{
     background: rgba(14, 15, 17, 0.7);
 }
 
+#como-participar-navbar .container > div,
 #mapa-header .container > div,
 #mapa-header-museu .container > div{
     text-align: center;
 }
 
+#como-participar-navbar a,
 #mapa-header a,
 #mapa-header-museu a{
     color: #fff;
 }
 
+#como-participar-navbar #logo a,
 #mapa-header #logo a,
 #mapa-header-museu #logo a{
     position: relative;
@@ -707,19 +710,36 @@ li.nav-item {
     padding: 5px 45px;
 }   
 
-div#modal-play-video {
-    overflow-y: inherit;
-    padding-right: 0 !important;
+
+footer{
+    background: #000;
+    color: #fff;
+    text-align: center;
 }
 
-#iframe-play-video {
+#yt-player, #fb-player{
+    position: absolute;
     width: 100%;
     height: 100%;
-    max-width: unset;
     top: 0;
     left: 0;
-    margin-top: 0;
     opacity: 0;
     transition: opacity 1s;
-    position: absolute;
+    background: #000;
+}
+
+#fb-player #fb-player-video{
+    display: block;
+    margin: 0 auto;
+}
+
+#fb-player #fb-player-video > span{
+    width: 100% !important;
+    height: 100% !important; 
+    overflow: hidden;
+}
+
+#fb-player #fb-player-video > span > iframe { 
+    width: 100% !important;
+    height: 100% !important; 
 }

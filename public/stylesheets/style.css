@@ -223,16 +223,19 @@ footer p{
     color: #fff;
 }
 
-#auth .title {
+#auth .title,
+#como-participar .title {
     font-size: 14pt;
     font-weight: bold;
 }
 
-#auth .subtitle {
+#auth .subtitle,
+#como-participar .subtitle {
     font-size: 10pt;
 }
 
-#auth .title, #auth .subtitle {
+#auth .title, #auth .subtitle,
+#como-participar .title, #como-participar .subtitle {
     width: 80%;
     display: block;
     margin: 10px auto;
@@ -240,25 +243,30 @@ footer p{
 }
 
 #auth #register-header .title,
-#auth #register-header .subtitle{
+#auth #register-header .subtitle,
+#como-participar-header .title,
+#como-participar-header .subtitle {
     text-align: left;
     display: inline;
 }
 
-#auth #register-header .subtitle{
+#auth #register-header .subtitle,
+#como-participar-header .subtitle{
     left: calc(18pt + 15px);
     top: -8pt;
     position: relative;
 }
 
-#auth #register-header {
+#auth #register-header,
+#como-participar-header div {
     text-align: left;
     width: fit-content;
     display: block;
     margin: 0 auto;
 }
  
-#auth #register-header i{
+#auth #register-header i,
+#como-participar-header i {
     margin: 0 15px 0 0;
     position: relative; 
     top: 5px;
@@ -273,7 +281,6 @@ footer p{
     margin-bottom: 5px;
     border-radius: 20px;
 }
-
 
 #auth #login .invalid-feedback{
     color: #c1c1c1;
@@ -298,12 +305,37 @@ footer p{
     color: #495057
 }
 
-#auth #register #passo-a-passo{
+#auth #register #passo-a-passo,
+#acesso-professor .passo-a-passo, 
+#acesso-aluno .passo-a-passo{
     padding: 20pt 50pt 20pt 50pt;
     border-radius: 70pt;
     width: 80%;
     margin: 20px auto 0 auto;
     border: 1px solid #495057;
+}
+
+#acesso-professor .passo-a-passo, 
+#acesso-aluno .passo-a-passo{
+    width: 90%;
+}
+
+#acesso-professor {
+    border-right: 1px solid #aaa;
+}
+
+#como-participar{
+    background: #fff;
+    padding: 20px;
+}
+
+#como-participar-navbar{
+    background: #0e0f11;
+    color: #fff;
+}
+
+#como-participar-header{
+    margin-bottom: 16pt;
 }
 
 .passo{

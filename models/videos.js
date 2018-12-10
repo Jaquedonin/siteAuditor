@@ -141,7 +141,7 @@ var insertOne = function(req){
     ];
 
     var query = db.getQuery.insertOne("videos", cols, vals);
-    return db.doQuery(query.query, query.values)
+    return db.doQuery(query)
     .then(function(result){
         console.log(result);
 

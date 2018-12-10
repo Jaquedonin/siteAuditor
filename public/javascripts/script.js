@@ -37,14 +37,12 @@ function visualizarVideo(id){
 }
 
 function visualizarVideoMuseu(id){
-
     get("/video-museu/" + id, function (response) {
         
         $("#visualizar-video").html(response.html);
 
         $("#trigger-play-video").on("click", function(e){
             var videoUrl = $(e.target).attr("data-video");
-
 
             var regExprYt = /https:\/\/youtube\.com\/embed\/(.*)/;
             var regExprFb = /https:\/\/www\.facebook\.com\/video\/embed\?video_id=([0-9]*)/;
@@ -53,18 +51,25 @@ function visualizarVideoMuseu(id){
             var matchFb = videoUrl.match(regExprFb);
 
             if(matchFb){
-                localStorage.setItem("video", videoUrl );
-                localStorage.setItem("type", "fb");
+                var video = {
+                    url: videoUrl + "&allowfullscreen=true&autoplay=true&mute=0",
+                    type: "fb",
+                    id: matchFb[1]
+                };
+                
+            }
+            
+            if(matchYt){
+                var video = {
+                    url:  videoUrl + "?rel=0&autoplay=1",
+                    type: "yt",
+                    id: matchYt[1]
+                };
             }
 
-            if(matchYt){
-                localStorage.setItem("video", videoUrl + "?rel=0&autoplay=1");
-                localStorage.setItem("video-id", matchYt[1]);
-                localStorage.setItem("type", "yt");
-            }
+            localStorage.setItem("video", JSON.stringify(video) );
         });
         
         $("#visualizar-video").modal("show");
     });
-
 }
