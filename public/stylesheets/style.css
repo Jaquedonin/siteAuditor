@@ -595,10 +595,9 @@ footer p{
 }
 
 div#accordionExample {
-    position: absolute;
     width: 180px;
-    right: 0;
-    left: 1px;
+    margin: 0 auto;
+    margin-top: 95px;     
 }
 
 #accordionExample .card-body,
