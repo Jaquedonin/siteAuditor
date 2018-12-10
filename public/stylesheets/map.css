@@ -107,6 +107,7 @@ path {
 #curiosidades{
     position: relative;
     z-index: 2;
+        margin-top: 45px;
 }
 
 #mapa-wrapper{
