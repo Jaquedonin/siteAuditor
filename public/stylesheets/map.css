@@ -665,6 +665,7 @@ li.nav-item {
 #visualizar-video .modal-content {
     background: #272727;
     border-radius: 0;
+    height: 111%;
 }
 
 #visualizar-video *{
@@ -678,10 +679,12 @@ li.nav-item {
 
 #visualizar-video .modal-body{
     position: relative;
+    height: 90%
 }
 
 #visualizar-video .modal-body iframe{
     min-height: 245px;
+    height: 70%
 }
 
 #visualizar-video #trigger-play-video{
