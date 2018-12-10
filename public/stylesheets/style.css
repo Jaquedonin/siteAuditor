@@ -598,6 +598,7 @@ div#accordionExample {
     position: absolute;
     width: 180px;
     right: 0;
+    left: 1px;
 }
 
 #accordionExample .card-body,
@@ -649,4 +650,12 @@ div#accordionExample {
     margin-bottom: 10px;
     font-size: 15px;
     color: rgb(208, 197, 197);
+}
+.col-md-9{
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 0px;
+    padding-left: 0px;
+    height: 103%;
 }
