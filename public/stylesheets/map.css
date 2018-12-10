@@ -668,26 +668,39 @@ li.nav-item {
 #visualizar-video .modal-content {
     background: #272727;
     border-radius: 0;
-    height: 111%;
 }
 
 #visualizar-video *{
     color: #fff;
 }
 
-#visualizar-video .views{
+#visualizar-video .text{
     text-align: right;
-    margin-bottom: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#visualizar-video .text .descricao {
+    text-align: left;
+    width: 100%;
+}
+
+#visualizar-video .modal-dialog{
+    height: 85%;
+}
+
+#visualizar-video .modal-content{
+    height: 100%;
 }
 
 #visualizar-video .modal-body{
     position: relative;
-    height: 90%
 }
 
 #visualizar-video .modal-body iframe{
-    min-height: 245px;
-    height: 70%
+    flex: 2;
+    display: flex;
 }
 
 #visualizar-video #trigger-play-video{

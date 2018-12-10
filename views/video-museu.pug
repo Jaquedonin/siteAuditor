@@ -4,9 +4,10 @@
             h5.modal-title=video.titulo
             button.close(type='button', data-dismiss='modal', aria-label='Close')
                 span(aria-hidden='true') ×
-        .modal-body
-            iframe(type='text/html' width='100%' height='400px' src=encodeURI(video.url) controls='' frameborder='0')
+        .modal-body.d-flex.flex-column
+            iframe(type='text/html' width='100%' src=encodeURI(video.url) controls='' frameborder='0')
             #trigger-play-video(data-video=video.url)
-            div.views="Visualizações: "
-                span=video.views
-            p=video.descricao
+            div
+                p="Visualizações: "
+                    span=video.views
+                p.descricao=video.descricao
