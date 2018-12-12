@@ -55,10 +55,10 @@ router.get('/video-museu/:id', function(req, res){
 
     getVideo(req.params.id).then(function(video){
         model.incrementViews(video.id).then(function(){
-            res.app.render('video-museu', {video: video}, function(err, html){
+            res.app.render('video', {video: video, museu: true}, function(err, html){
                 
                 if(err)
-                console.log(err);
+                    console.log(err);
             
                 res.send({html:html});
             });

@@ -5,10 +5,13 @@
             button.close(type='button',data-dismiss='modal', aria-label='Close')
                 span(aria-hidden='true') ×
         .modal-body.d-flex.flex-column
-            iframe(type='text/html' width='100%' src=encodeURI(video.url) controls='' frameborder='0')
             if museu
-                #trigger-play-video(data-video=video.url)
-            div
-                p="Visualizações: "
+                #trigger-play-video.video(data-video=video.url, style="background-image: url("+video.thumb+")")
+                    #trigger-play-video-overlay
+                    i.fas.fa-play
+            else    
+                iframe(type='text/html' width='100%' src=encodeURI(video.url) controls='' frameborder='0')
+            div#info
+                p#visualizacoes="Visualizações: "
                     span=video.views
-                p.descricao=video.descricao
+                p#descricao=video.descricao

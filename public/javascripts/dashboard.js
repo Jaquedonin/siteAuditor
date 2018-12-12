@@ -241,12 +241,15 @@ function getVideoInfo(urls, onsuccess) {
         if(matchFb){
             return post(
                 "api/fb/",
-                { id: matchFb[1], fields: ["picture,from,title,description"]},
+                { id: matchFb[1], fields: ["format,from,title,description"]},
                 function (response) {
                     if (response) {
+
+                        var lastFormat = response.format.length - 1;
+                        console.log(response.format[lastFormat].picture);
                         return onsuccess({
                             url: "https://www.facebook.com/video/embed?video_id="+matchFb[1],
-                            thumb: response.picture,
+                            thumb: response.format[lastFormat].picture,
                             name: response.from.name,
                             title: response.title,
                             description: response.description

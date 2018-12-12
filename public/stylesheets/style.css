@@ -126,7 +126,7 @@ p+span, a+span{
 }
 
 .video{
-    height: auto;
+    /* height: auto; */
     position: relative;
     border-radius: 10px;
     background-size: cover;
@@ -154,16 +154,19 @@ p+span, a+span{
     top: 15px;
     left: 15px;
 }
+
 .video .fa-trash{
     top: 15px;
     right: 15px;
 }
+
 .video .fa-play{
     top:50%;
     left:50%;
     margin-top: -7px;
     margin-left: -7px;
 }
+
 .video .fa-pen{
     bottom: 15px;
     right: 15px;

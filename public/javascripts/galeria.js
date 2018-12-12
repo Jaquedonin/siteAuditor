@@ -50,8 +50,11 @@ window.addEventListener("load", function(){
             $($("#categorias").children()[e.to]).addClass("selected")
     })
 
-    $("#visualizar-video").on("hidden.bs.modal", function(){    
-        $("#visualizar-video").html("");
+    $("#visualizar-video").on("hidden.bs.modal", function(){
+        if($("#trigger-play-video").length)
+            localStorage.setItem("video", false);
+        
+        $("#visualizar-video").html("");  
     });
 
 })
