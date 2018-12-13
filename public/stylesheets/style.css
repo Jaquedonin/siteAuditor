@@ -664,8 +664,8 @@ div#accordionExample {
 
 
 #mapa-wrapper-museu div#accordionExample {
-    width: 80%;
-    margin-top: 0;
+    width: 45%;
+    margin-top: 25%;
 }
 
 #mapa-wrapper-museu div#accordionExample .card-header i,
