@@ -285,6 +285,8 @@ function modalCadastrarEscola(escola){
     $("#cadastrar-escola form #escola-nome").val(escola);
     $("#cadastrar-escola form #escola-cidade-nome").val($( "#select-cidade" ).val());
     $("#cadastrar-escola form #escola-cidade-id") .val($( "#cidade-id" ).val());
+    $("#cadastrar-escola form #escola-rede-nome").val($( "#select-rede" ).val());
+    $("#cadastrar-escola form #escola-rede-id") .val($( "#rede-id" ).val());
     $("#cadastrar-escola").modal("show");
 }
 
@@ -295,6 +297,7 @@ function cadastrarEscola(e){
             cidade_id: e.target.cidade_id.value,
             sigla: e.target.sigla.value,
             nome: e.target.nome.value,
+            rede_id: e.target.rede_id.value,
         },
         function (response) {
             

@@ -28,6 +28,7 @@ router.get('/museu-play', function(req,res){
 
 router.all('/galeria/:cidade/:escola?', function(req, res, next) {
 
+    
     var setCidade = function (data){
         return new Promise(function(resolve, reject){
             var cidades = require("../models/cidades");
@@ -133,7 +134,6 @@ router.post('/api/cidades', function(req, res, next){
 });
 
 router.post('/api/escolas', function(req, res, next){
-
     var escolas = require("../models/escolas");
     escolas.find(req.body).then(function(result){
         if (!result.length && req.body.insert_escola){
@@ -190,7 +190,6 @@ router.all('/dashboard', function(req, res, next) {
     
     var setVideos = new Promise(function(resolve, reject){
         var videos = require("../models/videos");
-
         videos.findByProfessor(req.session.professorId, req.body)
             .then(function(result){
                 data.videos = result;
@@ -202,17 +201,30 @@ router.all('/dashboard', function(req, res, next) {
         var categorias = require("../models/categorias");
         categorias.find().then(function(result){
             data.categorias = result;
+            console.log(result);
             resolve(true);
         });
     });
-    
+
+    var setRedes = new Promise(function(resolve, reject){
+        var redes = require("../models/redes");
+        redes.find().then(function(result){
+            data.redes = result;
+            resolve(true);
+        });
+    });
+
     setVideos
         .then(function(){ return setCategorias; })
+        .then(function(){ return setRedes; })
         .then(function(){ res.render('dashboard', data); })
         .catch(function(err) { 
             console.log(err);
             res.redirect("/");
         });
+
+    
+
 });
 
 router.get('/como-participar', function(req, res, next) {
@@ -263,6 +275,7 @@ router.post('/galeria', function(req, res){
 }); 
 
 router.post("/escola", function(req, res){
+    
     var escolas = require("../models/escolas");
     escolas.insertOne(req).then(function(result){
         return res.json({ id: result.insertId });

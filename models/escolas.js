@@ -51,12 +51,13 @@ function unescape(query){
 
 var insertOne = function(req){
     
-    var cols = ["cidade_id", "sigla", "nome"];
+    var cols = ["cidade_id", "sigla", "nome", "rede_id"];
     
     var vals = [
         parseInt(req.body.cidade_id), 
         querystring.escape(req.body.sigla),
-        querystring.escape(req.body.nome)
+        querystring.escape(req.body.nome),
+        parseInt(req.body.rede_id),
     ];
 
     var query = db.getQuery.insertOne("escolas", cols, vals);
