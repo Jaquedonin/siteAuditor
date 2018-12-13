@@ -3,13 +3,13 @@ block header
     header#mapa-header
         include header
 block content
-    section#mapa-wrapper
+    section(id ="mapa-wrapper"+(museu?"-museu":""))
         #galeria-mapa
         .container
             .row
-                #curiosidades.col-md-2
+                #curiosidades.col-md-2.col-xl-4
                     include curiosidades
-                .col-md-10
+                .col-md-10.col-xl-8
                     if !museu
                         .navbar#mapa-nav.row
                             input#select-cidade(type='text' name='codigo' placeholder="Digite o município").col-4.form-control.form-control-sm
