@@ -645,11 +645,11 @@ li.nav-item {
     position: relative;
 }
 
-#visualizar-video #trigger-play-video{
+#visualizar-video #trigger-play-video,
+#visualizar-video iframe{
     width: 100%;
     flex: 1;
     display: flex;
-    /* top: 0; */
     border-radius: 0;
     position: relative;
 }
