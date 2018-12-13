@@ -253,81 +253,6 @@ path {
     margin-bottom: -.9em;
 }
 
-.mapa-info {
-    position: relative;
-    height: 24px;
-    width: 45px;
-}
-
-#info-1{top: -325px;left: 0px;}
-#info-2{top: -146px;left: 170px;}
-#info-3{top: -304px;left: 385px;}
-#info-4{top: -200px;left: 660px;}
-#info-5{top: -240px;left: 825px;}
-#info-6{top: -345px;left: 955px;}
-
-.mapa-info-btn {
-    padding: 10px;
-    border-radius: 100%;
-    background: #fff;
-    border: 0px solid rgba(53, 74, 91, 1);
-    box-shadow: 0px 0px 0px 1px;
-    color: #fff;
-    animation: mapa-info-btn 2s infinite;
-    position: relative;
-}
-
-@-webkit-keyframes mapa-info-btn {
-    0% {border-width: 0; top: 5px; left: 5px;}
-    100% { border-width: 5px; top: 0; left:0;}
-}
-
-@keyframes  mapa-info-btn  {
-    0% {border-width: 0; top: 5px; left: 5px;}
-    100% { border-width: 5px; top: 0; left:0;}
-}
-
-.mapa-info-btn:before{
-    color: #611313;
-}
-
-.mapa-info-text.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.mapa-info-text{
-    max-width: 143px;
-    padding: 35px 44px 15px 35px;
-    background-image: url("../images/info-mapa.png");
-    background-repeat:no-repeat;
-    background-size:100% 100%;
-    background-position: center;
-    transform: rotate(200deg) scaleX(-1);
-    opacity: 0;
-    visibility: hidden;
-    transition: all .5s;
-    position: absolute;
-    top: 50px;
-}
-
-@-webkit-keyframes mapa-info-text {
-    0%   { top: -5px; }
-    50%  { top:  5px; }
-    100% { top: -5px; }
-}
-
-@keyframes  mapa-info-text  {
-    0%   { top: -5px; }
-    50%  { top:  5px; }
-    100% { top: -5px; }
-}
-
-.mapa-info-text p{
-    color: #fff;
-    transform: rotate(200deg) scaleX(-1);
-}
-
 #galeria-mapa{
     width: 25%;
     height: 100%;
@@ -694,14 +619,14 @@ li.nav-item {
     color: #fff;
 }
 
-#visualizar-video .text{
+#visualizar-video #info{
     text-align: right;
-    flex: 1;
     display: flex;
     flex-direction: column;
+    margin: 10pt 0;
 }
 
-#visualizar-video .text .descricao {
+#visualizar-video #info #descricao {
     text-align: left;
     width: 100%;
 }
@@ -720,16 +645,27 @@ li.nav-item {
     position: relative;
 }
 
-#visualizar-video .modal-body iframe{
-    flex: 2;
-    display: flex;
-}
-
 #visualizar-video #trigger-play-video{
     width: 100%;
-    height: 400px;
-    position: absolute;
-    top: 0;
+    flex: 1;
+    display: flex;
+    /* top: 0; */
+    border-radius: 0;
+    position: relative;
+}
+
+#visualizar-video #trigger-play-video-overlay{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#visualizar-video #trigger-play-video i{
+    font-size: 30pt;
+}
+
+#visualizar-video #visualizacoes{
+    text-align: right;
 }
 
 #visualizar-video .modal-header {
@@ -744,7 +680,6 @@ li.nav-item {
 #visualizar-video .modal-body {
     padding: 5px 45px;
 }   
-
 
 footer{
     background: #000;

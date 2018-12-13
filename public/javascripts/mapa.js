@@ -44,8 +44,6 @@ async function initMapa(cidades){
         }
     });
 
-    $(".mapa-info-btn").on("click", toggleMapaInfo)
-
     $("#visualizar-video").on("hidden.bs.modal", function(){
         $("#visualizar-video").html("");
     });
@@ -140,21 +138,3 @@ function zoomOut(){
         document.getElementById("mapa").style.zIndex = "0"
     }, 500);
 };
-
-var mapaInfoTimeOut = {};
-function toggleMapaInfo(){
-    
-    var id = this.parentNode.id;
-    var toggled = $("#" + id + " .mapa-info-text").hasClass("show");
-
-    if(toggled){
-        $("#" + id + " .mapa-info-text").removeClass("show");
-        clearTimeout(mapaInfoTimeOut[id]);
-    } else {
-        $("#" + id + " .mapa-info-text").addClass("show");
-
-        mapaInfoTimeOut[id] = setTimeout(function(){
-            $("#" + id + " .mapa-info-text").removeClass("show");
-        }, 2000);
-    }
-}

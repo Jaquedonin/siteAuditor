@@ -56,7 +56,6 @@ function visualizarVideoMuseu(id){
                     type: "fb",
                     id: matchFb[1]
                 };
-                
             }
             
             if(matchYt){
