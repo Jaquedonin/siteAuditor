@@ -126,11 +126,11 @@ p+span, a+span{
 }
 
 .video{
-    /* height: auto; */
     position: relative;
     border-radius: 10px;
     background-size: cover;
     background-position: center;
+    cursor: pointer;
 }
 
 #send-list .video div{

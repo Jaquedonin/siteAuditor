@@ -1,12 +1,6 @@
 ALTER TABLE `tce-mapa`.`escolas` 
 ADD COLUMN `rede_id` INT(11) NOT NULL AFTER `sigla`,
-ADD INDEX `fk_rede_id` (`rede_id` ASC), RENAME TO  `tce-mapa`.`` ;
-ALTER TABLE `tce-mapa`.`escolas` 
-ADD CONSTRAINT `fk_rede_id_1`
-  FOREIGN KEY ()
-  REFERENCES `tce-mapa`.`rede` ()
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
+ADD INDEX `fk_rede_id` (`rede_id` ASC);
 
 CREATE TABLE IF NOT EXISTS `tce-mapa`.`rede` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,

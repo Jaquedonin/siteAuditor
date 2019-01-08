@@ -57,7 +57,7 @@ var insertOne = function(req){
         parseInt(req.body.cidade_id), 
         querystring.escape(req.body.sigla),
         querystring.escape(req.body.nome),
-        // parseInt(req.body.rede_id),
+        parseInt(req.body.rede_id),
     ];
 
     var query = db.getQuery.insertOne("escolas", cols, vals);

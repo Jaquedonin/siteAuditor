@@ -206,13 +206,13 @@ router.all('/dashboard', function(req, res, next) {
         });
     });
 
-    // var setRedes = new Promise(function(resolve, reject){
-    //     var redes = require("../models/redes");
-    //     redes.find().then(function(result){
-    //         data.redes = result;
-    //         resolve(true);
-    //     });
-    // });
+    var setRedes = new Promise(function(resolve, reject){
+        var redes = require("../models/redes");
+        redes.find().then(function(result){
+            data.redes = result;
+            resolve(true);
+        });
+    });
 
     setVideos
         .then(function(){ return setCategorias; })
