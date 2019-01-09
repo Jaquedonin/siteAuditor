@@ -52,20 +52,6 @@ router.all('/galeria/:cidade/:escola?', function(req, res, next) {
         });
     }
 
-    var setRede = function (data){
-        return new Promise(function(resolve, reject){
-            var redes = require("../models/redes");
-            if(data.rede.id){
-                redes.findOne(data.rede.id).then(function(result){
-                    data.rede.nome = result.length > 0 ? result[0].descricao : "";
-                    resolve(true);
-                })
-            } else {
-                resolve(true)
-            }
-        });
-    }
-
     var setRedes = function (data){
         return new Promise(function(resolve, reject){
             var redes = require("../models/redes");
@@ -116,7 +102,6 @@ router.all('/galeria/:cidade/:escola?', function(req, res, next) {
 
     setCidade(data)
         .then(function(){ return setRedes(data); })
-        .then(function(){ return setRede(data); })
         .then(function(){ return setEscola(data); })
         .then(function(){ return setCategorias(data); })
         .then(function(){ return setVideos(data); })

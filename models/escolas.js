@@ -5,7 +5,9 @@ var findOne = function(id) {
     id = parseInt(id);
 
     var query = db.getQuery.find("nome", "escolas", "id = " + id, false, 1);
-    return unescape(query);
+    return db.doQuery(query).catch(function(err) { 
+        console.log(err);
+    });
 }    
 
 var find = function(body) {

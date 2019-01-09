@@ -23,8 +23,8 @@ block content
                                 if redes
                                     select#rede_id(type='text' name='rede_id' placeholder="Rede").form-control.form-control-sm
                                         option(value="0")=""
-                                            each rede in redes
-                                                option(value=rede.id) #{rede.descricao}
+                                            each r in redes
+                                                option(value=r.id selected=r.id ==rede.id) #{r.descricao}
                                     .input-group-append
                                         i.input-group-text.fas.fa-search
                         .col-4

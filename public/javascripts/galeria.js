@@ -13,8 +13,8 @@ window.addEventListener("load", function(){
             var path = window.location.pathname.split("/");
             path[3] = ui.item.value;
 
-            window.location = window.location.origin + path.join("/");
-            return false;
+            $("#busca-galeria").attr("action", window.location.origin + path.join("/"));
+            $("#busca-galeria").submit();
         },
         open: function() {
           $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
@@ -32,8 +32,8 @@ window.addEventListener("load", function(){
                 var path = window.location.pathname.split("/");
                 path[3] = "todas";
 
-                window.location = window.location.origin + path.join("/");
-                return false;
+                $("#busca-galeria").attr("action", window.location.origin + path.join("/"));
+                $("#busca-galeria").submit();
             }
         }
     });

@@ -4,11 +4,4 @@ var find = function() {
     return db.doQuery(query);
 }  
 
-var findOne = function(id) {
-    id = parseInt(id);
-
-    var query = db.getQuery.find("descricao", "redes", "id = " + id, false, 1);
-}    
-
 module.exports.find = find
-module.exports.findOne = findOne
