@@ -18,12 +18,21 @@ block content
             if !museu                    
                 form.col#busca-galeria(method="POST" action="/galeria/" + cidade.codigo + "/" + (escola.id ? escola.id : "todas")) 
                     .row
-                        .col-6
+                        .col-4
                             .input-group
-                                input#select-escola(type='text' name='escola' placeholder="Pesquisar escolas" value=escola.nome).form-control.form-control-sm
+                                if redes
+                                    select#rede_id(type='text' name='rede_id' placeholder="Rede").form-control.form-control-sm
+                                        option(value="0")=""
+                                            each rede in redes
+                                                option(value=rede.id) #{rede.descricao}
+                                    .input-group-append
+                                        i.input-group-text.fas.fa-search
+                        .col-4
+                            .input-group
+                                input#select-escola(type='text' name='escola' placeholder="Escola" value=escola.nome).form-control.form-control-sm
                                 .input-group-append
                                     i.input-group-text.fas.fa-search
-                        .col-6
+                        .col-4
                             .input-group
                                 input.form-control.form-control-sm#pesquisar(name="termo" placeholder="Pesquisar" value=busca?busca:"")
                                 .input-group-append

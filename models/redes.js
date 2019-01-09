@@ -8,9 +8,7 @@ var findOne = function(id) {
     id = parseInt(id);
 
     var query = db.getQuery.find("descricao", "redes", "id = " + id, false, 1);
-    return unescape(query);
 }    
-
 
 module.exports.find = find
 module.exports.findOne = findOne

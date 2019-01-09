@@ -246,7 +246,6 @@ function getVideoInfo(urls, onsuccess) {
                     if (response) {
 
                         var lastFormat = response.format.length - 1;
-                        console.log(response.format[lastFormat].picture);
                         return onsuccess({
                             url: "https://www.facebook.com/video/embed?video_id="+matchFb[1],
                             thumb: response.format[lastFormat].picture,

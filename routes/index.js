@@ -28,7 +28,6 @@ router.get('/museu-play', function(req,res){
 
 router.all('/galeria/:cidade/:escola?', function(req, res, next) {
 
-    
     var setCidade = function (data){
         return new Promise(function(resolve, reject){
             var cidades = require("../models/cidades");
@@ -53,6 +52,30 @@ router.all('/galeria/:cidade/:escola?', function(req, res, next) {
         });
     }
 
+    var setRede = function (data){
+        return new Promise(function(resolve, reject){
+            var redes = require("../models/redes");
+            if(data.rede.id){
+                redes.findOne(data.rede.id).then(function(result){
+                    data.rede.nome = result.length > 0 ? result[0].descricao : "";
+                    resolve(true);
+                })
+            } else {
+                resolve(true)
+            }
+        });
+    }
+
+    var setRedes = function (data){
+        return new Promise(function(resolve, reject){
+            var redes = require("../models/redes");
+            redes.find().then(function(result){
+                data.redes = result;
+                resolve(true);
+            });
+        });
+    }
+    
     var setCategorias = function (data){
         return new Promise(function(resolve, reject){
             var categorias = require("../models/categorias");
@@ -83,6 +106,7 @@ router.all('/galeria/:cidade/:escola?', function(req, res, next) {
         busca: req.body.termo,
         cidade: { codigo: req.params.cidade },
         escola: { id: req.params.escola == "todas" ? false : req.params.escola },
+        rede: { id: req.body.rede_id },
         user: !(!req.session.token),
         categorias: [
             { id: 0, descricao: "destaques" }
@@ -91,6 +115,8 @@ router.all('/galeria/:cidade/:escola?', function(req, res, next) {
     }
 
     setCidade(data)
+        .then(function(){ return setRedes(data); })
+        .then(function(){ return setRede(data); })
         .then(function(){ return setEscola(data); })
         .then(function(){ return setCategorias(data); })
         .then(function(){ return setVideos(data); })

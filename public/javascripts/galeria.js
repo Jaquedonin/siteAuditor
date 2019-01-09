@@ -3,6 +3,7 @@ window.addEventListener("load", function(){
         source: function(request, response){
             post("/api/escolas", {
                 term: request.term, 
+                rede_id: $("#rede_id").val(),
                 cidade: window.location.pathname.split("/")[2]
             }, response)
         },
