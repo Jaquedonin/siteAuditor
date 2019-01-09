@@ -22,7 +22,7 @@ block content
                             .input-group
                                 if redes
                                     select#rede_id(type='text' name='rede_id' placeholder="Rede").form-control.form-control-sm
-                                        option(value="0")=""
+                                        option(value="0")="Rede"
                                             each r in redes
                                                 option(value=r.id selected=r.id ==rede.id) #{r.descricao}
                                     .input-group-append
