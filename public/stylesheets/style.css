@@ -462,7 +462,7 @@ footer p{
 
 #insert-video-form .form-group {
     z-index: 0;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 #insert-video #video-preview .input-group-append .input-group-text{
@@ -521,11 +521,10 @@ footer p{
 }
 
 #insert-video-thumb {
-    width: 100%;
-    min-height: 131px;
+    height: 120px;
     display: block;
     border-radius: 10px;
-    margin-top: -25px;
+    margin: -18px auto 10px auto;
 }
 
 #video-preview.show:after{
@@ -549,6 +548,13 @@ footer p{
 #dashboard,
 #dashboard main{
     height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#dashboard main .row{
+    margin-right: 0;
+    margin-left: 0;
 }
 
 #nome-professor p, #nome-professor a.nav-link {

@@ -507,11 +507,20 @@ li.nav-item {
     justify-content: flex-end;
 }
 
-#inputs-user-videos input {
-    color: #fff;
-    background: transparent;
-    border-radius: 10;
-    border-color: #fff;
+#inputs-user-videos input,
+#inputs-user-videos select{
+color: #fff;
+background: transparent;
+border-color: #fff;
+}
+
+#inputs-user-videos select option {
+    color: #354A5B;
+}
+
+#inputs-user-videos select:invalid,
+#inputs-user-videos select option:first-child {
+    color: gray; 
 }
 
 #col-limpar-pesquisa{

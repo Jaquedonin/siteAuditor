@@ -3,12 +3,12 @@ block content
     #dashboard.d-flex.flex-column.align-content-stretch
         header#mapa-header
             include header
-        main#send-list.d-flex.flex-column.align-content-stretch   
+        main#send-list  
                 .row.d-flex.flex-row.justify-content-around
-                    #send.col-md-4.d-flex.flex-column.align-content-stretch
+                    #send.col-md-3.d-flex.flex-column.align-content-stretch
                         block send
                         include send
-                    .col-md-7#list
+                    .col-md-9#list
                         block list
                         include list
     script(src='/javascripts/dashboard.js')

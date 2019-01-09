@@ -1,17 +1,26 @@
 h4="Meus vídeos"
 #user-videos
     form#inputs-user-videos.row(method="POST" action="/dashboard")    
-        .col-4
+        .col-3
             .input-group
                 input#busca-cidade(type='text' name='cidade' placeholder="Digite a cidade" value=cidade?cidade.nome:"").form-control.form-control-sm
                 .input-group-append
                         i.input-group-text.fas.fa-search
-        .col-4
+        .col-3
+            .input-group
+                if redes
+                    select#rede_id(type='text' name='rede_id' required).form-control.form-control-sm
+                        option#oxe(value="" selected)="Rede"
+                            each r in redes
+                                option(value=r.id selected=r.id ==rede.id) #{r.descricao}
+                    .input-group-append
+                        i.input-group-text.fas.fa-search
+        .col-3
             .input-group
                 input#busca-escola(type='text' name='escola' placeholder="Digite a escola" value=escola?escola.nome:"" readonly=!cidade).form-control.form-control-sm
                 .input-group-append
                         i.input-group-text.fas.fa-search
-        .col-4
+        .col-3
             .row
             .input-group
                 input.form-control.form-control-sm#pesquisar(name="busca" placeholder="Pesquisar termos" value=busca?busca:"")
@@ -23,7 +32,7 @@ h4="Meus vídeos"
     .row
         if videos.length
             each video in videos
-                .col-4
+                .col-3
                     .video(style="background-image: url("+video.thumb+")" onclick="visualizarVideoDashboard("+video.id+")")
                         .preview
                             form(method='POST' action='/delete/videos')

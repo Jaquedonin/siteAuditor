@@ -142,7 +142,11 @@ window.addEventListener("load", function(){
 
     $( "#busca-escola" ).autocomplete({
         source: function(request, response){
-            post("/api/escolas", {term: request.term, cidade: $("#busca-cidade-id").val()}, response);
+            post("/api/escolas", {
+                term: request.term, 
+                cidade: $("#busca-cidade-id").val(),
+                rede_id: $("#rede_id").val()
+            }, response);
         },
         select: function( event, ui ) {
             $( "#busca-escola" ).val( ui.item.label );

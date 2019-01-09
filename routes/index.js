@@ -171,6 +171,7 @@ router.all('/dashboard', function(req, res, next) {
             id: req.body.escola_id,
             nome: req.body.escola
         },
+        rede: {id: req.body.rede_id},
         user: { nome: req.session.professorNome },
         afterLogin: req.session.afterLogin,
         dashboard: true
@@ -212,7 +213,6 @@ router.all('/dashboard', function(req, res, next) {
         var categorias = require("../models/categorias");
         categorias.find().then(function(result){
             data.categorias = result;
-            console.log(result);
             resolve(true);
         });
     });
@@ -227,7 +227,7 @@ router.all('/dashboard', function(req, res, next) {
 
     setVideos
         .then(function(){ return setCategorias; })
-        // .then(function(){ return setRedes; })
+        .then(function(){ return setRedes; })
         .then(function(){ res.render('dashboard', data); })
         .catch(function(err) { 
             console.log(err);
