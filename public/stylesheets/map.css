@@ -597,6 +597,11 @@ li.nav-item {
     border-color: #702021;
 }
 
+#galeria-navbar select:invalid,
+#galeria-navbar select option:first-child {
+    color: gray; 
+}
+
 #galeria-navbar .input-group-text{
     border-color: #702021;
     background: #702021;

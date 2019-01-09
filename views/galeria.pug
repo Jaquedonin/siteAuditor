@@ -21,8 +21,8 @@ block content
                         .col-4
                             .input-group
                                 if redes
-                                    select#rede_id(type='text' name='rede_id' placeholder="Rede").form-control.form-control-sm
-                                        option(value="0")="Rede"
+                                    select#rede_id(type='text' name='rede_id' required).form-control.form-control-sm
+                                        option#oxe(value="" selected)="Rede"
                                             each r in redes
                                                 option(value=r.id selected=r.id ==rede.id) #{r.descricao}
                                     .input-group-append
