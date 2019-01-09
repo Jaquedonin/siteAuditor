@@ -10,43 +10,37 @@ var findOne = function(id) {
 
 var find = function(body) {
 
-    var params = {
-        term: "'%" + querystring.escape(body.term) + "%'",
-        cidade: querystring.escape(body.cidade),
-        insert: querystring.escape(body.insert_escola)
-    }
     var where = [];
+    var values = [];
 
-    if(params.term){
-        where.push("(nome LIKE "+ params.term +" OR sigla LIKE "+ params.term +")");
+    if(body.term){
+        where.push("(nome LIKE ? OR sigla LIKE ? )");
+        values.push("%" + body.term + "%");
+        values.push("%" + body.term + "%");
     }
 
-    if(params.cidade){
-        where.push("cidade_id = " + params.cidade);
+    if(body.cidade){
+        where.push("cidade_id = ?");
+        values.push(body.cidade);
     }
 
-    var query = db.getQuery.find(
-        "id as 'value', CONCAT(sigla, ' - ', nome) as 'label'", 
-        "escolas", 
-        where.join(" AND ")
-    )
+    if(body.rede_id > 0){
+        where.push("rede_id = ?");
+        values.push(body.rede_id);
+    }
 
-    return unescape(query);
-}
-
-function unescape(query){
-    return new Promise( async function(resolve, reject){
-        var results = await db.doQuery(query);
-        results.map(function(escola){
-            
-            for (var field in escola){
-                escola[field]  = querystring.unescape(escola[field]);
-            }
-            return escola;
-        });
-
-        resolve(results);
-    })
+    var query = {
+        query: db.getQuery.find(
+            "id as 'value', CONCAT(sigla, ' - ', nome) as 'label'", 
+            "escolas", 
+            where.join(" AND ")
+        ),
+        values: values
+    };
+    
+    return db.doQuery(query).catch(function(err) { 
+        console.log(err);
+    });
 }
 
 var insertOne = function(req){
