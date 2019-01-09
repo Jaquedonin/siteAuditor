@@ -15,6 +15,7 @@ window.addEventListener("load", function(){
 
             $("#busca-galeria").attr("action", window.location.origin + path.join("/"));
             $("#busca-galeria").submit();
+            return false;
         },
         open: function() {
           $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
@@ -34,6 +35,8 @@ window.addEventListener("load", function(){
 
                 $("#busca-galeria").attr("action", window.location.origin + path.join("/"));
                 $("#busca-galeria").submit();
+                return false;
+
             }
         }
     });
