@@ -4,7 +4,7 @@ var db = require('../database/database');
 var findOne = function(id) {
     id = parseInt(id);
 
-    var query = db.getQuery.find("nome", "escolas", "id = " + id, false, 1);
+    var query = db.getQuery.find(["sigla","nome"], "escolas", "id = " + id, false, 1);
     return db.doQuery(query).catch(function(err) { 
         console.log(err);
     });
@@ -14,6 +14,11 @@ var find = function(body) {
 
     var where = [];
     var values = [];
+
+    if(body.escola_id){
+        where.push("id = ?");
+        values.push(body.escola_id);
+    }
 
     if(body.term){
         where.push("(nome LIKE ? OR sigla LIKE ? )");
@@ -33,13 +38,13 @@ var find = function(body) {
 
     var query = {
         query: db.getQuery.find(
-            "id as 'value', CONCAT(sigla, ' - ', nome) as 'label'", 
+            "id as 'id', CONCAT(sigla, ' - ', nome) as 'text'", 
             "escolas", 
             where.join(" AND ")
         ),
         values: values
     };
-    
+
     return db.doQuery(query).catch(function(err) { 
         console.log(err);
     });
@@ -47,12 +52,12 @@ var find = function(body) {
 
 var insertOne = function(req){
     
-    var cols = ["cidade_id", "sigla", "nome"];
+    var cols = ["cidade_id", "sigla", "nome", "rede_id"];
     
     var vals = [
         parseInt(req.body.cidade_id), 
-        querystring.escape(req.body.sigla),
-        querystring.escape(req.body.nome),
+        req.body.sigla,
+        req.body.nome,
         parseInt(req.body.rede_id),
     ];
 

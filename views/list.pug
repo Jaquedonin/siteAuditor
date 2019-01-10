@@ -1,33 +1,28 @@
 h4="Meus vídeos"
 #user-videos
-    form#inputs-user-videos.row(method="POST" action="/dashboard")    
-        .col-3
+    form#inputs-user-videos.row(method="POST" action="/dashboard") 
+        .col-md-auto.align-self-center
+            span
+                b="FILTROS"   
+        .col
             .input-group
-                input#busca-cidade(type='text' name='cidade' placeholder="Digite a cidade" value=cidade?cidade.nome:"").form-control.form-control-sm
-                .input-group-append
-                        i.input-group-text.fas.fa-search
-        .col-3
+                select#busca-cidade(name='cidade_id' placeholder="Digite a cidade" value=cidade.id).form-control.form-control-sm
+        .col-2
             .input-group
                 if redes
-                    select#rede_id(type='text' name='rede_id' required).form-control.form-control-sm
-                        option#oxe(value="" selected)="Rede"
+                    select#rede_id(type='text' name='rede_id' value=rede.id).form-control.form-control-sm
+                        option(value="" selected)="Rede"
                             each r in redes
                                 option(value=r.id selected=r.id ==rede.id) #{r.descricao}
-                    .input-group-append
-                        i.input-group-text.fas.fa-search
-        .col-3
+        .col
             .input-group
-                input#busca-escola(type='text' name='escola' placeholder="Digite a escola" value=escola?escola.nome:"" readonly=!cidade).form-control.form-control-sm
-                .input-group-append
-                        i.input-group-text.fas.fa-search
-        .col-3
+                select#busca-escola(name='escola_id' placeholder="Digite a escola" value=escola.id readonly=!cidade).form-control.form-control-sm
+        .col-4
             .row
             .input-group
                 input.form-control.form-control-sm#pesquisar(name="busca" placeholder="Pesquisar termos" value=busca?busca:"")
                 .input-group-append
                     i.input-group-text.fas.fa-search
-            input#busca-cidade-id(type='hidden' name='cidade_id' value=cidade?cidade.id:"")        
-            input#busca-escola-id(type='hidden' name='escola_id' value=escola?escola.id:"")
             input(type="submit" style="display:none")                
     .row
         if videos.length

@@ -402,8 +402,34 @@ footer p{
     margin-top: 10pt;
 }  
 
-#insert-video .form-group{
-    width: 100%;
+
+#busca-galeria .input-group-append,
+#inputs-user-videos .input-group-append{
+    cursor: pointer;
+}
+
+#inputs-user-videos {
+    justify-content: flex-end;
+    border: 1px solid #fff;
+    padding: 5px 0;
+}
+
+#inputs-user-videos input,
+#inputs-user-videos select,
+#inputs-user-videos .select2,
+#inputs-user-videos span{
+    color: #fff;
+    background-color: transparent;
+    border-color: #fff;
+    height: calc(1.8125rem + 2px);
+}
+
+#inputs-user-videos .input-group-append{
+    margin-left: 5px;
+}
+
+#inputs-user-videos select option{
+    color: #090909
 }
 
 #insert-video input,
@@ -432,37 +458,63 @@ footer p{
 
 #insert-video .row input, 
 #insert-video .row select,
+#insert-video .row .select2,
 #cadastrar-escola input, 
 #cadastrar-escola select, 
 #cadastrar-escola form button {
     border-radius: 12px;
-    padding-left: 10px;
     margin-bottom: 4px;
     font-size: 10pt;
+    border-color: #354A5B;
+}
+
+#insert-video .row .select2 span{
+    font-size: 10pt;
+    border-radius: 12px;
     border-color: #354A5B;
 }
 
 #insert-video .row input.is-invalid, 
 #insert-video .row select.is-invalid,
 #cadastrar-escola input.is-invalid, 
-#cadastrar-escola select.is-invalid {
+#cadastrar-escola select.is-invalid,
+#insert-video select.is-invalid + .select2 span {
     border-color: #dc3545
 }
 
-#insert-video input.is-valid{
+#insert-video input.is-valid,   
+#insert-video select.is-valid + .select2 span{
     border-color: #28a745;
 }
 
 #insert-video .row input, 
-#insert-video .row select{
+#insert-video .row select,
+#insert-video .row .select2 span{
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     height: calc(1.8125rem + 2px);
 }
 
+#insert-video .select2{
+    display: flex;
+    flex: 1;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered{
+    white-space: normal;    
+}
+
+#insert-video .selection{
+    width: 100%;
+}
+
 #insert-video-form .form-group {
     z-index: 0;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+#insert-video-form .form-group:nth-child(6) {
+    margin-bottom: 0;
 }
 
 #insert-video #video-preview .input-group-append .input-group-text{
@@ -521,7 +573,7 @@ footer p{
 }
 
 #insert-video-thumb {
-    height: 120px;
+    height: 110px;
     display: block;
     border-radius: 10px;
     margin: -18px auto 10px auto;
@@ -576,11 +628,6 @@ footer p{
 
 #send-list{
     padding: 20px 15px 0 15px;
-}
-
-#busca-galeria .input-group-append,
-#inputs-user-videos .input-group-append{
-    cursor: pointer;
 }
 
 .no-video{

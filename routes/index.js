@@ -43,7 +43,7 @@ router.all('/galeria/:cidade/:escola?', function(req, res, next) {
             var escolas = require("../models/escolas");
             if(data.escola.id){
                 escolas.findOne(data.escola.id).then(function(result){
-                    data.escola.nome = result.length > 0 ? result[0].nome : "";
+                    data.escola.nome = result.length > 0 ? result[0].sigla + " - " + result[0].nome : "";
                     resolve(true);
                 })
             } else {
@@ -133,10 +133,8 @@ router.post('/api/fb', function(req, res, next){
 });
 
 router.post('/api/cidades', function(req, res, next){
-    
     var cidades = require("../models/cidades");
-    
-    cidades.find(req.body.term).then(function(result){
+    cidades.find(req.body).then(function(result){
         if (!result) 
             res.json(false); 
         
@@ -147,10 +145,9 @@ router.post('/api/cidades', function(req, res, next){
 router.post('/api/escolas', function(req, res, next){
     var escolas = require("../models/escolas");
     escolas.find(req.body).then(function(result){
-        if (!result.length && req.body.insert_escola){
-            result = [{value: 0, label: '+ Cadastrar nova escola'}]; 
-        }
-
+        if (!result.length && req.body.insert_escola)
+            result = [{id: 'nova-escola', text: '+ Cadastrar nova escola'}]; 
+        
         res.json(result);
     });
 });

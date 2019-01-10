@@ -159,7 +159,6 @@ path {
     margin-bottom: -90px;
 }
 
-#mapa-nav #select-cidade,
 #mesorregiao{
     padding: 20px 10px;
     color: #fff;
@@ -170,6 +169,20 @@ path {
     position: relative;
     z-index: 98;
     margin-top: -40px; 
+}
+
+.select2 option[value="0"]{
+    color: transparent;
+}
+
+#mapa-nav #select-cidade,
+#mapa-nav .select2,
+#mapa-nav .select2 span{
+    color: #fff;
+    background: rgba(45, 59, 71, 0.9);
+    border-radius: 0;
+    border-color: #2e3c49;
+    z-index: 2;
 }
 
 #mesorregiao {
@@ -503,26 +516,6 @@ li.nav-item {
     margin-right: -15px;
 }
 
-#inputs-user-videos {
-    justify-content: flex-end;
-}
-
-#inputs-user-videos input,
-#inputs-user-videos select{
-color: #fff;
-background: transparent;
-border-color: #fff;
-}
-
-#inputs-user-videos select option {
-    color: #354A5B;
-}
-
-#inputs-user-videos select:invalid,
-#inputs-user-videos select option:first-child {
-    color: gray; 
-}
-
 #col-limpar-pesquisa{
     text-align: right;
 }
@@ -596,19 +589,45 @@ border-color: #fff;
     align-items: center;
     justify-content: center;
     display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+#filtros {
+    border: 1px solid #fff;
+    padding: 5px;
+    margin-right: 15px;
+}
+
+#filtros > .row,
+#busca-galeria > .row{
+    margin: 0;
+}
+
+#busca-galeria > .row{
+    width: 100%;
+}
+
+#busca-galeria > .row > div:first-child{
+    padding-left: 0;
+}
+
+#busca-galeria > .row > div:last-child{
+    padding-right: 0;
+}
+
+#busca-galeria-submit{
+    margin-left: 10px;
 }
 
 #galeria-navbar select,
-#galeria-navbar input{
+#galeria-navbar input,
+#galeria-navbar .select2,
+#galeria-navbar .select2 span{
     color: #fff;
     background: #702021;
     border-radius: 0;
     border-color: #702021;
-}
-
-#galeria-navbar select:invalid,
-#galeria-navbar select option:first-child {
-    color: gray; 
 }
 
 #galeria-navbar .input-group-text{

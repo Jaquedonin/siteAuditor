@@ -5,40 +5,43 @@ block header
 block content
     main#galeria.d-flex.flex-column
         nav.navbar.navbar-expand-lg#galeria-navbar
-            a#voltar-galeria.col(href="/" + (museu ? "museu" : ""))
+            a#voltar-galeria.col-1(href="/" + (museu ? "museu" : ""))
                 i.fas.fa-arrow-left
-            #cidade.col
+            #cidade.col-1
                 p=cidade.nome
-            .col#categorias-wrapper
+            .col-4#categorias-wrapper
                 if categorias            
                     ul.navbar-nav#categorias
                         each categoria, index in categorias
                             li(data-slide-to=index data-target="#categoria" data-categoria=categoria.descricao class= categoria.selected ? "nav-item selected" : "nav-item")
                                 a.nav-link=categoria.descricao
-            if !museu                    
-                form.col#busca-galeria(method="POST" action="/galeria/" + cidade.codigo + "/" + (escola.id ? escola.id : "todas")) 
+            if !museu  
+                #filtros.col-6.align-self-center
                     .row
-                        .col-4
-                            .input-group
-                                if redes
-                                    select#rede_id(type='text' name='rede_id' required).form-control.form-control-sm
-                                        option#oxe(value="" selected)="Rede"
-                                            each r in redes
-                                                option(value=r.id selected=r.id ==rede.id) #{r.descricao}
-                                    .input-group-append
-                                        i.input-group-text.fas.fa-search
-                        .col-4
-                            .input-group
-                                input#select-escola(type='text' name='escola' placeholder="Escola" value=escola.nome).form-control.form-control-sm
-                                .input-group-append
-                                    i.input-group-text.fas.fa-search
-                        .col-4
-                            .input-group
-                                input.form-control.form-control-sm#pesquisar(name="termo" placeholder="Pesquisar" value=busca?busca:"")
-                                .input-group-append
-                                    i.input-group-text.fas.fa-search 
-                                input(type="hidden" name="cidade_id" value=cidade.codigo)
-                                input(type="submit" style="display:none")   
+                        .col-md-auto.align-self-center
+                            span
+                                b="FILTROS"                  
+                        form.col#busca-galeria(method="POST" action="/galeria/" + cidade.codigo + "/" + (escola.id ? escola.id : "todas")) 
+                            .row
+                                .col-2
+                                    .input-group
+                                        if redes
+                                            select#select-rede(name='rede_id' placeholder="Rede").form-control.form-control-sm
+                                                option
+                                                each r in redes
+                                                    option(value=r.id selected=(r.id == rede.id))=r.descricao
+                                .col-5
+                                    .input-group
+                                        select#select-escola(name='escola' placeholder="Escola").form-control.form-control-sm
+                                            if escola.id
+                                                option(value=escola.id)=escola.nome
+                                .col-5
+                                    .input-group
+                                        input.form-control.form-control-sm#pesquisar(name="termo" placeholder="Pesquisar" value=busca?busca:"")
+                                        .input-group-append#busca-galeria-submit
+                                            i.input-group-text.fas.fa-search 
+                                        input(type="hidden" name="cidade_id" value=cidade.codigo)
+                                        input(type="submit" style="display:none")   
         #categoria.carousel.slide(data-ride='carousel' data-interval="false")       
             .carousel-inner
                 each categoria, index in categorias

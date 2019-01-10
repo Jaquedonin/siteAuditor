@@ -16,9 +16,9 @@
                 .form-group
                     label.form-control-label="Rede"                    
                     .input-group
-                        select(type='text' name='rede_id')#select-rede.form-control.form-control.sm
-                            option(value="0")=" "
-                            if redes
+                        if redes
+                            select(type='text' name='rede_id')#select-rede.form-control.form-control.sm
+                                option(value="0")=" "
                                 each rede in redes
                                     option(value=rede.id) #{rede.descricao}
                 .form-group

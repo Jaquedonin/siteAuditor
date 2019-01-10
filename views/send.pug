@@ -1,7 +1,7 @@
 .form-group#insert-video
     .form-group
         .input-group.mb-3.input-group-sm
-            input#insert-video-link.form-control.form-control-sm.send-link(type="text" placeholder="Inserir link do vídeo")
+            input#insert-video-link.form-control.form-control-sm.send-link(value="https://www.youtube.com/watch?v=lYcDu2N4gJo" type="text" placeholder="Inserir link do vídeo")
             .invalid-feedback="Link inválido"
             .input-group-append
                 span.input-group-text 
@@ -31,18 +31,17 @@
                                 i.input-group-text *
                     .form-group
                         .input-group
-                            input#select-cidade(type='text' name='cidade' placeholder="Digite a cidade").form-control.form-control-sm
+                            select#select-cidade(name='cidade_id' placeholder="Digite a cidade").form-control.form-control-sm
                             .invalid-feedback="Campo obrigatório"
                             .input-group-append
                                 i.input-group-text *
                     .form-group
                         .input-group
-                            input#select-escola(type='text' name='escola' placeholder="Digite a escola" readonly).form-control.form-control-sm
+                            select#select-escola(name='escola_id' placeholder="Digite a escola").form-control.form-control-sm
                             .invalid-feedback="Campo obrigatório"
                             .input-group-append
                                 i.input-group-text *
-                    input#escola-id(type='hidden' name='escola_id')
-                    input#cidade-id(type='hidden' name='cidade_id')
+                    
                     .form-group                    
                         .input-group
                             select(type='text' name='categoria_id')#select-categoria.form-control.form-control.sm
