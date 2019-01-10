@@ -5,22 +5,24 @@ var findOne = function(codigo) {
     return db.doQuery(query);
 }
 
-var find = function(term) {
-
-    var params = {
-        cols: "codigo as 'value', nome as 'label'",
-        where: { term: db.mysql.escape('%'+ term + '%') }
-    }
+var find = function(body) {
 
     var where = [];
+    var values = [];
 
-    if(params.where){
-        if(params.where.term)
-            where.push("nome LIKE " + params.where.term);
+    if(body.term){
+        where.push("nome LIKE ?");
+        values.push("%" + body.term + "%");
     }
 
-    var query = db.getQuery.find(params.cols, "cidades", where.join(" AND "))
-    return db.doQuery(query);
+    var query = {
+        query: db.getQuery.find("codigo as 'id', nome as 'text'", "cidades", where.join(" AND ")),
+        values: values
+    };
+
+    return db.doQuery(query).catch(function(err) { 
+        console.log(err);
+    });
 }
 
 var getEstatisticas = function(codigo){

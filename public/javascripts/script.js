@@ -72,3 +72,34 @@ function visualizarVideoMuseu(id){
         $("#visualizar-video").modal("show");
     });
 }
+
+function getSelect2Args(args){
+
+    var ajax;
+
+    if(args.url){
+
+        ajax = { 
+            type: 'POST',
+            dataType: 'json',
+            url: args.url,
+            data: function(params){
+                var query = args.getQuery ? args.getQuery() : {};
+                return { term: params.term, ...query };
+            },
+            processResults: function (data) {
+                data.unshift({id:"", text:""})
+                return {results: data};
+            },
+        }
+    }
+    
+    return  {
+        width: '100%',
+        allowClear: true,
+        placeholder: args.placeholder,
+        disabled: args.disabled,
+        data: args.data,
+        ajax: ajax
+    };
+}

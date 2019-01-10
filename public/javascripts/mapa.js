@@ -1,16 +1,18 @@
 get("javascripts/cidades.json", initMapa);
 
 async function initMapa(cidades){
-
+    
     //aguardar adicionar meso região às respectivas cidades de acordo com o json
     var mesoregioes = await get("javascripts/mesoregioes.json", defineMesoregioes);
 
     var mapa = document.getElementById("municipios");
     if(mapa){ 
         var cidadesMapa = mapa.children
+        var options = [{id: "", value:""}];
 
         for (var posicao in cidadesMapa){
             var cidade = cidadesMapa[posicao];
+            
             if(typeof(cidade) == "object"){
                 
                 cidade.setAttribute("data-original-title", cidades[cidade.id]);
@@ -18,31 +20,25 @@ async function initMapa(cidades){
                 cidade.addEventListener("click", function(event){
                     toggleGaleria(event.target.id);
                 });
+
+                options.push({
+                    id: cidade.id,
+                    text: cidades[cidade.id]
+                })
             }
         }
+
+        $("#select-cidade").select2(getSelect2Args({
+            placeholder: 'Municípios',
+            data: options
+        }));
+        
+        $("#select-cidade").on("change", function(e){
+            toggleGaleria(e.target.value);    
+        });
+        
         $('[data-toggle="tooltip"]').tooltip();
     }
-
-    $( "#select-cidade" ).autocomplete({
-        source: function(request, response){
-            post("/api/cidades", {term: request.term}, response)
-        },
-        select: function( event, ui ) {
-            $( "#select-cidade" ).val( ui.item.label );
-            toggleGaleria(ui.item.value);
-            return false;
-        },
-        open: function() {
-          $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-        },
-        close: function() {
-          $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-        },
-        focus: function(event, ui) {
-            $( "#select-cidade" ).val( ui.item.label );
-            return false;
-        }
-    });
 
     $("#visualizar-video").on("hidden.bs.modal", function(){
         $("#visualizar-video").html("");
