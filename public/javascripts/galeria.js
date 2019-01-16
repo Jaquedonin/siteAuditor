@@ -7,7 +7,7 @@ window.addEventListener("load", function(){
         getQuery: function(){ 
             return {
                 rede_id: $("#select-rede").val(),
-                cidade: window.location.pathname.split("/")[2] 
+                cidade_id: window.location.pathname.split("/")[2] 
             }
         },
         placeholder: 'Escolas',

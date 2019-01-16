@@ -77,7 +77,8 @@ router.all('/galeria/:cidade/:escola?', function(req, res, next) {
             var params = {
                 cidade: data.cidade.codigo,
                 escola: data.escola.id,
-                busca: data.busca
+                busca: data.busca,
+                rede: data.rede.id
             };
             
             var videos = require("../models/videos");
@@ -168,7 +169,7 @@ router.all('/dashboard', function(req, res, next) {
             id: req.body.escola_id,
             nome: req.body.escola
         },
-        rede: {id: req.body.rede_id},
+        rede: { id: req.body.rede_id },
         user: { nome: req.session.professorNome },
         afterLogin: req.session.afterLogin,
         dashboard: true
@@ -230,9 +231,6 @@ router.all('/dashboard', function(req, res, next) {
             console.log(err);
             res.redirect("/");
         });
-
-    
-
 });
 
 router.get('/como-participar', function(req, res, next) {
@@ -286,7 +284,12 @@ router.post("/escola", function(req, res){
     
     var escolas = require("../models/escolas");
     escolas.insertOne(req).then(function(result){
-        return res.json({ id: result.insertId });
+        
+        req.body.escola_id = result.insertId;
+        
+        escolas.find(req.body).then(function(result){
+            return res.json(result);
+        });
     });
 });
 

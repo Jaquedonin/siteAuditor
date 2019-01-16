@@ -27,40 +27,68 @@ window.addEventListener("load", function(){
         form.submit();
     });
 
-    $("#select-cidade").select2(getSelect2Args({
-        placeholder: 'Cidade',
-        url: '/api/cidades'
-    }));
-
-    $("#select-cidade").on("change", function(e){
-
-        $("#select-escola").val("").trigger("change");
-       
-        if(!e.target.value){
-            $("#select-escola").attr({'disabled': true }).trigger('change.select2');
-        } else {
-            getEscolas();
-            $("#select-escola").attr({'disabled': false}).trigger('change.select2');
-        }
-
-    });
-
+    post("/api/escolas", {cidade: $("#busca-cidade").attr("value")}, initBuscaEscolas);
+    post("/api/escolas", {cidade: $("#select-cidade").attr("value")}, initSelectEscolas);
+    get("javascripts/cidades.json", initSelectBuscaCidades);
+    
     //campo e cadastro de escola
     $("#cadastrar-escola form").on("submit", function(e){ return cadastrarEscola(e); })
     $("#cadastrar-escola").on("hidden.bs.modal", function(){
         $("#cadastrar-escola form").trigger("reset");
     });
+
+});
+
+function initSelectBuscaCidades(cidades){
     
+    var options = [{id: "", text: ""}];
+    for (var cidade in cidades){
+        options.push({
+            id: cidade,
+            text: cidades[cidade]
+        })
+    }
+
+    $("#select-cidade").select2(getSelect2Args({
+        placeholder: 'Cidade',
+        data: options
+    }));
+    
+    $("#select-cidade").on("change", function(e){
+        $("#select-escola").val("").trigger("change");
+        $("#select-escola").attr({'disabled': !e.target.value }).trigger('change.select2');
+    });
+    
+    $("#busca-cidade").select2(getSelect2Args({
+        placeholder: 'Cidade',
+        data: options
+    }));
+
+    $("#busca-cidade").val($("#busca-cidade").attr("value")).trigger("change");
+    
+    $("#busca-cidade").on("change", function(e){
+        $("#busca-escola").val("").trigger("change");
+    });
+        
+}
+
+function initSelectEscolas(escolas, value){
+
+    escolas.unshift({id: "", text: ""});
+
+    var getQuery = function(){ 
+        return {
+            cidade_id: $("#select-cidade").val(),
+            insert_escola: true
+        }
+    }; 
+
     $("#select-escola").select2(getSelect2Args({
+        getQuery: getQuery,
         placeholder: 'Escola',
-        disabled: true,
         url: '/api/escolas',
-        getQuery: function(){ 
-            return {
-                cidade: $("#select-cidade").val(),
-                insert_escola: true
-            }
-        },
+        data: escolas,
+        disabled: !$("#select-cidade").val()
     }));
 
     $("#select-escola").on("change", function(e){
@@ -69,29 +97,34 @@ window.addEventListener("load", function(){
         }
     });
 
-    //filtros da listagem de videos do professor
-    $("#busca-cidade").select2(getSelect2Args({
-        placeholder: 'Digite a cidade',
-        url: '/api/cidades',
-    }));
+    if(value){
+        $("#select-escola").val(value).trigger("change");
+    }
+}
+
+function initBuscaEscolas(escolas){
     
+    escolas.unshift({id:"", text: ""});
     $("#busca-escola").select2(getSelect2Args({
         placeholder: 'Escola',
+        data: escolas,
         disabled: false,
         url: '/api/escolas',
-        getQuery: function() { return {
-            cidade: $("#busca-cidade").val(),
+        getQuery: function() {
+            return {
+                cidade_id: $("#busca-cidade").val(),
         }},
     }));
 
-});
+    $("#busca-escola").val($("#busca-escola").attr("value")).trigger("change");
+}
 
 function validateVideo(e){
     var form = e.target;
     var valid = true;
     
     var values = [form.autor, form.titulo, form.descricao, form.cidade_id, form.escola_id, form.categoria_id];
-    console.log(values);    
+  
     values.forEach(function(item){
         if(!item.value || item.value == 0){
             valid = false;
@@ -209,30 +242,6 @@ function modalCadastrarEscola(){
     $("#cadastrar-escola").modal("show");
 }
 
-function getEscolas(){
-
-    var getQuery = function(){ 
-        return {
-            cidade: $("#select-cidade").val(),
-            insert_escola: true
-        }
-    }; 
-
-    post('/api/escolas', getQuery(),
-        function(response){
-            response.unshift({id:"", text:""})
-            
-            $("#select-escola").select2(getSelect2Args({
-                getQuery: getQuery,
-                placeholder: 'Escola',
-                url: '/api/escolas',
-                data: response,
-                disabled: false
-            }));
-        }
-    );
-}
-
 function cadastrarEscola(e){
 
     post("/escola", 
@@ -242,12 +251,11 @@ function cadastrarEscola(e){
             nome: e.target.nome.value,
             rede_id: e.target.rede_id.value,
         },
+
         function (response) {
-            getEscolas();
-            $("#select-escola").val(response.id).trigger("change");
+            initSelectEscolas(response, response[0].id);
             $("#select-escola").addClass("is-valid");
-            
-            $("#cadastrar-escola").modal("hide");
+            $("#cadastrar-escola").modal("hide");    
         }
     );
 

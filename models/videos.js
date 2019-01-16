@@ -17,12 +17,25 @@ var findByCategoria = function(categorias, params) {
             params.cidade = parseInt(params.cidade);
             query += " INNER JOIN cidades ON cidades.codigo = videos.cidade_id AND cidades.codigo = " + params.cidade;
         }
-        if(params.escola) {
-            params.escola = parseInt(params.escola);
-            query += " INNER JOIN escolas ON videos.escola_id = escolas.id AND escolas.id = " + params.escola;
+        
+        if(params.escola || params.rede) {
+            
+            query += " INNER JOIN escolas ON videos.escola_id = escolas.id";
+            
+            if(params.escola){
+                params.escola = parseInt(params.escola);
+                
+                query += " AND escolas.id = " + params.escola;
+            }
             
             if(params.cidade){
                 query += " AND escolas.cidade_id = " + params.cidade;
+            }
+
+            if(params.rede){
+                params.rede = parseInt(params.rede);
+                query += " AND escolas.rede_id = " + params.rede;
+
             }
         }
         
@@ -44,27 +57,40 @@ var findByCidade = function(cidade){
     return find(query);
 }
 
-var findByProfessor = function(professor, params){
+var findByProfessor = function(professor_id, params){
 
-    var where = ["professor_id = " + professor];
+    var query  = "SELECT videos.id, videos.url, videos.thumb FROM videos";
+    var where  = ["professor_id = ?"];
+    var values = [professor_id];
 
     if(params){
-        if(params.cidade_id)
-            where.push("cidade_id = " + params.cidade_id)
 
-        if(params.escola_id)
-            where.push("escola_id = " + params.escola_id)
+        if(params.cidade_id){
+            where.push("videos.cidade_id = ?");
+            values.push(params.cidade_id);
+        }
+
+        if(params.escola_id){
+            where.push("videos.escola_id = ?");
+            values.push(params.escola_id);
+        }
+
+        if(params.rede_id){
+            query += " INNER JOIN escolas ON videos.escola_id = escolas.id";
+            query += " AND escolas.rede_id = " + parseInt(params.rede_id);
+        }
 
         if(params.busca){
-            var busca = db.mysql.escape('%' + params.busca + '%');
-            where.push(
-            "(titulo LIKE "+busca+" OR descricao LIKE "+busca+")"
-            );
+            where.push ("(videos.titulo LIKE ? OR videos.descricao LIKE ?)");
+            values.push('%' + params.busca + '%');
+            values.push('%' + params.busca + '%');
         }
     }
-
-    var query = "SELECT id, url, thumb FROM videos WHERE " + where.join(" AND ");
-    return find(query);
+    
+    return find({
+        query: query + " WHERE " + where.join(" AND "),
+        values: values
+    });
 }
 
 var findById = function(id){

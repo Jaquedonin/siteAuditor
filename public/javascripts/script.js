@@ -93,7 +93,7 @@ function getSelect2Args(args){
             },
         }
     }
-    
+
     return  {
         width: '100%',
         allowClear: true,

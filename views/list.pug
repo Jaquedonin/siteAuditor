@@ -4,20 +4,20 @@ h4="Meus vídeos"
         .col-md-auto.align-self-center
             span
                 b="FILTROS"   
-        .col
+        .col-2
             .input-group
-                select#busca-cidade(name='cidade_id' placeholder="Digite a cidade" value=cidade.id).form-control.form-control-sm
+                select#busca-cidade(name='cidade_id' placeholder="Cidade" value=cidade.id).form-control.form-control-sm
         .col-2
             .input-group
                 if redes
-                    select#rede_id(type='text' name='rede_id' value=rede.id).form-control.form-control-sm
+                    select#busca-rede(type='text' name='rede_id' value=rede.id).form-control.form-control-sm
                         option(value="" selected)="Rede"
                             each r in redes
                                 option(value=r.id selected=r.id ==rede.id) #{r.descricao}
-        .col
+        .col-3
             .input-group
                 select#busca-escola(name='escola_id' placeholder="Digite a escola" value=escola.id readonly=!cidade).form-control.form-control-sm
-        .col-4
+        .col
             .row
             .input-group
                 input.form-control.form-control-sm#pesquisar(name="busca" placeholder="Pesquisar termos" value=busca?busca:"")

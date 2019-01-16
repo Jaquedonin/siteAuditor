@@ -26,9 +26,9 @@ var find = function(body) {
         values.push("%" + body.term + "%");
     }
 
-    if(body.cidade){
+    if(body.cidade_id){
         where.push("cidade_id = ?");
-        values.push(body.cidade);
+        values.push(body.cidade_id);
     }
 
     if(body.rede_id > 0){
@@ -50,7 +50,7 @@ var find = function(body) {
     });
 }
 
-var insertOne = function(req){
+var insertOne = async function(req){
     
     var cols = ["cidade_id", "sigla", "nome", "rede_id"];
     
